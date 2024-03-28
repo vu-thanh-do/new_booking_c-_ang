@@ -13,7 +13,7 @@ export class SidebarAdminComponent {
   urlPath: string = 'dashboard';
   // constructor(private service: AuthService, private direct: Router) {}
   /* router link */
-  menuItems: MenuItems[] = [
+  menuItems: any[] = [
     {
       routerLink: 'dashboard',
       label: 'Dashboard',
@@ -31,24 +31,28 @@ export class SidebarAdminComponent {
       label: 'Người dùng',
       icon: 'fas fa-users',
       isActive: false,
+      queryParams: { type: 'EndUser' }
     },
     {
-      routerLink: 'manager-users',
+      routerLink: 'manager-staff',
       label: 'Nhân viên',
       icon: 'fas fa-users',
       isActive: false,
+      queryParams: { type: 'Staff' }
     },
     {
-      routerLink: 'manager-users',
+      routerLink: 'manager-owner',
       label: 'manager owner',
       icon: 'fas fa-users',
       isActive: false,
+      queryParams: { type: 'FieldOwner' }
     },
     {
-      routerLink: 'manager-users',
+      routerLink: 'manager-manager',
       label: 'manager',
       icon: 'fas fa-users',
       isActive: false,
+      queryParams: { type: 'Manager' }
     },
     {
       routerLink: 'manager-product',
@@ -58,11 +62,10 @@ export class SidebarAdminComponent {
     },
     {
       routerLink: 'manager-categories',
-      label: 'Danh mục',
+      label: 'Khu vực',
       icon: 'fa-solid fa-list',
       isActive: false,
     },
-
     {
       routerLink: 'trash-can',
       label: 'Trash can',
@@ -94,6 +97,7 @@ export class SidebarAdminComponent {
   /* setActiveItemByUrl */
   setActiveItemByUrl(url: string) {
     this.menuItems.forEach((item) => {
+      console.log(item,"cccc")
       if (item.routerLink === `/admin/${url}`) {
         item.isActive = true;
       }

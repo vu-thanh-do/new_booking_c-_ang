@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using N.Model.Entities;
@@ -23,6 +22,16 @@ namespace N
             services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
             services.AddSwaggerGen(opts =>
             {
                 opts.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme()
@@ -44,7 +53,7 @@ namespace N
                                 Id = JwtBearerDefaults.AuthenticationScheme,
 
                             }
-                        }, new string[]{ }
+                        }, new string[]{ } 
                     }
                 });
             });
@@ -122,17 +131,13 @@ namespace N
                  options.SlidingExpiration = true;
              });
 
-            // Enable CORS globally allowing all origins
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAllOrigins",
-                    builder =>
-                    {
-                        builder.AllowAnyOrigin() // Allow any origin
-                               .AllowAnyMethod()
-                               .AllowAnyHeader();
-                    });
-            });
+            //services.AddAuthentication()
+            //     .AddGoogle(options =>
+            //     {
+            //         options.ClientId = AppSettings.ExternalAuth.GoogleAuth.ClientId;
+            //         options.ClientSecret = AppSettings.ExternalAuth.GoogleAuth.ClientSecret;
+            //         options.CallbackPath = "/google";
+            //     });
         }
 
         private static void AddDependencyInjection(this IServiceCollection services)
@@ -158,4 +163,5 @@ namespace N
             }
         }
     }
+
 }

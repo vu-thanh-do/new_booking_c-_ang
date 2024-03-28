@@ -1,4 +1,4 @@
-﻿namespace N.Service.DTO
+﻿namespace N.Service.Dto
 {
     public class Storage
     {

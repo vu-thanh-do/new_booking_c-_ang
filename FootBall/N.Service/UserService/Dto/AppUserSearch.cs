@@ -9,6 +9,7 @@ namespace N.Service.UserService.Dto
 {
     public class AppUserSearch : SearchBase
     {
+        public Guid? StaffId { get; set; }
         public string? Type { get; set; }
         public string? Email { get; set; }
         public string? Name { get; set; }

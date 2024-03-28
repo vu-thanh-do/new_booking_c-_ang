@@ -8,8 +8,8 @@ namespace N.Service.Constant
 {
     public class BookingStatusConstant
     {
-        public static string Confirm => "Admin";
-        public static string Wait => "Staff";
-        public static string Cancel => "FieldOwner";
+        public static string Confirm => "Confirm";
+        public static string Wait => "Wait";
+        public static string Cancel => "Cancel";
     }
 }

@@ -5,7 +5,7 @@ using N.Repository.FeeRepository;
 using N.Repository.NDirectoryRepository;
 using N.Service.Common;
 using N.Service.Common.Service;
-using N.Service.DTO;
+using N.Service.Dto;
 using N.Service.FieldService.Dto;
 
 namespace N.Service.FieladService
@@ -43,12 +43,18 @@ namespace N.Service.FieladService
                                 Price = q.Price,
                                 StaffId = q.StaffId,
                                 Status = q.Status,
+                                FieldAreaId = q.FieldAreaId,
                             };
 
 
                 if (search.UserId.HasValue)
                 {
                     query = query.Where(x => x.UserId == search.UserId);
+                }
+
+                if (search.FieldAreaId.HasValue)
+                {
+                    query = query.Where(x => x.FieldAreaId == search.FieldAreaId);
                 }
                 if (search.StaffId.HasValue)
                 {

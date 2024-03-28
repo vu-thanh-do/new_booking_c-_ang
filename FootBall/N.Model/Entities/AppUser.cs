@@ -8,5 +8,6 @@ namespace N.Model.Entities
         public string? Gender { get; set; }
         public string? Picture { get; set; }
         public string? Type { get; set; }
+        public Guid? StaffId { get; set; }
     }
 }

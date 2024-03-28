@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using N.Model.Entities;
 using N.Service.Common;
 using N.Service.Common.Service;
-using N.Service.DTO;
+using N.Service.Dto;
 using N.Service.UserService.Dto;
 
 namespace N.Service.UserService
@@ -20,7 +20,7 @@ namespace N.Service.UserService
         Task<DataResponse<AppUserDto>> RefreshToken(string refreshToken);
         Task<DataResponse<AppUserDto>> CheckLogin(string? id);
         Task<DataResponse> LogoutUser();
-        Task<DataResponse<AppUserDto>> Update(AppUser user);
+        Task<DataResponse<AppUserDto>> UpdateUser(AppUser user);
         Task<DataResponse<AppUserDto>> UploadAvatar(string id, IFormFile file);
         Task<DataResponse<PagedList<AppUserDto>>>GetData(AppUserSearch search);
     }

@@ -5,9 +5,10 @@ using N.Model.Entities;
 using N.Service.BookingService.Dto;
 using N.Service.Common;
 using N.Service.Constant;
-using N.Service.DTO;
+using N.Service.Dto;
 using N.Service.FieladService;
 using N.Service.FieldService.Dto;
+using N.Service.UserService;
 //using PagedList;
 
 namespace N.Controllers
@@ -16,17 +17,20 @@ namespace N.Controllers
     public class FieldController : NController
     {
         private readonly IFieldService _fieldService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly ILogger<FieldController> _logger;
 
 
         public FieldController(
             IFieldService fieldService,
+            IUserService userService,
             IMapper mapper,
             ILogger<FieldController> logger
             )
         {
             this._fieldService = fieldService;
+            this._userService = userService;
             this._mapper = mapper;
             _logger = logger;
         }
@@ -44,9 +48,16 @@ namespace N.Controllers
                         Description = model.Description,
                         Name = model.Name,
                         Price = model.Price,
+                        FieldAreaId = model.FieldAreaId,
                         UserId = UserId,
                         Status = FieldStatusConstant.Pending,
                     };
+                    var user = _userService.GetById(UserId);
+                    if (user != null && user.Type == AccountTypeConstant.FieldOwner)
+                    {
+                        entity.StaffId = user.StaffId;
+                    }
+
                     if (model.Picture != null && model.Picture.Length > 0)
                     {
                         var upload = await UploadFile.Save(model.Picture);
@@ -57,7 +68,7 @@ namespace N.Controllers
                     }
 
 
-                  await  _fieldService.Create(entity);
+                    await _fieldService.Create(entity);
                     return new DataResponse<Field>() { Data = entity, Success = true };
                 }
                 catch (Exception ex)
@@ -81,7 +92,14 @@ namespace N.Controllers
                     entity.Name = model.Name;
                     entity.Description = model.Description;
                     entity.Address = model.Address;
+                    entity.FieldAreaId = model.FieldAreaId;
+                    entity.Status = model.Status;
                     entity.Price = model.Price;
+                    var user = _userService.GetById(UserId);
+                    if (user != null && user.Type == AccountTypeConstant.FieldOwner)
+                    {
+                        entity.StaffId = user.StaffId;
+                    }
                     if (model.Picture != null && model.Picture.Length > 0)
                     {
                         var upload = await UploadFile.Save(model.Picture);
@@ -90,7 +108,7 @@ namespace N.Controllers
                             entity.Picture = upload.Path;
                         }
                     }
-                   await _fieldService.Update(entity);
+                    await _fieldService.Update(entity);
                     return new DataResponse<Field>() { Data = entity, Success = true };
                 }
                 catch (Exception ex)
@@ -148,6 +166,26 @@ namespace N.Controllers
         public DataResponse<List<Fee>> GetFees(Guid id)
         {
             return _fieldService.GetFees(id);
+        }
+
+        [HttpPost("Delete/{id}")]
+        public async Task<DataResponse> Delete(Guid id)
+        {
+            try
+            {
+                var entity = _fieldService.GetById(id);
+                await _fieldService.Delete(entity);
+                return new DataResponse()
+                {
+                    Success = true,
+                    Message = "Success",
+                };
+            }
+            catch (Exception ex)
+            {
+
+                return DataResponse.False(ex.Message);
+            }
         }
 
     }

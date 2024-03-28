@@ -23,12 +23,13 @@ export class PostEditComponent implements AfterViewInit {
   EditForm = this.builder.group({
     title: ['', [Validators.required, Validators.minLength(4)]],
     content: ['', [Validators.required]],
-
+    address: ['', [Validators.required, Validators.minLength(4)]],
     images: [[''], [Validators.required]],
     author: [''],
+    description: ['', [Validators.required]],
     category: ['', [Validators.required]],
     is_active: [''],
-    status: ['peding', [Validators.required]],
+    status: ['', [Validators.required]],
     price: [0, [Validators.required]],
   });
   categories: ICategory[] = [];
@@ -49,23 +50,24 @@ export class PostEditComponent implements AfterViewInit {
     private params: ActivatedRoute
   ) {
     this.getAllCategories();
+    this.ngAfterViewInit();
   }
 
   ngAfterViewInit(): void {
     const id = this.params.snapshot.params['id'];
     this.postsService.getPostById(id).subscribe((data) => {
-      this.ContentPost = data.post;
-      this.imagePreviews = data.post.images;
-      this.tempFile = data.post.images;
+      console.log(data.data, 'dataid');
+      console.log(data.data.name, 'dataid');
+      console.log(data.data.address, 'dataid');
+      console.log(data.data.description, 'dataid');
+      console.log(data.data.status, 'dataid');
 
       this.EditForm.patchValue({
-        title: data.post.title,
-        content: data.post.content,
-        price: +data.post.price,
-        category: data.post.category._id,
-        is_active: data.post.is_active ? 'public' : 'private',
-        status: data.post.status,
-        author: data.post.author._id,
+        title: data.data.name,
+        address: data.data.address,
+        price: data.data.price,
+        content: data.data.description,
+        status: data.data.status,
       });
     });
   }
@@ -78,19 +80,11 @@ export class PostEditComponent implements AfterViewInit {
   }
 
   handleFileInput(event: any): void {
-    const files = event.target.files;
-    /* update image to nodejs */
-    this.uploadImageService.uploadImage(files).subscribe(
-      (res) => {
-        this.urls = res.urls;
-        this.imagePreviews = res.urls; /* preview image */
-      },
-      () => {
-        this.toastr.error('Tải hình ảnh lên thất bại');
-      }
-    );
+    const files: FileList = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      this.urls.push(files[i]);
+    }
   }
-
   handleRemoveImage(public_id: string) {
     if (!public_id) return;
     this.uploadImageService.deleteImage(public_id).subscribe(() => {
@@ -102,29 +96,43 @@ export class PostEditComponent implements AfterViewInit {
 
   handleSubmitPostForm() {
     const id = this.params.snapshot.params['id'];
-    if (this.EditForm.invalid) return;
     /* lấy ra thông tin người dùng */
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (!user) {
       this.toastr.error('Bạn chưa đăng nhập');
       return;
     }
-    /* lấy ra thông tin người dùng */
-    // const userId = user._id;
+
     const post = {
+      id: id,
       title: this.EditForm.value.title,
-      content: this.EditForm.value.content,
-      category: this.EditForm.value.category,
-      images: this.urls.length <= 0 ? this.tempFile : this.urls,
-      author: this.EditForm.value.author,
-      is_active: this.EditForm.value.is_active === 'public' ? true : false,
-      status: this.EditForm.value.status,
+      address: this.EditForm.value.address,
       price: this.EditForm.value.price,
+      images: this.urls[0],
+      Description: this.EditForm.value.content,
+      status: this.EditForm.value.status,
     };
 
-    // console.log(post);
+    const putData = new FormData();
+    if (this.EditForm.value.title) {
+      putData.append('Name', this.EditForm.value.title);
+    }
+    putData.append('Id', id);
+    if (this.EditForm.value.content) {
+      putData.append('Description', this.EditForm.value.content);
+    }
+    if (this.EditForm.value.address) {
+      putData.append('Address', this.EditForm.value.address);
+    }
+    if (this.EditForm.value.price) {
+      putData.append('price', this.EditForm.value.price.toString());
+    }
+    if (this.EditForm.value.status) {
+      putData.append('status', this.EditForm.value.status);
+    }
+    putData.append('picture', this.urls[0]);
 
-    this.postsService.updatePost(post, id).subscribe(
+    this.postsService.updatePost(putData).subscribe(
       () => {
         this.toastr.success('Chỉnh sửa thành công');
         this.router.navigate(['/admin/manager-product']);

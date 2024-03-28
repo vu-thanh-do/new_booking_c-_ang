@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { baseURL } from './../../utils/instance';
+import { environment } from 'src/environment';
 
 interface ILogin {
   email: string;
@@ -14,16 +15,20 @@ interface ILogin {
 })
 export class AuthService {
   TOKEN_KEY = 'accessToken';
+  baseURL: any = '';
+
   TOKEN_USER = 'user';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.baseURL = environment.API_URL;
+  }
   /* login */
   loginUser(userInfo: ILogin): Observable<IUserResponse> {
     return this.http.post<IUserResponse>(
-      `https://db83-222-252-24-198.ngrok-free.app/api/Account/login`,
+      `${this.baseURL}/api/Account/login`,
       userInfo
     );
   }
-  //https://db83-222-252-24-198.ngrok-free.app/api/Account/login
+  //${this.baseURL}/api/Account/login
 
   // registerUser(user: IUser): Observable<IUserResponse> {
   //   return this.http.post<IUserResponse>(`${baseURL}/sign-up`, user);
@@ -51,10 +56,24 @@ export class AuthService {
     return role == user.role ? true : false;
   }
   /* signup */
-  signUpUser(userInfo: IUserRegister): Observable<IUserResponse> {
-    return this.http.post<IUserResponse>(
-      `https://db83-222-252-24-198.ngrok-free.app/api/Account/Register`,
+  signUpUser(userInfo: IUserRegister): Observable<any> {
+    return this.http.post<any>(
+      `${this.baseURL}/api/Account/Register`,
       userInfo
+    );
+  }
+
+  uploadAvatarUser(file: any): any {
+    return this.http.post<any>(
+      `${this.baseURL}/api/Account/UploadAvatar`,
+      file
+    );
+  }
+
+  changePassWord(data : any): any {
+    return this.http.post<any>(
+      `${this.baseURL}/api/Account/ChangePassword`,
+      data
     );
   }
 }

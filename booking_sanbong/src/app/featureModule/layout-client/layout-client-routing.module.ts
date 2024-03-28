@@ -9,6 +9,7 @@ import { LayoutClientComponent } from '../../layouts/layout-client/layout-client
 import { HomepageComponent } from '../../pages/homepage/homepage.component';
 import { UserInfoComponent } from '../../pages/user-info/user-info.component';
 import { CartGioHangComponent2 } from 'src/app/components/cart-gio-hang/cart-gio-hang.component';
+import { ChangePasswordComponent } from 'src/app/components/change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -35,15 +36,20 @@ const routes: Routes = [
         path: 'blog',
         component: ProductsListPageComponent,
       },
+
       {
-        path: 'cart',
-        component: CartGioHangComponent,
+        path: 'changePassword',
+        component: ChangePasswordComponent,
       },
       {
         path: 'don-hang',
         component: DonHangComponent,
       },
     ],
+  },
+  {
+    path: 'cart',
+    component: CartGioHangComponent,
   },
 ];
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using N.Api.ViewModels.Account;
 using N.Service.Common;
 using N.Service.Constant;
-using N.Service.DTO;
+using N.Service.Dto;
 using N.Service.FieldService.Dto;
 using N.Service.UserService;
 using N.Service.UserService.Dto;
@@ -34,12 +34,13 @@ namespace N.Controllers
             if (ModelState.IsValid)
             {
                 var baseUri = GetUri();
-                var result = await _UserService.RegisterUser(model.Email, model.Name,model.Phone, model.Gender, model.Type, model.Password, model.ConfirmPassword, baseUri);
+                var result = await _UserService.RegisterUser(model.Email, model.Name, model.Phone, model.Gender, model.Type, model.Password, model.ConfirmPassword, baseUri);
                 return result;
             }
 
             return DataResponse.False("Some properties are not valid");
         }
+
 
 
         [HttpGet("/ConfirmEmail")]
@@ -113,6 +114,41 @@ namespace N.Controllers
 
         //    return DataResponse.False("Some properties are not valid");
         //}
+
+        [HttpPost("SetStaff")]
+        [AllowAnonymous]
+        public async Task<DataResponse> SetStaff([FromBody] SetStaffVM model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var fieldOwner = _UserService.GetById(model.FieldOwnerId);
+                if (fieldOwner == null)
+                    return DataResponse.False("Field owner not found");
+
+                if(fieldOwner.Type != AccountTypeConstant.FieldOwner)
+                    return DataResponse.False("User is not a field owner");
+
+                var staff = _UserService.GetById(model.StaffId);
+                if (staff != null)
+                {
+                    fieldOwner.StaffId = staff.Id;
+                }
+                fieldOwner.StaffId = null;
+                return new DataResponse()
+                {
+                    Success = true,
+                    Message = "Success"
+                };
+            }
+            return DataResponse.False("Some properties are not valid");
+        }
+
+        [HttpPost("GetData")]
+        public async Task<DataResponse<PagedList<AppUserDto>>> GetData([FromBody] AppUserSearch search)
+        {
+            return await _UserService.GetData(search);
+        }
 
         [HttpPost("ChangePassword")]
         public async Task<DataResponse<AppUserDto>> ChangePassword([FromBody] ChangePasswordViewModel model)
@@ -209,7 +245,7 @@ namespace N.Controllers
                 {
                     user.Name = model.FamilyName + " " + model.GivenName;
                     user.Gender = model.Gender;
-                    var result = await _UserService.Update(user);
+                    var result = await _UserService.UpdateUser(user);
                     return result;
                 }
                 return DataResponse<AppUserDto>.False("Can't find user");
@@ -228,7 +264,7 @@ namespace N.Controllers
 
 
         [HttpGet("GetUser/{id}")]
-        public async Task<DataResponse<AppUserDto>> GetData(Guid id)
+        public async Task<DataResponse<AppUserDto>> GetUser(Guid id)
         {
             var user = await _UserService.GetUserDto(id);
             if (user == null)
@@ -240,10 +276,5 @@ namespace N.Controllers
             };
         }
 
-        [HttpPost("GetData")]
-        public async Task<DataResponse<PagedList<AppUserDto>>> GetData([FromBody] AppUserSearch search)
-        {
-            return await _UserService.GetData(search);
-        }
     }
 }

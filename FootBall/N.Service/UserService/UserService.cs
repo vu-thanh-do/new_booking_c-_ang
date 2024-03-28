@@ -17,7 +17,7 @@ using N.Service.Common.Service;
 using N.Service.Common.TokenService;
 using N.Service.Constant;
 using N.Service.Core.Generator;
-using N.Service.DTO;
+using N.Service.Dto;
 using N.Service.FieldService.Dto;
 using N.Service.UserService.Dto;
 using Newtonsoft.Json.Linq;
@@ -27,6 +27,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using static QRCoder.PayloadGenerator;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace N.Service.UserService
 {
@@ -339,21 +340,21 @@ namespace N.Service.UserService
 
         }
 
-        public async Task<DataResponse<AppUserDto>> Update(AppUser user)
+        public  async Task<DataResponse<AppUserDto>> UpdateUser(AppUser user)
         {
             var result = new DataResponse<AppUserDto>();
-            var data = await _userManager.UpdateAsync(user);
-            if (data.Succeeded)
+            try
             {
+                await Update(user);
                 result.Success = true;
                 result.Message = "Update user successfully";
                 result.Data = AppUserDto.FromAppUser(user);
             }
-            else
+            catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = "Update user failed";
-                result.Errors = data.Errors.Select(x => x.Description);
+                result.Errors = new string[] { ex.Message };
             }
             return result;
 
@@ -371,7 +372,7 @@ namespace N.Service.UserService
                     var extension = "." + fileSplit.LastOrDefault();
 
                     var fileName = Guid.NewGuid().ToString() + extension;
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "Root/Avatar");
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "Root");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
@@ -382,19 +383,21 @@ namespace N.Service.UserService
                         await file.CopyToAsync(stream);
                     }
                     user.Picture = fileName;
-                    var data = await _userManager.UpdateAsync(user);
-                    if (data.Succeeded)
+                    try
                     {
+                         await Update(user);
                         result.Success = true;
                         result.Message = "Update user successfully";
                         result.Data = AppUserDto.FromAppUser(user);
                     }
-                    else
+                    catch (Exception ex)
                     {
+
                         result.Success = false;
                         result.Message = "Update user failed";
-                        result.Errors = data.Errors.Select(x => x.Description);
+                        result.Errors = new string[] { ex.Message };
                     }
+
                 }
                 catch (Exception)
                 {
@@ -486,12 +489,18 @@ namespace N.Service.UserService
                             {
                                 Id = q.Id,
                                 Name = q.Name,
+                                StaffId = q.StaffId,
                                 Picture = q.Picture,
                                 Type = q.Type,
                                 Email = q.Email,
                                 Gender = q.Gender,
+                                Phone = q.PhoneNumber,
                             };
 
+                if (search.StaffId.HasValue)
+                {
+                    query = query.Where(x => x.StaffId == search.StaffId);
+                }
                 if (!string.IsNullOrEmpty(search.Type))
                 {
                     query = query.Where(x => x.Type == search.Type);

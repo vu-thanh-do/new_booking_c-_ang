@@ -208,6 +208,9 @@ namespace N.Model.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("StaffId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -235,15 +238,15 @@ namespace N.Model.Migrations
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e42f3642-5079-4705-94f4-2f304a7d0cef",
+                            ConcurrencyStamp = "0f4fc3fc-4a83-4d0f-8395-8bd9b039019c",
                             Email = "admin",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAENaWxKK5LAHH4FHU9gwGuYVF8hukGwQbZkb1uvm7L4wZIpxJreC+UoTPoQkQiGn/sw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHjJGHK2vaYGzWygSdXEIHSkKXwLittGBr5hJYpf09kqbCA7ckUAByG849ojwv2iTA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ef45a7c6-5fcc-452c-99f3-24c13c55e2a2",
+                            SecurityStamp = "5dcdc284-9c71-472d-90f6-3441069f0032",
                             TwoFactorEnabled = false,
                             Type = "Admin",
                             UserName = "admin"
@@ -282,7 +285,7 @@ namespace N.Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("N.Model.Entities.Fee", b =>
@@ -308,7 +311,7 @@ namespace N.Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Fee", (string)null);
+                    b.ToTable("Fee");
                 });
 
             modelBuilder.Entity("N.Model.Entities.FeePayment", b =>
@@ -334,7 +337,7 @@ namespace N.Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FeePayment", (string)null);
+                    b.ToTable("FeePayment");
                 });
 
             modelBuilder.Entity("N.Model.Entities.Field", b =>
@@ -348,6 +351,9 @@ namespace N.Model.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("FieldAreaId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -369,7 +375,79 @@ namespace N.Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Field", (string)null);
+                    b.ToTable("Field");
+                });
+
+            modelBuilder.Entity("N.Model.Entities.FieldArea", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FieldArea");
+                });
+
+            modelBuilder.Entity("N.Model.Entities.Invite", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("Accepted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EnviteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("InviteTeamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TeamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Invite");
+                });
+
+            modelBuilder.Entity("N.Model.Entities.Team", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Age")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Team");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

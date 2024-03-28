@@ -16,6 +16,9 @@ namespace N.Model
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Fee> Fee { get; set; }
         public DbSet<FeePayment> FeePayment { get; set; }
+        public DbSet<FieldArea> FieldArea { get; set; }
+        public DbSet<Team> Team { get; set; }
+        public DbSet<Invite> Invite { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<AppUser>().HasData(

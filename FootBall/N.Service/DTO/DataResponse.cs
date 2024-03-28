@@ -1,4 +1,6 @@
-﻿namespace N.Service.DTO
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace N.Service.Dto
 {
     public class DataResponse<T> 
     {
@@ -16,6 +18,15 @@
                 Errors = errors,
             };
         }
+        public static DataResponse<T> True(T data, string message = "Success")
+        {
+            return new DataResponse<T>()
+            {
+                Success = true,
+                Message = message,
+                Data = data,
+            };
+        }
     }
 
     public class DataResponse : DataResponse<object>
@@ -29,6 +40,16 @@
                 Errors = errors,
             };
         }
+        public static new DataResponse True(object? data = null, string message = "Success")
+        {
+            return new DataResponse()
+            {
+                Success = true,
+                Message = message,
+                Data = data,
+            };
+        }
+
     }
 
 

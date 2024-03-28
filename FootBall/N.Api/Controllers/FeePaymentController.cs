@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using N.Api.ViewModels;
 using N.Model.Entities;
-using N.Service.DTO;
+using N.Service.Dto;
 using N.Service.FeePaymentService;
 
 namespace N.Controllers

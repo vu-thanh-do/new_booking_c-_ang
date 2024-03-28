@@ -10,6 +10,7 @@ import {
   IResViewComment,
 } from 'src/app/interfaces/comment';
 import { ProductsService } from 'src/app/services/products/products.service';
+import { environment } from 'src/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,6 +19,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./layout-manager.component.scss'],
 })
 export class LayoutManagerComponent {
+  urlImage: string = environment.API_URL + '/root/';
+
   @Input() title: string = '';
   @Input() linkActive: string = '';
   @Input() titleModal: string = '';
@@ -62,6 +65,9 @@ export class LayoutManagerComponent {
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, keep it',
+      customClass: {
+        container: 'white-bg', // Thêm lớp CSS để định nghĩa màu nền trắng
+      },
     }).then((result) => {
       if (result.value) {
         Swal.fire(
@@ -87,10 +93,10 @@ export class LayoutManagerComponent {
 
   /* get post by id */
   getPostById(id: string): void {
-    console.log(id)
+    console.log(id);
     if (!id) return;
     this.postsService.getPostById(id).subscribe((post) => {
-      console.log(post,'post');
+      console.log(post, 'post');
       this.postInfo = post.post;
     });
   }

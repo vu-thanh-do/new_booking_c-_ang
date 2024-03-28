@@ -6,11 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace N.Service.DTO
+namespace N.Service.Dto
 {
     public class AppUserDto
     {
         public Guid? Id { get; set; }
+        public Guid? StaffId { get; set; }
         public string? Email { get; set; }
         public string? Name { get; set; }
         public string? Phone { get; set; }
@@ -24,6 +25,7 @@ namespace N.Service.DTO
         {
             return new AppUserDto()
             {
+                StaffId = user.StaffId,
                 Gender = user.Gender,
                 Id = user.Id,
                 Email = user.Email,
