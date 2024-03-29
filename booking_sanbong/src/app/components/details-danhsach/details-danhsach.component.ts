@@ -15,7 +15,7 @@ export class DetailsDanhsachComponent {
   routerLink: string = '/admin/add-category';
   theadTable: string[] = ['STT', 'Tên team', 'mô trả', 'Action'];
   team: any[] = [];
-  user : any
+  user: any;
   myTeam: any = {};
   acceptValue: any = null;
   nextResult: any = '';
@@ -27,7 +27,6 @@ export class DetailsDanhsachComponent {
     private route: ActivatedRoute
   ) {
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log(this.user);
     this.getAllTeamByUSer();
     this.getAllTeamByMe();
   }
@@ -35,21 +34,23 @@ export class DetailsDanhsachComponent {
     this.acceptValue = this.route.snapshot.queryParamMap.get('accept');
     switch (this.acceptValue) {
       case '1':
-        this.nextResult = { all: 'true' , userId : this.user.id };
+        this.nextResult = { all: true, userId: this.user.id };
         break;
       case 'true':
-        this.nextResult = { accept: 'true' , userId : this.user.id };
+        this.nextResult = { accept: true, userId: this.user.id };
         break;
       case 'false':
-        this.nextResult = { accept: 'false'  , userId : this.user.id};
+        this.nextResult = { accept: false, userId: this.user.id };
         break;
       default:
-        this.nextResult = { all: 'true'  , userId : this.user.id};
+        this.nextResult = { all: true, userId: this.user.id };
     }
-    this.TeamserviceService.getDataInviteByUser(this.nextResult).subscribe((team) => {
-      console.log(team, 'team');
-      this.team = team.data.items;
-    });
+    this.TeamserviceService.getDataInviteByUser(this.nextResult).subscribe(
+      (team) => {
+        console.log(team, 'team');
+        this.team = team.data.items;
+      }
+    );
   }
   getAllTeamByMe() {
     this.TeamserviceService.getMyTeam().subscribe((team) => {
