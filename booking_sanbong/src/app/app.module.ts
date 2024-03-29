@@ -69,6 +69,10 @@ import { AnalyticsComponent } from './pages/analytics/analytics.component';
 import { CartGioHangComponent } from './pages/cart-gio-hang/cart-gio-hang.component';
 import { DonHangComponent } from './pages/don-hang/don-hang.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { TeamCreateComponent } from './components/team-create/team-create.component';
+import { CrateTeamAddComponent } from './components/crate-team-add/crate-team-add.component';
+import { CrateTeamEditComponent } from './components/crate-team-edit/crate-team-edit.component';
+import { MyTeamComponent } from './components/my-team/my-team.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +120,10 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     ManageOrderComponent,
     AnalyticsComponent,
     ChangePasswordComponent,
+    TeamCreateComponent,
+    CrateTeamAddComponent,
+    CrateTeamEditComponent,
+    MyTeamComponent,
   ],
   imports: [
     BrowserModule,

@@ -168,9 +168,14 @@
                 class="btn-user btn-action-header" title="Tài khoản" href="javascript:;"><span class="icon"><i class="fa-solid fa-user"></i>></span><span>Tài khoản</span></a>
                 <div class="content">
                   <ul>
+                    <li *ngIf="userInfo.type !== 'EndUser'">
+                      <a class="dropdown-item" routerLink="/admin"> <i class="fa-regular fa-user"></i> <span>Admin</span></a>
+                  </li>
+
                     <li><a routerLink="/user-info/{{ userInfo.id }}" ><i class="fa-regular fa-user"></i><span>Thông tin cá
                           nhân</span></a></li>
                     <li><a href="/cart"><i class="fa-solid fa-cart-shopping"></i><span>Đơn hàng</span></a></li>
+                    <li><a routerLink="/create-team" ><i class="fa-regular fa-user"></i><span>Team thi đấu</span></a></li>
                     <li><a href="/changePassword"><span>Đổi mật khẩu</span></a></li>
 
                     <!-- <li><a href="/member/order"><i class="iconsax isax-heart-circle"></i><span>Sản phẩm yêu
@@ -214,9 +219,9 @@
               <nav class="menu-section" nh-menu="sidebar" menu-type="main">
                 <div class="menu-top"><a href="javascript:;" nh-menu="btn-close"
                     class="close-sidebar effect-rotate icon-close"><i class="iconsax isax-add"></i></a></div>
-                <!-- <ul>
-                  <li class=""><a routerLink="/blog" >Bóng đá<span class="iconsax isax-arrow-down-1"></span></a></li>
-                  <li class=""><a routerLink="/blog" >Cầu lông<span class="iconsax isax-arrow-down-1"></span></a></li>
+                <ul>
+                  <li class=""><a routerLink="/by-team" >Ghép team thi đấu<span class="iconsax isax-arrow-down-1"></span></a></li>
+                  <!-- <li class=""><a routerLink="/blog" >Cầu lông<span class="iconsax isax-arrow-down-1"></span></a></li>
                   <li class=""><a routerLink="/blog" >Bóng bàn<span class="iconsax isax-arrow-down-1"></span></a></li>
                   <li class=""><a routerLink="/blog" >Bóng rổ<span class="iconsax isax-arrow-down-1"></span></a></li>
                   <li class=""><a routerLink="/blog" >Tennis<span class="iconsax isax-arrow-down-1"></span></a></li>
@@ -231,8 +236,8 @@
                   <li class="sale d-flex align-items-center  gap-2"><img src="https://img.thegioithethao.vn/media/icon/icon-sale.svg" alt="Sale"
                       class="marker-image"><a href="/"><span class="icon"><img
                           src="https://img.thegioithethao.vn/media/icon/icon-sale.svg" alt="Sale"
-                          class="marker-image"></span>Sale<span class="iconsax isax-arrow-down-1"></span></a></li>
-                </ul> -->
+                          class="marker-image"></span>Sale<span class="iconsax isax-arrow-down-1"></span></a></li> -->
+                </ul>
               </nav>
             </div>
           </div>

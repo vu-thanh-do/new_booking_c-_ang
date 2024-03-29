@@ -17,7 +17,7 @@ export class ManageProductsComponent {
     hasNextPage: false,
     hasPrevPage: false,
   };
-  title: string = 'Quản lý sản phẩm';
+  title: string = 'Quản lý sân';
   linkActive: string = '/admin/post-add';
   titleModal: string = 'Thông tin bài post';
   theadTable: string[] = [

@@ -17,6 +17,7 @@ export interface IUser {
   address?: string;
   avatar?: string;
   phone?: string;
+  type?: any;
 }
 export interface IUserDocs {
   docs: IUser[];
