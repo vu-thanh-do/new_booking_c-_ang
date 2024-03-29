@@ -6,17 +6,19 @@ import { ExcelServiceService } from 'src/app/services/excelService/excel-service
 import { TeamserviceService } from 'src/app/services/team/teamservice.service';
 
 @Component({
-  selector: 'app-my-team',
-  templateUrl: './my-team.component.html',
-  styleUrls: ['./my-team.component.scss'],
+  selector: 'app-details-danhsach',
+  templateUrl: './details-danhsach.component.html',
+  styleUrls: ['./details-danhsach.component.scss'],
 })
-export class MyTeamComponent {
-  title: string = 'Dánh sách các team đang cần thi đấu';
+export class DetailsDanhsachComponent {
+  title: string = 'Tất cả Dánh sách mời';
   routerLink: string = '/admin/add-category';
   theadTable: string[] = ['STT', 'Tên team', 'mô trả', 'Action'];
   team: any[] = [];
+  user : any
   myTeam: any = {};
-
+  acceptValue: any = null;
+  nextResult: any = '';
   constructor(
     private categoryService: CategoryService,
     private excelServiceService: ExcelServiceService,
@@ -24,19 +26,35 @@ export class MyTeamComponent {
     private toastr: ToastrService,
     private route: ActivatedRoute
   ) {
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log(this.user);
     this.getAllTeamByUSer();
     this.getAllTeamByMe();
   }
   getAllTeamByUSer() {
-    this.TeamserviceService.getAllTeamByUser().subscribe((team) => {
+    this.acceptValue = this.route.snapshot.queryParamMap.get('accept');
+    switch (this.acceptValue) {
+      case '1':
+        this.nextResult = { all: 'true' , userId : this.user.id };
+        break;
+      case 'true':
+        this.nextResult = { accept: 'true' , userId : this.user.id };
+        break;
+      case 'false':
+        this.nextResult = { accept: 'false'  , userId : this.user.id};
+        break;
+      default:
+        this.nextResult = { all: 'true'  , userId : this.user.id};
+    }
+    this.TeamserviceService.getDataInviteByUser(this.nextResult).subscribe((team) => {
       console.log(team, 'team');
       this.team = team.data.items;
     });
   }
-  getAllTeamByMe(){
+  getAllTeamByMe() {
     this.TeamserviceService.getMyTeam().subscribe((team) => {
-      console.log(team,"team")
-      this.myTeam = team.data
+      console.log(team, 'team');
+      this.myTeam = team.data;
     });
   }
   handleDeleteCategory(id: string) {
@@ -45,7 +63,7 @@ export class MyTeamComponent {
         this.getAllTeamByUSer()
       );
   }
-  inviteCreate(id : string)  {
+  inviteCreate(id: string) {
     // const id = this.route.snapshot.paramMap.get('id');
     const data: any = {
       teamId: this.myTeam.id,

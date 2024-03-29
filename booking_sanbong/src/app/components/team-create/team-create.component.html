@@ -7,14 +7,28 @@
           <div class="col-sm-5">
             <h2>{{ title }}</h2>
           </div>
-          <div class="col-sm-7"></div>
         </div>
       </div>
-      <div class="col-sm-7">
+      <div class="">
         <a>
           <button routerLink="/create-team/add-team" class="btn btn-secondary">
             <i class="fa-solid fa-plus"></i>
             <span>Add New</span>
+          </button>
+        </a>
+        <a style="margin-left:20px">
+          <button [routerLink]="['/create-team/all']" [queryParams]="{ accept: 1 }" class="btn btn-success">
+            <span>tất cả danh sách</span>
+          </button>
+        </a>
+        <a style="margin-left:20px">
+          <button [routerLink]="['/create-team/all']" [queryParams]="{ accept: true }" class="btn btn-success">
+            <span>danh sách đã xác nhận</span>
+          </button>
+        </a>
+        <a style="margin-left:20px">
+          <button [routerLink]="['/create-team/all']" [queryParams]="{ accept: false }" class="btn btn-success">
+            <span>danh sách đã từ chối</span>
           </button>
         </a>
       </div>

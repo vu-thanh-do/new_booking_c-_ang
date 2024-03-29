@@ -11,7 +11,7 @@ import { TeamserviceService } from 'src/app/services/team/teamservice.service';
 export class TeamCreateComponent {
   title: string = 'Quản lý team';
   routerLink: string = '/admin/add-category';
-  theadTable: string[] = ['STT', 'Tên danh mục', 'mô trả', 'Action'];
+  theadTable: string[] = ['STT', 'Tên team', 'mô trả', 'Action'];
   team:any[]=[]
   constructor(
     private categoryService: CategoryService,
@@ -30,6 +30,11 @@ export class TeamCreateComponent {
     if(window.confirm("Are you sure you want to delete"))
     this.TeamserviceService
       .deleteTeam(id)
-      .subscribe(() => this.getAllTeamByUSer());
+      .subscribe(() => {
+        window.location.reload();
+        this.getAllTeamByUSer()
+
+      });
+
   }
 }

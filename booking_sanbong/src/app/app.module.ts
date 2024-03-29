@@ -73,6 +73,7 @@ import { TeamCreateComponent } from './components/team-create/team-create.compon
 import { CrateTeamAddComponent } from './components/crate-team-add/crate-team-add.component';
 import { CrateTeamEditComponent } from './components/crate-team-edit/crate-team-edit.component';
 import { MyTeamComponent } from './components/my-team/my-team.component';
+import { DetailsDanhsachComponent } from './components/details-danhsach/details-danhsach.component';
 
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import { MyTeamComponent } from './components/my-team/my-team.component';
     CrateTeamAddComponent,
     CrateTeamEditComponent,
     MyTeamComponent,
+    DetailsDanhsachComponent,
   ],
   imports: [
     BrowserModule,

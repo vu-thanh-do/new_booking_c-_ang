@@ -14,6 +14,7 @@ import { TeamCreateComponent } from 'src/app/components/team-create/team-create.
 import { CrateTeamAddComponent } from 'src/app/components/crate-team-add/crate-team-add.component';
 import { CrateTeamEditComponent } from 'src/app/components/crate-team-edit/crate-team-edit.component';
 import { MyTeamComponent } from 'src/app/components/my-team/my-team.component';
+import { DetailsDanhsachComponent } from 'src/app/components/details-danhsach/details-danhsach.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,10 @@ const routes: Routes = [
   {
     path: 'create-team/edit-team/:id',
     component: CrateTeamEditComponent,
+  },
+  {
+    path: 'create-team/all',
+    component: DetailsDanhsachComponent,
   },
 ];
 
