@@ -13,12 +13,13 @@ import { TeamserviceService } from 'src/app/services/team/teamservice.service';
 export class DetailsDanhsachComponent {
   title: string = 'Tất cả Dánh sách mời';
   routerLink: string = '/admin/add-category';
-  theadTable: string[] = ['STT', 'Tên team', 'mô trả', 'Action'];
+  theadTable: string[] = ['STT', 'Tên team', 'số điện thoại', 'level', 'tuổi'];
   team: any[] = [];
   user: any;
   myTeam: any = {};
   acceptValue: any = null;
   nextResult: any = '';
+  newResult: any[] = [];
   constructor(
     private categoryService: CategoryService,
     private excelServiceService: ExcelServiceService,
@@ -47,8 +48,24 @@ export class DetailsDanhsachComponent {
     }
     this.TeamserviceService.getDataInviteByUser(this.nextResult).subscribe(
       (team) => {
-        console.log(team, 'team');
+        console.log(team.data.items, 'team');
         this.team = team.data.items;
+        var newData = Object.entries(this.team);
+        var nextResult = [];
+        for (const [key, value] of newData) {
+          console.log(key, '1');
+          console.log(value, '2');
+          nextResult.push({
+            id: value.id,
+            nameTeam: value.team.name,
+            age: value.team.age,
+            level: value.team.level,
+            phone: value.team.phone,
+            accepted: value.accepted,
+          });
+        }
+        this.newResult = nextResult;
+        console.log(this.newResult);
       }
     );
   }
@@ -73,6 +90,17 @@ export class DetailsDanhsachComponent {
     };
     this.TeamserviceService.createInvit(data).subscribe(() => {
       this.toastr.success('Add team successfully');
+    });
+  }
+  actionOnInvite(id: string, action: any) {
+    //actionOnInviteAPI
+    var dataAcept = {
+      id: id,
+      accept: action == 1 ? true : false,
+    };
+    this.TeamserviceService.actionOnInviteAPI(dataAcept).subscribe(() => {
+      // window.location.reload();
+      this.getAllTeamByUSer();
     });
   }
 }

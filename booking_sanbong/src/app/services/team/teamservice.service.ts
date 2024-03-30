@@ -51,19 +51,14 @@ export class TeamserviceService {
     // GetByUser
   }
 
-
-
-
-
-
-
-
-
-
-
   //
   getDataInviteByUser(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseURL}/api/Invite/GetData`, data);
     // Invite/GetData
+  }
+
+  // action
+  actionOnInviteAPI(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseURL}/api/Invite/Accept`, data);
   }
 }
