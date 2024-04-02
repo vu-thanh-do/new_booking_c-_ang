@@ -97,15 +97,14 @@ export class LayoutManagerComponent {
     if (!id) return;
     this.postsService.getPostById(id).subscribe((post) => {
       console.log(post, 'post');
-      this.postInfo = post.post;
+      this.postInfo = post.data;
     });
   }
   handleFomatDate(dateString: any) {
     const date = new Date(dateString);
     const day = date.getDate();
-    const month = date.getMonth() + 1; // Tháng trong JavaScript tính từ 0 - 11, nên cần cộng 1
+    const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    // Định dạng lại chuỗi ngày, tháng, năm
     const formattedDate = `${day}/${month}/${year}`;
     return formattedDate;
   }

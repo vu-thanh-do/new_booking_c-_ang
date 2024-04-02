@@ -111,4 +111,7 @@ export class UserService {
     return this.http.post(`${this.baseURL}/api/Account/GetData`, data);
     //Account/GetData
   }
+  getIdUser(id : string) {
+    return this.http.get(`${this.baseURL}/api/Account/GetUser/${id}`)
+  }
 }

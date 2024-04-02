@@ -22,7 +22,7 @@ export class ManageUserComponent {
     hasPrevPage: false,
   };
   urlImage: string = environment.API_URL + '/root/';
-
+  dataUser : any = {}
   title: string = 'Quản lý người dùng';
   titleModal: string = 'Thêm người dùng';
   linkActive: string = '/admin/add-user';
@@ -110,5 +110,11 @@ export class ManageUserComponent {
       this.paginationObj.currentPage++;
       this.getAllUsers();
     }
+  }
+  handelGetIdUser(userId: string){
+    this.userService.getIdUser(userId).subscribe((user : any) => {
+      console.log(user,'user');
+      this.dataUser = user.data
+    })
   }
 }

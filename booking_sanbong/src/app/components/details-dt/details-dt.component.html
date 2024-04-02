@@ -17,8 +17,7 @@
               <th *ngFor="let theadItem of theadTable">{{ theadItem }}</th>
             </tr>
           </thead>
-          <!-- class="{{ post.status === 'pending' ? 'bg-FFAF40' : 'bg-red' }}" -->
-          <!--  -->
+
           <tbody>
             <tr *ngFor="let post of team; let i = index">
               <td>{{ i + 1 }}</td>
@@ -27,6 +26,9 @@
                 {{ post.name }}
               </td>
               <td class="text-center">{{ post.description }}</td>
+              <td class="text-center">{{ post.level }}</td>
+              <td class="text-center">{{ post.phone }}</td>
+              <td class="text-center">{{ post.age }}</td>
               <td class="d-flex justify-content-center">
                 <div class="d-flex justify-content-center gap-3">
                   <button
@@ -34,12 +36,6 @@
                     class="delete text-danger btn btn-success text-white"
                   >
                     mời
-                  </button>
-                  <button
-                    routerLink="/details/{{ post.id }}"
-                    class="delete text-danger btn btn-danger text-white"
-                  >
-                    chi tiết
                   </button>
                 </div>
               </td>

@@ -9,10 +9,11 @@ import { ICategory } from 'src/app/interfaces/Category';
   styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent {
-  title: string = 'Quản lý các danh mục';
+  title: string = 'Quản lý khu vực';
   routerLink: string = '/admin/add-category';
   theadTable: string[] = ['STT', 'Tên danh mục', 'mô trả', 'Action'];
   categories: any[] = [];
+  detailsCategory: any = {};
   constructor(
     private categoryService: CategoryService,
     private excelServiceService: ExcelServiceService
@@ -22,7 +23,7 @@ export class CategoriesComponent {
   /* get all categories */
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe((categoriesData) => {
-      console.log(categoriesData,"categoriesData")
+      console.log(categoriesData, 'categoriesData');
       this.categories = categoriesData.data;
     });
   }
@@ -35,13 +36,21 @@ export class CategoriesComponent {
   }
   /* handle delete user */
   handleDeleteCategory(id: string) {
-    if(window.confirm("Are you sure you want to delete"))
-    this.categoryService
-      .deleteCategory(id)
-      .subscribe(() => this.getAllCategories());
+    if (window.confirm('Are you sure you want to delete'))
+      this.categoryService
+        .deleteCategory(id)
+        .subscribe(() => this.getAllCategories());
   }
   /* export to excel */
   exportToExcel() {
     this.excelServiceService.exportToExcel(this.categories, 'categories');
+  }
+  getIdCategory(id: string) {
+    this.categoryService
+      .getCategoryById(id)
+      .subscribe((dataCategory) => {
+        console.log(dataCategory)
+        this.detailsCategory = dataCategory.data
+      });
   }
 }

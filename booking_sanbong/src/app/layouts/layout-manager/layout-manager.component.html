@@ -349,76 +349,58 @@
             <div class="col-sm-12 col-lg-6">
               <div class="main-img">
                 <img
-                  [src]="postInfo.images[0].url"
+                  [src]="urlImage + postInfo.picture"
                   alt="{{ postInfo.title }}"
-                  class="w-100 post__image-preview"
+                  class="w-50 post__image-preview"
                 />
               </div>
             </div>
             <div class="col-sm-12 col-lg-6">
               <div class="info">
+                <div class="tag mb-5">
+                  <h2 class="text-6B6B6B text-sm font-600">{{
+                    postInfo.name
+                  }}</h2>
+                </div>
                 <div class="tag mb-2">
                   <span
                     class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3"
-                    >{{ postInfo.category.name }}</span
+                    >address
+                    </span
+                  >
+                  <span
+                    class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3"
+                    >{{ postInfo.address}}</span
                   >
                 </div>
                 <div class="title mb-3">
-                  <h1 class="text-23BB86 font-600">
-                    {{ postInfo.title }}
-                  </h1>
+                <span>status : </span>  <span class="text-23BB86 font-600">
+                    {{ postInfo.status }}
+                  </span>
                 </div>
                 <div class="d-flex align-items-center gap-3">
+                  <h6
+                  class=""
+                  style=""
+                >price :</h6>
                   <span class="text-6B6B6B text-sm font-600">{{
-                    handleFomatDate(postInfo.createdAt)
-                  }}</span>
-                  <span
-                    class="d-inline-block rounded-circle"
-                    style="width: 6px; height: 6px; background: #b1b5c3"
-                  ></span>
-                  <span class="text-6B6B6B text-sm font-600">{{
-                    postInfo.author.username
+                    postInfo?.price?.toLocaleString()
                   }}</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="content-posts mx-auto">
-            <div class="content" [innerHTML]="postInfo.content">
-              <h2 class="text-2xl font-600 mb-3">{{ postInfo.title }}</h2>
-              {{ postInfo.content }}
-            </div>
+
             <div class="author mt-5">
               <div class="row align-items-center">
                 <div class="col-sm-12 col-md-4 mb-4">
-                  <div class="img">
-                    <img
-                      [width]="100"
-                      src="{{
-                        postInfo.author.avatar ||
-                          'https://api.multiavatar.com/' +
-                            postInfo.author.username +
-                            '.png'
-                      }}"
-                      alt=""
-                      class="mx-auto"
-                    />
-                  </div>
                 </div>
                 <div class="col-sm-12 col-md-8">
                   <div class="infomation">
-                    <div class="name mb-3">
-                      <h3 class="text-23BB86 font-600 text-2xl">
-                        {{ postInfo.author.username }}
-                      </h3>
-                    </div>
                     <div class="quote">
-                      <p>
-                        Gastronomy atmosphere set aside. Slice butternut cooking
-                        home. Delicious romantic undisturbed raw platter will
-                        meld. Thick Skewers skillet natural, smoker soy sauce
-                        wait roux. Gastronomy atmosphere set aside. Slice
-                        butternut cooking home.
+                      <p style="color:black">
+                       {{postInfo.description}}
                       </p>
                     </div>
                   </div>

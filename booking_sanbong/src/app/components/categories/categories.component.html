@@ -42,7 +42,7 @@
                 <div class="d-flex justify-content-center gap-3">
                   <button
                   class="text-23BB86"
-
+                  (click)="getIdCategory(post.id)"
                   data-toggle="modal"
                   data-target="#exampleModal"
                 >
@@ -64,11 +64,6 @@
               </td>
             </tr>
           </tbody>
-
-
-
-
-
         </table>
       </div>
 
@@ -81,7 +76,7 @@
   [postInfo]="postInfo"></app-layout-modal-admin> -->
 
 <!-- Modal -->
-<!-- <div
+<div
   class="modal fade"
   id="exampleModal"
   tabindex="-1"
@@ -92,7 +87,7 @@
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Thông tin sân bóng</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Thông tin khu vực</h5>
         <button
           type="button"
           class="close"
@@ -102,82 +97,48 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" *ngIf="postInfo">
+      <div class="modal-body" *ngIf="detailsCategory">
         <section class="content-detail-posts my-5">
-          <div class="row align-items-center mb-5">
-            <div class="col-sm-12 col-lg-6">
-              <div class="main-img">
-                <img
-                  [src]="postInfo.images[0].url"
-                  alt="{{ postInfo.title }}"
-                  class="w-100 post__image-preview"
-                />
-              </div>
-            </div>
+          <div class=" align-items-center mb-5">
             <div class="col-sm-12 col-lg-6">
               <div class="info">
                 <div class="tag mb-2">
-                  <span
+                <span>
+                  Tên khu vực :
+                </span>  <span
                     class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3"
-                    >{{ postInfo.category.name }}</span
+                    >{{ detailsCategory.name }}</span
                   >
                 </div>
                 <div class="title mb-3">
                   <h1 class="text-23BB86 font-600">
-                    {{ postInfo.title }}
+                    {{ detailsCategory.title }}
                   </h1>
                 </div>
                 <div class="d-flex align-items-center gap-3">
                   <span class="text-6B6B6B text-sm font-600">{{
-                    handleFomatDate(postInfo.createdAt)
-                  }}</span>
-                  <span
-                    class="d-inline-block rounded-circle"
-                    style="width: 6px; height: 6px; background: #b1b5c3"
-                  ></span>
-                  <span class="text-6B6B6B text-sm font-600">{{
-                    postInfo.author.username
+                    detailsCategory.username
                   }}</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="content-posts mx-auto">
-            <div class="content" [innerHTML]="postInfo.content">
-              <h2 class="text-2xl font-600 mb-3">{{ postInfo.title }}</h2>
-              {{ postInfo.content }}
-            </div>
+
             <div class="author mt-5">
-              <div class="row align-items-center">
-                <div class="col-sm-12 col-md-4 mb-4">
-                  <div class="img">
-                    <img
-                      [width]="100"
-                      src="{{
-                        postInfo.author.avatar ||
-                          'https://api.multiavatar.com/' +
-                            postInfo.author.username +
-                            '.png'
-                      }}"
-                      alt=""
-                      class="mx-auto"
-                    />
-                  </div>
-                </div>
+              <div class=" align-items-center">
                 <div class="col-sm-12 col-md-8">
                   <div class="infomation">
                     <div class="name mb-3">
                       <h3 class="text-23BB86 font-600 text-2xl">
-                        {{ postInfo.author.username }}
+                        {{ detailsCategory.username }}
                       </h3>
                     </div>
-                    <div class="quote">
-                      <p>
-                        Gastronomy atmosphere set aside. Slice butternut cooking
-                        home. Delicious romantic undisturbed raw platter will
-                        meld. Thick Skewers skillet natural, smoker soy sauce
-                        wait roux. Gastronomy atmosphere set aside. Slice
-                        butternut cooking home.
+                    <div class="quote d-flex align-items-center">
+                     <p style="color:black">
+                      Mô tả :
+                     </p> <p style="color:black">
+                       {{detailsCategory.description}}
                       </p>
                     </div>
                   </div>
@@ -189,4 +150,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

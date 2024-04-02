@@ -6,14 +6,13 @@ import { ExcelServiceService } from 'src/app/services/excelService/excel-service
 import { TeamserviceService } from 'src/app/services/team/teamservice.service';
 
 @Component({
-  selector: 'app-my-team',
-  templateUrl: './my-team.component.html',
-  styleUrls: ['./my-team.component.scss'],
+  selector: 'app-details-dt',
+  templateUrl: './details-dt.component.html',
+  styleUrls: ['./details-dt.component.scss']
 })
-export class MyTeamComponent {
-  title: string = 'Dánh sách các team đang cần thi đấu';
-  routerLink: string = '/admin/add-category';
-  theadTable: string[] = ['STT', 'Tên team', 'mô trả', 'Action'];
+export class DetailsDtComponent {
+  title: string = 'Chi tiết đối thủ';
+  theadTable: string[] = ['STT', 'Tên team', 'mô trả', 'level','sđt','tuổi', 'Action'];
   team: any[] = [];
   myTeam: any = {};
 
@@ -23,27 +22,17 @@ export class MyTeamComponent {
     private TeamserviceService: TeamserviceService,
     private toastr: ToastrService,
     private route: ActivatedRoute
-  ) {
-    this.getAllTeamByMe();
-    this.getAllTeamByUSer();
+  ){
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      this.getTeamById(id!);
+    });
   }
-  getAllTeamByUSer() {
-    this.TeamserviceService.getAllTeamByUser().subscribe((team) => {
+  getTeamById(id : string) {
+    this.TeamserviceService.getIdTeam(id).subscribe((team) => {
       console.log(team, 'team 1');
-      this.team = team.data.items.filter((items : any)=> items.id !== this.myTeam.id);
+      this.team = [team.data]
     });
-  }
-  getAllTeamByMe(){
-    this.TeamserviceService.getMyTeam().subscribe((team) => {
-      console.log(team,"team 2 ")
-      this.myTeam = team.data
-    });
-  }
-  handleDeleteCategory(id: string) {
-    if (window.confirm('Are you sure you want to delete'))
-      this.TeamserviceService.deleteTeam(id).subscribe(() =>
-        this.getAllTeamByUSer()
-      );
   }
   inviteCreate(id : string)  {
     // const id = this.route.snapshot.paramMap.get('id');
