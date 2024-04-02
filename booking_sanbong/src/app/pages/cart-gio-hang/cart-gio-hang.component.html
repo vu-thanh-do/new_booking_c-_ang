@@ -70,12 +70,15 @@
                         </button>
                       </div> -->
                       <div class="col-md-1 col-lg-1 col-xl-1 offset-lg-1">
-                        <h6 class="mb-0">{{ item.price || 0 }} VND</h6>
+                        <h6 class="mb-0">{{ item.price?.toLocaleString() || 0 }} VND</h6>
                       </div>
                       <div class="col-md-2 col-lg-2 col-xl-2 offset-lg-1">
                         <h6 class="mb-0">{{ item.start }} </h6>
                       </div>
                       <div class="col-md-2 col-lg-2 col-xl-2 offset-lg-1">
+                        <h6 class="mb-0">{{ item.end}} </h6>
+                      </div>
+                       <div class="col-md-2 col-lg-2 col-xl-2 offset-lg-1">
                         <h6 class="mb-0">{{ item.end}} </h6>
                       </div>
                       <div

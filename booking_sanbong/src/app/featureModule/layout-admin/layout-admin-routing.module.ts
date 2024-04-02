@@ -17,6 +17,7 @@ import { LayoutAdminComponent } from '../../layouts/layout-admin/layout-admin.co
 import { ManageOrderComponent } from 'src/app/components/manage-order/manage-order.component';
 import { PostEditComponent } from 'src/app/modules/posts/product-edit/post-edit.component';
 import { AnalyticsComponent } from 'src/app/pages/analytics/analytics.component';
+import { ServiceFeeComponent } from 'src/app/components/service-fee/service-fee.component';
 
 const routes: Routes = [
   {
@@ -41,8 +42,8 @@ const routes: Routes = [
       { path: 'post-edit/:id', component: PostEditComponent },
       { path: 'manager-categories', component: CategoriesComponent },
       { path: 'add-category', component: AddCategoryComponent },
+      { path: 'add-service', component: ServiceFeeComponent },
       { path: 'edit-category/:id', component: EditCategoryComponent },
-
       { path: 'trash-can', component: ManagerTrashCanComponent },
       { path: 'analytics', component: AnalyticsComponent },
     ],

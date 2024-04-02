@@ -75,6 +75,7 @@ import { CrateTeamEditComponent } from './components/crate-team-edit/crate-team-
 import { MyTeamComponent } from './components/my-team/my-team.component';
 import { DetailsDanhsachComponent } from './components/details-danhsach/details-danhsach.component';
 import { DetailsDtComponent } from './components/details-dt/details-dt.component';
+import { ServiceFeeComponent } from './components/service-fee/service-fee.component';
 
 @NgModule({
   declarations: [
@@ -128,6 +129,7 @@ import { DetailsDtComponent } from './components/details-dt/details-dt.component
     MyTeamComponent,
     DetailsDanhsachComponent,
     DetailsDtComponent,
+    ServiceFeeComponent,
   ],
   imports: [
     BrowserModule,
