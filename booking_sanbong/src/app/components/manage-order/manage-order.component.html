@@ -53,10 +53,10 @@
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let element">
-          <button class="btn btn-primary" (click)="handleConfirmOrderDone(element._id)">
+          <button class="btn btn-primary" (click)="handleConfirmOrderDone(element.id)">
             <i class="fa-solid fa-check"></i>
           </button>
-          <button class="btn btn-danger" (click)="handleConfirmOrderCancel(element._id)">
+          <button class="btn btn-danger" (click)="handleConfirmOrderCancel(element.id)">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </td>

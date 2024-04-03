@@ -119,7 +119,7 @@ import { PriceDialogComponent } from './components/price-dialog/price-dialog.com
     TrashCanPostComponent,
     TrashCanUserComponent,
     SearchResultComponent,
-    CommentsProductComponent, 
+    CommentsProductComponent,
     CartGioHangComponent,
     DonHangComponent,
     ProductFeatureComponent,
@@ -146,7 +146,6 @@ import { PriceDialogComponent } from './components/price-dialog/price-dialog.com
     CommonModule,
     BrowserAnimationsModule,
     CKEditorModule,
-
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-top-right',

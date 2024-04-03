@@ -15,7 +15,7 @@
                   <div
                     class="d-flex justify-content-between align-items-center mb-5"
                   >
-                    <h1 class="fw-bold mb-0 text-black">Lịch sử</h1>
+                    <h1 class="fw-bold mb-0 text-black">{{titleCheck}}</h1>
                     <h6 class="mb-0 text-muted">
                       {{
                         dataUserBooking && dataUserBooking.length > 0 ? dataUserBooking.length : 0
@@ -30,8 +30,9 @@
                       *ngFor="let item of dataUserBooking; let i = index"
                       class=" mb-4 row d-flex justify-content-between align-items-center"
                     >
-                      <div class="col-md-2 col-lg-2 col-xl-2">
+                      <div class="">
                         <img
+                        style="width: 150px;"
                           src="{{
                             item.field.picture
                               ? urlImage + item.field.picture
@@ -72,20 +73,17 @@
                       <div class="col-md-1 col-lg-1 col-xl-1 offset-lg-1">
                         <h6 class="mb-0">{{ item.price?.toLocaleString() || 0 }} VND</h6>
                       </div>
-                      <div class="col-md-2 col-lg-2 col-xl-2 offset-lg-1">
+                      <div class="ccol-md-1 col-lg-1 col-xl-1 offset-lg-1">
                         <h6 class="mb-0">{{ item.start }} </h6>
                       </div>
-                      <div class="col-md-2 col-lg-2 col-xl-2 offset-lg-1">
+                      <div class="ccol-md-1 col-lg-1 col-xl-1 offset-lg-1">
                         <h6 class="mb-0">{{ item.end}} </h6>
                       </div>
-                       <div class="col-md-2 col-lg-2 col-xl-2 offset-lg-1">
+                       <div class="ccol-md-1 col-lg-1 col-xl-1 offset-lg-1">
                         <h6 class="mb-0">{{ item.end}} </h6>
                       </div>
-                      <div
-                        class="col-md-1 col-lg-1 col-xl-1 text-end text-muted"
-                        (click)="removeItem(item._id)"
-                      >
-                      <i class="fa-solid fa-circle-info"></i>
+                      <div class="ccol-md-1 col-lg-1 col-xl-1 offset-lg-1">
+                        <h6 class="mb-0">{{ item.status }} </h6>
                       </div>
                     </div>
                   </div>

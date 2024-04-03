@@ -5,7 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/users/user.service';
 import { formatCurrency } from 'src/app/utils/format-currency';
 import { handleFomatDate } from 'src/app/utils/fomatDate';
-
+import { environment } from 'src/environment';
+import axios from 'axios';
 @Component({
   selector: 'app-manage-order',
   templateUrl: './manage-order.component.html',
@@ -13,7 +14,7 @@ import { handleFomatDate } from 'src/app/utils/fomatDate';
 })
 export class ManageOrderComponent {
   title: string = 'Quản lý đơn hàng';
-
+  apiUrl = environment.API_URL;
   displayedColumns: string[] = [
     'STT',
     'items',
@@ -25,6 +26,7 @@ export class ManageOrderComponent {
   dataSourcePending: IOrder[] = [];
   dataSourceDone: IOrder[] = [];
   dataSourceCancel: IOrder[] = [];
+  accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
 
   theadTable: string[] = ['STT', 'Tên sản phẩm', 'Số lương', 'Trạng thái'];
   orders: any = [];
@@ -44,13 +46,15 @@ export class ManageOrderComponent {
   getAllOrder() {
     this.orderServer.getAllOrder().subscribe((order) => {
       console.log(order);
-      this.orders= order.data.items;
-      this.orderDones = this.orders.filter((order : any) => order.status === 'done');
+      this.orders = order.data.items;
+      this.orderDones = this.orders.filter(
+        (order: any) => order.status === 'done'
+      );
       this.orderCancel = this.orders.filter(
-        (order : any) => order.status === 'canceled'
+        (order: any) => order.status === 'canceled'
       );
       this.orderPending = this.orders.filter(
-        (order : any) => order.status === 'pending'
+        (order: any) => order.status === 'pending'
       );
       this.dataSourcePending = this.orderPending;
       this.dataSourceDone = this.orderDones;
@@ -81,12 +85,30 @@ export class ManageOrderComponent {
   }
 
   /* handle confirm order done */
-  handleConfirmOrderDone(id: string) {
-    this.handleChangeStatus(id, 'done');
+  async handleConfirmOrderDone(id: string) {
+    const headers = {
+      Authorization: `Bearer ${this.accessToken}`,
+    };
+
+    const data: any = {
+      id: id,
+      status: 'Confirm',
+    };
+    this.orderServer.updateStatusOrder(data).subscribe((data: any) => {
+      this.getAllOrder();
+      this.toastr.success('updated status');
+    });
   }
 
   /* handle confirm order cancel */
   handleConfirmOrderCancel(id: string) {
-    this.handleChangeStatus(id, 'canceled');
+    const data = {
+      id: id,
+      status: 'Cancel',
+    };
+    this.orderServer.updateStatusOrder(data).subscribe((data: any) => {
+      this.getAllOrder();
+      this.toastr.success('updated status');
+    });
   }
 }

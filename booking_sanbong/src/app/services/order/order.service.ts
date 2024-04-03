@@ -42,4 +42,10 @@ export class OrderService {
       status: status,
     });
   }
+  updateStatusOrder(data: any): any {
+    return this.http.post<IOrder>(
+      `${this.baseURL}/api/Booking/UpdateStatus`,
+      data
+    );
+  }
 }

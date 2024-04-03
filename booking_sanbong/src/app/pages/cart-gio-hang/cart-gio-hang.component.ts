@@ -23,7 +23,7 @@ export class CartGioHangComponent {
   ship = 15000;
   orderSuccess = false;
   urlImage: string = environment.API_URL + '/root/';
-
+  titleCheck: string = '';
   userInfo = this.formUserInfo.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
@@ -31,7 +31,8 @@ export class CartGioHangComponent {
     phone: ['', [Validators.required]],
   });
   quantityValues: number[] = [];
-  dataUserBooking : any[]=[];
+  dataUserBooking: any[] = [];
+  dataUserBookingOrderStatus: any[] = [];
 
   constructor(
     private cartService: CartService,
@@ -43,14 +44,31 @@ export class CartGioHangComponent {
   ) {
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
     this.handleCart();
-    this.handelGetAllBookingByUser()
+    this.handelGetAllBookingByUser();
   }
-  handelGetAllBookingByUser(){
-    this.userService.getALlOrderByUser(this.user.id!).subscribe((data : any)=>{
-      console.log(data.data,"data user get");
-      this.dataUserBooking = data.data.items
-    })
-}
+  handelGetAllBookingByUser() {
+    this.userService.getALlOrderByUser(this.user.id!).subscribe((data: any) => {
+      console.log(data.data, 'data user get');
+
+      // Kiểm tra nếu giá trị của tham số 'items' trong URL là '1'
+      const queryParams = new URLSearchParams(window.location.search);
+      const itemsParam = queryParams.get('items');
+      const items = itemsParam && itemsParam === '1' ? '1' : '';
+
+      // Tùy thuộc vào giá trị của tham số 'items', lọc dữ liệu phù hợp
+      if (items === '1') {
+        this.dataUserBooking = data.data.items.filter(
+          (it: any) => it.status == 'Paid'
+        );
+        this.titleCheck = 'Đơn hàng';
+      } else {
+        this.dataUserBooking = data.data.items.filter(
+          (it: any) => it.status !== 'Paid'
+        );
+        this.titleCheck = 'Lịch sử';
+      }
+    });
+  }
   handleCart() {
     this.userService.getUser(this.user._id!).subscribe(({ user }) => {
       this.user = user;

@@ -6,35 +6,31 @@ import { TeamserviceService } from 'src/app/services/team/teamservice.service';
 @Component({
   selector: 'app-team-create',
   templateUrl: './team-create.component.html',
-  styleUrls: ['./team-create.component.scss']
+  styleUrls: ['./team-create.component.scss'],
 })
 export class TeamCreateComponent {
   title: string = 'Quản lý team';
   routerLink: string = '/admin/add-category';
   theadTable: string[] = ['STT', 'Tên team', 'mô trả', 'Action'];
-  team:any[]=[]
+  team: any[] = [];
   constructor(
     private categoryService: CategoryService,
     private excelServiceService: ExcelServiceService,
-   private  TeamserviceService: TeamserviceService
+    private TeamserviceService: TeamserviceService
   ) {
-  this.getAllTeamByUSer()
+    this.getAllTeamByUSer();
   }
-  getAllTeamByUSer(){
+  getAllTeamByUSer() {
     this.TeamserviceService.getMyTeam().subscribe((team) => {
-      console.log(team,"team")
-    if(team.data)  this.team = Array(team.data);
+      console.log(team, 'team');
+      if (team.data) this.team = team.data;
     });
   }
   handleDeleteCategory(id: string) {
-    if(window.confirm("Are you sure you want to delete"))
-    this.TeamserviceService
-      .deleteTeam(id)
-      .subscribe(() => {
+    if (window.confirm('Are you sure you want to delete'))
+      this.TeamserviceService.deleteTeam(id).subscribe(() => {
         window.location.reload();
-        this.getAllTeamByUSer()
-
+        this.getAllTeamByUSer();
       });
-
   }
 }

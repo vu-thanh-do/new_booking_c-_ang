@@ -1,5 +1,20 @@
 <app-header></app-header>
+
 <div class="container-xl">
+  <div class="drawer" [class.opened]="isDrawerOpen">
+    <h3 style="color:white pl-3 pt-3">Chọn team của bạn</h3>
+   <div class="m-3">
+     <div *ngFor="let v of myTeam">
+      <div class="d-flex mt-3 align-items-center xass  justify-content-between gap-5">
+        <p> {{v.name}}</p>
+        <button (click)="handelUseTeam(v.id)" class="delete text-danger btn btn-success text-white">
+          Chọn
+        </button>
+      </div>
+    </div>
+   </div>
+    <span class="close-icon" (click)="closeDrawer()">X</span>
+  </div>
   <div class="table-responsive">
     <div class="table-wrapper">
       <div class="table-title">
@@ -29,16 +44,10 @@
               <td class="text-center">{{ post.description }}</td>
               <td class="d-flex justify-content-center">
                 <div class="d-flex justify-content-center gap-3">
-                  <button
-                    (click)="inviteCreate(post.id)"
-                    class="delete text-danger btn btn-success text-white"
-                  >
+                  <button (click)="inviteCreate(post.id)" class="delete text-danger btn btn-success text-white">
                     mời
                   </button>
-                  <button
-                    routerLink="/details/{{ post.id }}"
-                    class="delete text-danger btn btn-danger text-white"
-                  >
+                  <button routerLink="/details/{{ post.id }}" class="delete text-danger btn btn-danger text-white">
                     chi tiết
                   </button>
                 </div>

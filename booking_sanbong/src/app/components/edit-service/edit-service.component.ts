@@ -30,7 +30,6 @@ export class EditServiceComponent {
     });
   }
   handleSubmitEditCategoryForm() {
-    if (this.editForm.invalid) return;
     const id = this.route.snapshot.paramMap.get('id');
     const category = {
       id: id,
