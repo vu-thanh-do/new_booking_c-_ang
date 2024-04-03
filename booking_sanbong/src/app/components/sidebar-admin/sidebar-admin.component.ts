@@ -190,8 +190,8 @@ export class SidebarAdminComponent {
                   isActive: false,
                 },
                 {
-                  routerLink: 'trash-can',
-                  label: 'Trash can',
+                  routerLink: 'all-service',
+                  label: 'services',
                   icon: 'fa-solid fa-trash',
                   isActive: false,
                 },

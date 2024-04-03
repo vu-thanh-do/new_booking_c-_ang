@@ -48,3 +48,9 @@
 :host ::ng-deep .ck-editor__editable_inline {
   min-height: 300px;
 }
+.mat-mdc-option.selected-item {
+  color: red !important;
+}
+.mat-mdc-option.selected-item .mdc-list-item__primary-text {
+  color: red !important;
+}

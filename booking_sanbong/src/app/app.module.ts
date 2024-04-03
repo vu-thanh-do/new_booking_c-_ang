@@ -76,6 +76,9 @@ import { MyTeamComponent } from './components/my-team/my-team.component';
 import { DetailsDanhsachComponent } from './components/details-danhsach/details-danhsach.component';
 import { DetailsDtComponent } from './components/details-dt/details-dt.component';
 import { ServiceFeeComponent } from './components/service-fee/service-fee.component';
+import { GetallServiceComponent } from './components/getall-service/getall-service.component';
+import { EditServiceComponent } from './components/edit-service/edit-service.component';
+import { PriceDialogComponent } from './components/price-dialog/price-dialog.component';
 
 @NgModule({
   declarations: [
@@ -130,6 +133,9 @@ import { ServiceFeeComponent } from './components/service-fee/service-fee.compon
     DetailsDanhsachComponent,
     DetailsDtComponent,
     ServiceFeeComponent,
+    GetallServiceComponent,
+    EditServiceComponent,
+    PriceDialogComponent,
   ],
   imports: [
     BrowserModule,

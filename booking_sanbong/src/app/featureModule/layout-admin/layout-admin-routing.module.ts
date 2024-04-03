@@ -18,6 +18,8 @@ import { ManageOrderComponent } from 'src/app/components/manage-order/manage-ord
 import { PostEditComponent } from 'src/app/modules/posts/product-edit/post-edit.component';
 import { AnalyticsComponent } from 'src/app/pages/analytics/analytics.component';
 import { ServiceFeeComponent } from 'src/app/components/service-fee/service-fee.component';
+import { GetallServiceComponent } from 'src/app/components/getall-service/getall-service.component';
+import { EditServiceComponent } from 'src/app/components/edit-service/edit-service.component';
 
 const routes: Routes = [
   {
@@ -43,7 +45,9 @@ const routes: Routes = [
       { path: 'manager-categories', component: CategoriesComponent },
       { path: 'add-category', component: AddCategoryComponent },
       { path: 'add-service', component: ServiceFeeComponent },
+      { path: 'all-service', component: GetallServiceComponent },
       { path: 'edit-category/:id', component: EditCategoryComponent },
+      { path: 'edit-service/:id', component: EditServiceComponent },
       { path: 'trash-can', component: ManagerTrashCanComponent },
       { path: 'analytics', component: AnalyticsComponent },
     ],

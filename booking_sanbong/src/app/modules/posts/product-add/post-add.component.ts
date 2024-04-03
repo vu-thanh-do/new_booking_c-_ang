@@ -1,3 +1,4 @@
+import { ServicesService } from 'src/app/services/service/services.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
@@ -25,11 +26,14 @@ export class PostAddComponent {
     address: ['', [Validators.required]],
     author: [''],
     category: ['', [Validators.required]],
+    service: ['', [Validators.required]],
     is_active: ['public', [Validators.required]],
     status: ['pending', [Validators.required]],
     price: [0, [Validators.required]],
   });
   categories: any[] = [];
+  service: any[] = [];
+  selectedServices: { ServiceFeeId: string; Price: number }[] = [];
   public Editor = ClassicEditor;
   public editorContent = '';
   imagePreviews: ImagePreview[] = [];
@@ -42,9 +46,11 @@ export class PostAddComponent {
     private toastr: ToastrService,
     private uploadImageService: UploadImageService,
     private http: HttpClient,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private ServicesService: ServicesService
   ) {
     this.getAllCategories();
+    this.getAllService();
   }
   /* get data */
   getAllCategories() {
@@ -52,7 +58,12 @@ export class PostAddComponent {
       this.categories = categories.data;
     });
   }
-
+  getAllService() {
+    this.ServicesService.getAlService().subscribe((categories) => {
+      console.log(categories, 'service');
+      this.service = categories.data;
+    });
+  }
   handleFileInput(event: any): void {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
@@ -106,6 +117,9 @@ export class PostAddComponent {
     if (this.postForm.value.category) {
       postData.append('FieldAreaId', this.postForm.value.category.toString());
     }
+    if (this.selectedServices) {
+      postData.append('Services', this.selectedServices as any);
+    }
     for (const image of this.urls) {
       postData.append('picture', image);
     }
@@ -128,4 +142,22 @@ export class PostAddComponent {
       return new MyUploadAdapter(loader, this.http);
     };
   };
+  onServiceSelectionChange(selectedService: any) {
+    const priceInput = prompt('Nhập giá cho dịch vụ', '0');
+    if (priceInput !== null) {
+      const price = parseFloat(priceInput);
+      if (!isNaN(price)) {
+        this.selectedServices.push({
+          ServiceFeeId: selectedService.id,
+          Price: price,
+        });
+        console.log(this.selectedServices,'selectedServices')
+      } else {
+        alert('Vui lòng nhập giá hợp lệ.');
+      }
+    }
+  }
+  isItemSelected(itemId: string): boolean {
+    return this.selectedServices.some(item => item.ServiceFeeId === itemId);
+  }
 }
