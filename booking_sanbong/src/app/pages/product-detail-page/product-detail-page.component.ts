@@ -25,8 +25,9 @@ export class ProductsDetailPageComponent {
   getTimeField2: any[] = [];
   getTimeField3: any[] = [];
   getTimeField4: any[] = [];
-
+  serviceField: any[] = [];
   idPost!: string;
+  serviceUsed: any[] = [];
   getField!: any;
   bookingForm = this.builder.group({
     fieldId: ['', Validators.required],
@@ -59,7 +60,7 @@ export class ProductsDetailPageComponent {
           console.log(data.data, 'db');
           this.post = data.data;
           this.getTimeField = data.data.fieldTimes;
-
+          this.serviceField = data.data.services;
           // this.cateService
           //   .getRelatedPost(data.post.category._id)
           //   .subscribe(({ data }) => {
@@ -144,5 +145,16 @@ export class ProductsDetailPageComponent {
     const inputTime = inputValue.slice(11); // Cắt bớt phần ngày để chỉ lấy thời gian
     const isBooked = this.bookedTimes.includes(inputTime);
     return isBooked;
+  }
+  handelUseService(data: any) {
+    this.serviceUsed.push({
+      ...this.serviceUsed,
+      serviceName: data.serviceName,
+      serviceFeeId: data.serviceFeeId,
+      price: data.price,
+    });
+  }
+  handelRemoveServiceUsed(i: any) {
+    this.serviceUsed.splice(i, 1);
   }
 }

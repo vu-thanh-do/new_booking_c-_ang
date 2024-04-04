@@ -33,7 +33,8 @@ export class PostAddComponent {
   });
   categories: any[] = [];
   service: any[] = [];
-  selectedServices: { ServiceFeeId: string; Price: number }[] = [];
+  selectedServices: { ServiceFeeId: string; Price: number; name: string }[] =
+    [];
   public Editor = ClassicEditor;
   public editorContent = '';
   imagePreviews: ImagePreview[] = [];
@@ -136,6 +137,7 @@ export class PostAddComponent {
       if (!isNaN(price)) {
         this.selectedServices.push({
           ServiceFeeId: selectedService.id,
+          name: selectedService.name,
           Price: price,
         });
         console.log(this.selectedServices, 'selectedServices');
@@ -146,5 +148,8 @@ export class PostAddComponent {
   }
   isItemSelected(itemId: string): boolean {
     return this.selectedServices.some((item) => item.ServiceFeeId === itemId);
+  }
+  handelRemove(i: any) {
+    this.selectedServices.splice(i, 1);
   }
 }

@@ -121,7 +121,26 @@
               </div>
             </div>
           </div>
+          <div class="col-6">
+            <div class="form__field">
+              <div>Dịch vụ đã chọn </div>
+                <div *ngFor="let icC of selectedServices ; let i =  index">
+                 <div style="display: flex; justify-content: space-between; padding-left: 5px; margin-bottom: 10px;align-items: center; border:1px solid #ccc; margin-top: 5px; border-radius: 4px; gap: 10px;">
+                  <div style="display: flex; justify-content: center; align-items: center;">
+                      <p style="font-weight: bold;">{{icC.name}}</p>
+                   <p>{{icC.Price?.toLocaleString()}} VND</p>
+                  </div>
+                  <div>
+                    <button (click)="handelRemove(i)" style="width: 40px; height: 40px; background-color: red ;
+                    color: white; font-weight: bold;">X</button>
+                  </div>
+                 </div>
+                </div>
+            </div>
+
+          </div>
         </div>
+
         <div class="row">
           <div class="col-12 mb-5">
             <input
