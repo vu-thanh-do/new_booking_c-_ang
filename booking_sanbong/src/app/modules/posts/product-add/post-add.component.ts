@@ -101,7 +101,11 @@ export class PostAddComponent {
       postData.append('FieldAreaId', this.postForm.value.category.toString());
     }
     if (this.selectedServices) {
-      postData.append('Services', JSON.stringify(this.selectedServices) as any);
+      for (let i = 0; i < this.selectedServices.length; i++) {
+        const service = this.selectedServices[i];
+        postData.append(`Services[${i}].ServiceFeeId`, service.ServiceFeeId);
+        postData.append(`Services[${i}].Price`, service.Price.toString());
+      }
     }
     for (const image of this.urls) {
       postData.append('picture', image);
