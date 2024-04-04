@@ -11,7 +11,7 @@ import { TeamserviceService } from 'src/app/services/team/teamservice.service';
   styleUrls: ['./details-dt.component.scss']
 })
 export class DetailsDtComponent {
-  title: string = 'Chi tiết đối thủ';
+  title: string = 'Chi tiết';
   theadTable: string[] = ['STT', 'Tên team', 'mô trả', 'level','sđt','tuổi', 'Action'];
   team: any[] = [];
   myTeam: any = {};

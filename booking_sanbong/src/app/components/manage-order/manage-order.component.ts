@@ -33,7 +33,7 @@ export class ManageOrderComponent {
   orderDones: IOrder[] = [];
   orderCancel: IOrder[] = [];
   orderPending: IOrder[] = [];
-
+  confirmData : IOrder[] = [];
   constructor(
     private userService: UserService,
     private orderServer: OrderService,
@@ -47,19 +47,23 @@ export class ManageOrderComponent {
     this.orderServer.getAllOrder().subscribe((order) => {
       console.log(order);
       this.orders = order.data.items;
-      this.orderDones = this.orders.filter(
-        (order: any) => order.status === 'done'
+      this.orderCancel = order.data.items.filter(
+        (orderA: any) =>orderA.status === 'Cancel'
       );
-      this.orderCancel = this.orders.filter(
-        (order: any) => order.status === 'canceled'
+      this.orderDones = order.data.items.filter(
+        (orderA: any) =>orderA.status === 'Pair'
       );
-      this.orderPending = this.orders.filter(
-        (order: any) => order.status === 'pending'
+      this.orderPending =  order.data.items.filter(
+        (orderA: any) => orderA.status === 'Wait'
+      );
+      this.confirmData =  order.data.items.filter(
+        (orderA: any) => orderA.status === 'Confirm'
       );
       this.dataSourcePending = this.orderPending;
       this.dataSourceDone = this.orderDones;
       this.dataSourceCancel = this.orderCancel;
     });
+    console.log(this.orderCancel,'orderCancel')
   }
 
   /* format currentcy */
@@ -105,6 +109,16 @@ export class ManageOrderComponent {
     const data = {
       id: id,
       status: 'Cancel',
+    };
+    this.orderServer.updateStatusOrder(data).subscribe((data: any) => {
+      this.getAllOrder();
+      this.toastr.success('updated status');
+    });
+  }
+  handlePayment(id: string) {
+    const data = {
+      id: id,
+      status: 'Pair',
     };
     this.orderServer.updateStatusOrder(data).subscribe((data: any) => {
       this.getAllOrder();

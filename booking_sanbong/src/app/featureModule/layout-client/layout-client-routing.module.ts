@@ -16,6 +16,7 @@ import { CrateTeamEditComponent } from 'src/app/components/crate-team-edit/crate
 import { MyTeamComponent } from 'src/app/components/my-team/my-team.component';
 import { DetailsDanhsachComponent } from 'src/app/components/details-danhsach/details-danhsach.component';
 import { DetailsDtComponent } from 'src/app/components/details-dt/details-dt.component';
+import { InvitebymeComponent } from 'src/app/components/invitebyme/invitebyme.component';
 
 const routes: Routes = [
   {
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path: 'create-team/all',
     component: DetailsDanhsachComponent,
+  },
+  {
+    path: 'create-team/byme',
+    component: InvitebymeComponent,
   },
 ];
 

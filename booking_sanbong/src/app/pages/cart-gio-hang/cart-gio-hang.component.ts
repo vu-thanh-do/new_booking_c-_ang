@@ -58,12 +58,12 @@ export class CartGioHangComponent {
       // Tùy thuộc vào giá trị của tham số 'items', lọc dữ liệu phù hợp
       if (items === '1') {
         this.dataUserBooking = data.data.items.filter(
-          (it: any) => it.status == 'Paid'
+          (it: any) => it.status == 'Pair'
         );
         this.titleCheck = 'Đơn hàng';
       } else {
         this.dataUserBooking = data.data.items.filter(
-          (it: any) => it.status !== 'Paid'
+          (it: any) => it.status !== 'Pair'
         );
         this.titleCheck = 'Lịch sử';
       }

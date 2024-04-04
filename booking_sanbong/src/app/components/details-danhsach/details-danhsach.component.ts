@@ -12,14 +12,20 @@ import { TeamserviceService } from 'src/app/services/team/teamservice.service';
 })
 export class DetailsDanhsachComponent {
   title: string = 'Tất cả Dánh sách mời';
+  title2: string = 'Tất cả bạn đã mời';
+
   routerLink: string = '/admin/add-category';
   theadTable: string[] = ['STT', 'Tên team', 'số điện thoại', 'level', 'tuổi'];
+  theadTable2: string[] = ['STT', 'team mời', 'level', 'tuổi', 'SĐT team mời' ,'team được mời','action'];
+
   team: any[] = [];
   user: any;
   myTeam: any = {};
   acceptValue: any = null;
   nextResult: any = '';
   newResult: any[] = [];
+  inviteMe: any[] = [];
+  check2 = false;
   constructor(
     private categoryService: CategoryService,
     private excelServiceService: ExcelServiceService,
@@ -30,6 +36,7 @@ export class DetailsDanhsachComponent {
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
     this.getAllTeamByUSer();
     this.getAllTeamByMe();
+    this.getInviteByMe();
   }
   getAllTeamByUSer() {
     this.acceptValue = this.route.snapshot.queryParamMap.get('accept');
@@ -42,6 +49,9 @@ export class DetailsDanhsachComponent {
         break;
       case 'false':
         this.nextResult = { accept: false, userId: this.user.id };
+        break;
+      case '2':
+        this.check2 = true;
         break;
       default:
         this.nextResult = { all: true, userId: this.user.id };
@@ -72,7 +82,29 @@ export class DetailsDanhsachComponent {
   getAllTeamByMe() {
     this.TeamserviceService.getMyTeam().subscribe((team) => {
       console.log(team, 'team');
+
       this.myTeam = team.data;
+    });
+  }
+  getInviteByMe() {
+    this.TeamserviceService.getInvitWithMe().subscribe((team) => {
+      var newResult = [];
+      for(const v1 of  team.data.items){
+        newResult.push({
+          teamId : v1.team.id,
+          name : v1.team.name,
+          level : v1.team.level,
+          age : v1.team.age,
+          phone : v1.team.phone,
+          myTeamId : v1.inviteTeam.id,
+          nameMyTeam : v1.inviteTeam.name,
+          levelMyTeam : v1.inviteTeam.level,
+          phoneMyTeam : v1.inviteTeam.phone,
+          ageMyteam : v1.inviteTeam.age,
+        })
+      }
+      console.log(newResult,'newResult')
+      this.inviteMe = newResult;
     });
   }
   handleDeleteCategory(id: string) {

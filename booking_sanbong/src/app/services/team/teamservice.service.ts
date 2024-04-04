@@ -61,4 +61,17 @@ export class TeamserviceService {
   actionOnInviteAPI(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseURL}/api/Invite/Accept`, data);
   }
+
+  getInvitWithMe(){
+    // /api/Invite/InviteMe
+    return this.http.get<any>(`${this.baseURL}/api/Invite/InviteMe`);
+  }
+  getInviAcceptMe(){
+    // /api/Invite/InviteMe
+    return this.http.get<any>(`${this.baseURL}/api/Invite/AcceptedMe`);
+  }
+  getRejectedMe(){
+    // /api/Invite/InviteMe
+    return this.http.get<any>(`${this.baseURL}/api/Invite/RejectMe`);
+  }
 }

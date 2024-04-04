@@ -79,28 +79,11 @@ export class PostAddComponent {
     });
   }
   handleSubmitPostForm() {
-    /* lấy ra thông tin người dùng */
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (!user) {
       this.toastr.error('Bạn chưa đăng nhập');
       return;
     }
-    /* lấy ra thông tin   */
-    const userId = user._id;
-    const post = {
-      Name: this.postForm.value.title,
-      Description: this.postForm.value.content,
-      // category: this.postForm.value.category,
-      images: this.urls[0],
-      Address: this.postForm.value.address,
-      // is_active:
-      //   this.postForm.value.is_active === '' ||
-      //   this.postForm.value.is_active === 'public'
-      //     ? true
-      //     : false,
-      // status: this.postForm.value.status,
-      price: this.postForm.value.price,
-    };
     const postData = new FormData();
     if (this.postForm.value.title) {
       postData.append('Name', this.postForm.value.title);
@@ -118,7 +101,7 @@ export class PostAddComponent {
       postData.append('FieldAreaId', this.postForm.value.category.toString());
     }
     if (this.selectedServices) {
-      postData.append('Services', this.selectedServices as any);
+      postData.append('Services', JSON.stringify(this.selectedServices) as any);
     }
     for (const image of this.urls) {
       postData.append('picture', image);
@@ -151,13 +134,13 @@ export class PostAddComponent {
           ServiceFeeId: selectedService.id,
           Price: price,
         });
-        console.log(this.selectedServices,'selectedServices')
+        console.log(this.selectedServices, 'selectedServices');
       } else {
         alert('Vui lòng nhập giá hợp lệ.');
       }
     }
   }
   isItemSelected(itemId: string): boolean {
-    return this.selectedServices.some(item => item.ServiceFeeId === itemId);
+    return this.selectedServices.some((item) => item.ServiceFeeId === itemId);
   }
 }

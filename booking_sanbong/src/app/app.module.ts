@@ -79,6 +79,7 @@ import { ServiceFeeComponent } from './components/service-fee/service-fee.compon
 import { GetallServiceComponent } from './components/getall-service/getall-service.component';
 import { EditServiceComponent } from './components/edit-service/edit-service.component';
 import { PriceDialogComponent } from './components/price-dialog/price-dialog.component';
+import { InvitebymeComponent } from './components/invitebyme/invitebyme.component';
 
 @NgModule({
   declarations: [
@@ -136,6 +137,7 @@ import { PriceDialogComponent } from './components/price-dialog/price-dialog.com
     GetallServiceComponent,
     EditServiceComponent,
     PriceDialogComponent,
+    InvitebymeComponent,
   ],
   imports: [
     BrowserModule,
