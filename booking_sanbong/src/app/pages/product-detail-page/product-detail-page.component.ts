@@ -29,6 +29,7 @@ export class ProductsDetailPageComponent {
   idPost!: string;
   serviceUsed: any[] = [];
   getField!: any;
+  total: number = 0;
   bookingForm = this.builder.group({
     fieldId: ['', Validators.required],
     start: ['', Validators.required],
@@ -58,6 +59,7 @@ export class ProductsDetailPageComponent {
       this.postService.getPost(id!).subscribe(
         (data) => {
           console.log(data.data, 'db');
+          this.total = data.data.price;
           this.post = data.data;
           this.getTimeField = data.data.fieldTimes;
           this.serviceField = data.data.services;
@@ -82,7 +84,7 @@ export class ProductsDetailPageComponent {
     // Lấy giá trị ngày và giờ từ form
     const startValue = this.bookingForm.value.start;
     const endValue = this.bookingForm.value.end;
-
+    const newIdService = this.serviceUsed.map((ite) => ite.serviceFeeId);
     // Kiểm tra nếu cả hai giá trị start và end không rỗng
     if (startValue && endValue) {
       // Chuyển đổi các giá trị ngày và giờ thành đối tượng Date dựa trên múi giờ hiện tại của máy tính
@@ -100,6 +102,7 @@ export class ProductsDetailPageComponent {
         end: endLocal,
         status: this.bookingForm.value.status || '1',
         description: this.bookingForm.value.description || '',
+        services: newIdService,
       };
 
       // Gọi phương thức createBookingFb từ service và đăng ký subscribe cho nó
@@ -153,8 +156,14 @@ export class ProductsDetailPageComponent {
       serviceFeeId: data.serviceFeeId,
       price: data.price,
     });
+    this.total += data.price;
   }
   handelRemoveServiceUsed(i: any) {
+    this.total -= this.serviceUsed[i].price;
+    console.log(this.serviceUsed[i]);
     this.serviceUsed.splice(i, 1);
+  }
+  payToVNPay() {
+    alert('Pay to VN');
   }
 }

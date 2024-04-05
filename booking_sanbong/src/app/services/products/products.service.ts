@@ -119,4 +119,11 @@ export class ProductsService {
       post
     );
   }
+  createVnPaymentFb(post: any) {
+    return this.http.post(
+      `${this.baseURL}/api/ServiceFeePayment/Create
+      `,
+      post
+    );
+  }
 }

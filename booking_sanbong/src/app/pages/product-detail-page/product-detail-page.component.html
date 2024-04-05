@@ -480,12 +480,13 @@
                         </div>
                        </div>
                       </div>
+                      <div>
+                       <p style="color: black; font-weight:bold"> Total : {{total?.toLocaleString()}} VND</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-
               <div
                 class="block_by_fast by_fast-_by_fast by_fast_0 block"
                 id="block_id_150"
@@ -582,10 +583,13 @@
                             name="description"
                             formControlName="description"
                             id="mes_buy_fast"
+                            required
                           ></textarea>
-
                           <button type="submit" class="button-buy-fast button">
                             Gửi yêu cầu
+                          </button>
+                          <button (click)="payToVNPay()" style="margin-top:10px" type="button" class="button-buy-fast button">
+                            Thanh toán VNPAY
                           </button>
                         </div>
                         <input type="hidden" name="module" value="users" />
