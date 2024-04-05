@@ -46,7 +46,10 @@ export class CartGioHangComponent {
     this.handleCart();
     this.handelGetAllBookingByUser();
     if (window.location.href.includes('vnp_ResponseCode=00')) {
-      this.handlePayment()
+      this.handlePayment();
+      setTimeout(() => {
+        window.location.href = 'http://localhost:4200/cart?items=1';
+      }, 500);
     }
   }
   handelGetAllBookingByUser() {
