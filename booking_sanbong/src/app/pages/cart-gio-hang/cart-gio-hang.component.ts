@@ -45,6 +45,9 @@ export class CartGioHangComponent {
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
     this.handleCart();
     this.handelGetAllBookingByUser();
+    if (window.location.href.includes('vnp_ResponseCode=00')) {
+      this.handlePayment()
+    }
   }
   handelGetAllBookingByUser() {
     this.userService.getALlOrderByUser(this.user.id!).subscribe((data: any) => {
@@ -180,11 +183,22 @@ export class CartGioHangComponent {
     }
   }
   handelPaymentVNPay(id: string) {
-    var returnUrl = 'http://localhost:4200/cart';
+    var returnUrl = 'http://localhost:4200/cart?idPay=' + id;
     this.orderService
       .paymentVNPayService(id, returnUrl)
       .subscribe((payment: any) => {
         window.location.href = payment.data;
       });
+  }
+  handlePayment() {
+    const queryParams = new URLSearchParams(window.location.search);
+    const idPayParam = queryParams.get('idPay');
+    const data = {
+      id: idPayParam,
+      status: 'Pair',
+    };
+    this.orderService.updateStatusOrder(data).subscribe((data: any) => {
+      this.Toast.success('updated status');
+    });
   }
 }
