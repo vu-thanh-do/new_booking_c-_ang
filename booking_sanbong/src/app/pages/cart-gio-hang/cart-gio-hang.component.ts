@@ -179,4 +179,12 @@ export class CartGioHangComponent {
       console.log(error);
     }
   }
+  handelPaymentVNPay(id: string) {
+    var returnUrl = 'http://localhost:4200/cart';
+    this.orderService
+      .paymentVNPayService(id, returnUrl)
+      .subscribe((payment: any) => {
+        window.location.href = payment.data;
+      });
+  }
 }
