@@ -36,6 +36,9 @@ export class ProductsService {
   getPostsApporved(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseURL}/api/Field/GetData`, {});
   }
+  getPostsRelate(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseURL}/api/Field/GetData`, data);
+  }
   getPost(id: number | string): Observable<any> {
     return this.http.get<any>(`${this.baseURL}/api/Field/GetField/${id}`);
   }
@@ -125,5 +128,13 @@ export class ProductsService {
       `,
       post
     );
+  }
+  updateStatusField(data: any) {
+    return this.http.post(
+      `${this.baseURL}/api/Field/UpdateStatus
+      `,
+      data
+    );
+    // api/Field/UpdateStatus
   }
 }

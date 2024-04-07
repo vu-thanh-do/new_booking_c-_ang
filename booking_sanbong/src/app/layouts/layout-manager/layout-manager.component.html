@@ -152,9 +152,16 @@
                   {{ post.status  }}
                 </span>
               </td>
-              <td>
+              <td style="display: flex; justify-content: center;align-items: center;">
                 <!-- <button class="text-warning" (click)="getPostById(post._id!)" data-toggle="modal"
                   data-target="#exampleModal"> -->
+                    <button
+                    *ngIf="infoUser.type !== 'FieldOwner'"
+                    (click)="handelApproved(post.id!)"
+                  class="text-23BB86"
+                >
+                  <img style="width: 35px;cursor: pointer;" src="../../../assets/images/approved.png"/>
+                </button>
                 <button
                   class="text-23BB86"
                   (click)="getPostById(post.id!)"
@@ -386,6 +393,14 @@
                   <span class="text-6B6B6B text-sm font-600">{{
                     postInfo?.price?.toLocaleString()
                   }}</span>
+                </div>
+                <div *ngIf="infoUser.type !== 'FieldOwner'" class="d-flex gap-5">
+                   <button (click)="handelApproved(postInfo.id!)" class="btn btn-success">
+                    Approve
+                  </button>
+                   <button (click)="handelRejected(postInfo.id!)" class="btn btn-danger">
+                    Reject
+                  </button>
                 </div>
               </div>
             </div>

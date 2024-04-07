@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 import { ICategory } from 'src/app/interfaces/Category';
 import { ITag, ITagDocs } from 'src/app/interfaces/ITag';
@@ -20,7 +21,7 @@ import Swal from 'sweetalert2';
 })
 export class LayoutManagerComponent {
   urlImage: string = environment.API_URL + '/root/';
-
+  infoUser: any;
   @Input() title: string = '';
   @Input() linkActive: string = '';
   @Input() titleModal: string = '';
@@ -49,8 +50,13 @@ export class LayoutManagerComponent {
     autoplaySpeed: 5000,
   };
   postInfo!: IPosts;
-  constructor(private postsService: ProductsService) {
+  constructor(
+    private postsService: ProductsService,
+    private toastr: ToastrService
+  ) {
     console.log(this.posts);
+    this.infoUser = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log(this.infoUser);
   }
 
   /* handle edit */
@@ -118,5 +124,30 @@ export class LayoutManagerComponent {
   handleNextPage() {
     // console.log(this.paginationObj.hasNextPage);
     this.nextPage.emit(this.paginationObj.hasNextPage);
+  }
+  handelApproved(id: string) {
+    var data = {
+      id: id,
+      status: 'Approved',
+    };
+    this.postsService.updateStatusField(data).subscribe((items) => {
+      console.log(items);
+      this.toastr.success('Updated');
+      setTimeout(() => {
+        window.location.reload();
+      }, 350);
+    });
+  }
+  handelRejected(id: string) {
+    var data = {
+      id: id,
+      status: 'Reject',
+    };
+    this.postsService.updateStatusField(data).subscribe((items) => {
+      this.toastr.success('Updated');
+      setTimeout(() => {
+        window.location.reload();
+      }, 350);
+    });
   }
 }

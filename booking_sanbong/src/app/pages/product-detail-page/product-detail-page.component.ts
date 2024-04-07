@@ -18,7 +18,11 @@ import { environment } from 'src/environment';
 export class ProductsDetailPageComponent {
   mailUser!: string | null;
   post!: IPosts;
+  checkedTimeBook: string = '';
   relatedPosts!: IPosts[];
+  newDateBookingResultStart: string = '';
+  newDateBookingResultEnd: string = '';
+  idUserCreatePost: string = '';
   comments!: IResViewComment[];
   urlImage: string = environment.API_URL + '/root/';
   getTimeField: any[] = [];
@@ -37,6 +41,7 @@ export class ProductsDetailPageComponent {
     status: ['1', Validators.required],
     description: ['', Validators.required],
   });
+  dataPostsRelate: any[] = [];
   constructor(
     private postService: ProductsService,
     private cateService: CategoryService,
@@ -48,26 +53,27 @@ export class ProductsDetailPageComponent {
   ) {
     this.router.paramMap.subscribe((params) => {
       const id = params.get('id');
-
       this.idPost = id || '';
 
       if (this.idPost) {
         /* get all comment by id with socket */
         console.log(id);
       }
-
       this.postService.getPost(id!).subscribe(
         (data) => {
-          console.log(data.data, 'db');
+          this.idUserCreatePost = data.data.userId;
+          console.log(data.data.userId, 'db');
           this.total = data.data.price;
           this.post = data.data;
           this.getTimeField = data.data.fieldTimes;
           this.serviceField = data.data.services;
+          this.handelGetPostsRelate(data.data.userId);
           // this.cateService
           //   .getRelatedPost(data.post.category._id)
           //   .subscribe(({ data }) => {
           //     this.relatedPosts = data.posts!;
           //   });
+          console.log(this.idUserCreatePost, 'this.idUserCreatePost');
         },
         () => {
           this.toastr.error("Couldn't find this post.Please try again😥😥");
@@ -81,44 +87,52 @@ export class ProductsDetailPageComponent {
     this.handelGetgetField();
   }
   handleSubmitFormBooking() {
-    // Lấy giá trị ngày và giờ từ form
+    console.log(this.bookingForm.value, 'this.bookingForm.value');
+    if (
+      this.newDateBookingResultStart == '' ||
+      this.newDateBookingResultEnd == ''
+    ) {
+      this.toastr.error('vui lòng chọn giờ bắt đầu và kết thúc');
+      return;
+    }
+    if (
+      this.bookingForm.value.start == '' ||
+      this.bookingForm.value.end == ''
+    ) {
+      this.toastr.error('vui lòng chọn ngày bắt đầu và kết thúc');
+      return;
+    }
     const startValue = this.bookingForm.value.start;
     const endValue = this.bookingForm.value.end;
-    const newIdService = this.serviceUsed.map((ite) => ite.serviceFeeId);
-    // Kiểm tra nếu cả hai giá trị start và end không rỗng
-    if (startValue && endValue) {
-      // Chuyển đổi các giá trị ngày và giờ thành đối tượng Date dựa trên múi giờ hiện tại của máy tính
-      const startUtc = new Date(startValue);
-      const endUtc = new Date(endValue);
-
-      // Chuyển đổi múi giờ từ UTC sang múi giờ của Việt Nam (UTC+7)
-      const startLocal = new Date(startUtc.getTime() + 7 * 60 * 60 * 1000);
-      const endLocal = new Date(endUtc.getTime() + 7 * 60 * 60 * 1000);
-
-      // Tạo đối tượng newDataBooking với các giá trị đã chuyển đổi
-      const newDataBooking = {
-        fieldId: this.params.snapshot.params['id'],
-        start: startLocal,
-        end: endLocal,
-        status: this.bookingForm.value.status || '1',
-        description: this.bookingForm.value.description || '',
-        services: newIdService,
-      };
-
-      // Gọi phương thức createBookingFb từ service và đăng ký subscribe cho nó
-      this.postService.createBookingFb(newDataBooking).subscribe(() => {
-        // Sau khi đặt hàng thành công, đặt lại form và hiển thị thông báo
-        this.bookingForm.reset();
-        this.toastr.success('Booking thành công');
-        alert('Booking thành công !');
-        setTimeout(() => {
-          window.location.reload();
-        }, 400);
-      });
-    } else {
-      // Nếu start hoặc end rỗng, hiển thị thông báo lỗi
-      this.toastr.error('Các trường start và end không được để trống');
+    const newIdService = this.serviceUsed.map((ite) => ite.id);
+    let arrayId = [];
+    for (const newi of this.serviceUsed) {
+      arrayId.push(newi.id);
     }
+    console.log(startValue, 'startValue');
+    console.log(endValue, 'endValue');
+    console.log(endValue, 'endValue');
+    console.log(
+      this.newDateBookingResultStart,
+      'this.newDateBookingResultStart'
+    );
+    console.log(this.newDateBookingResultEnd, 'this.newDateBookingResultEnd');
+    const newDataBooking = {
+      fieldId: this.params.snapshot.params['id'],
+      start: this.newDateBookingResultStart,
+      end: this.newDateBookingResultEnd,
+      status: this.bookingForm.value.status || '1',
+      description: this.bookingForm.value.description || '',
+      services: arrayId,
+    };
+    this.postService.createBookingFb(newDataBooking).subscribe(() => {
+      this.bookingForm.reset();
+      this.toastr.success('Booking thành công');
+      alert('Booking thành công !');
+      setTimeout(() => {
+        window.location.reload();
+      }, 400);
+    });
   }
 
   handelGetgetField() {
@@ -143,20 +157,17 @@ export class ProductsDetailPageComponent {
   ];
 
   // Phương thức kiểm tra xem một thời gian đã được đặt hay chưa
-  isDateTimeDisabled(inputName: string): boolean {
-    const inputValue = this.bookingForm.get(inputName)?.value;
-    const inputTime = inputValue.slice(11); // Cắt bớt phần ngày để chỉ lấy thời gian
-    const isBooked = this.bookedTimes.includes(inputTime);
-    return isBooked;
-  }
+
   handelUseService(data: any) {
     this.serviceUsed.push({
-      ...this.serviceUsed,
       serviceName: data.serviceName,
-      serviceFeeId: data.serviceFeeId,
+      id: data.id,
       price: data.price,
     });
     this.total += data.price;
+    console.log('handelUseService', this.serviceUsed);
+    const newIdService = this.serviceUsed.map((ite) => ite.id);
+    console.log('newIdService', newIdService);
   }
   handelRemoveServiceUsed(i: any) {
     this.total -= this.serviceUsed[i].price;
@@ -165,5 +176,27 @@ export class ProductsDetailPageComponent {
   }
   payToVNPay() {
     alert('Pay to VN');
+  }
+  handelCheckedDate(data: any) {
+    console.log('handelCheckedDate', data);
+    if (data.booked == true) {
+      this.toastr.error('Sân đã có người đặt từ trước');
+      return;
+    } else {
+      this.checkedTimeBook = data.start;
+      this.newDateBookingResultStart = data.start;
+      this.newDateBookingResultEnd = data.end;
+    }
+  }
+  handelGetPostsRelate(id: any) {
+    var data = {
+      userId: id,
+      status: 'Approved',
+    };
+    this.postService.getPostsRelate(data).subscribe((result: any) => {
+      console.log(result);
+      this.dataPostsRelate = result.data.items.slice(0, 4);
+      console.log(this.dataPostsRelate, 'result');
+    });
   }
 }

@@ -17,6 +17,7 @@ import { MyTeamComponent } from 'src/app/components/my-team/my-team.component';
 import { DetailsDanhsachComponent } from 'src/app/components/details-danhsach/details-danhsach.component';
 import { DetailsDtComponent } from 'src/app/components/details-dt/details-dt.component';
 import { InvitebymeComponent } from 'src/app/components/invitebyme/invitebyme.component';
+import { DetailsBookingComponent } from 'src/app/components/details-booking/details-booking.component';
 
 const routes: Routes = [
   {
@@ -52,7 +53,7 @@ const routes: Routes = [
         path: 'don-hang',
         component: DonHangComponent,
       },
-
+      { path: 'details-book/:id', component: DetailsBookingComponent },
     ],
   },
   {

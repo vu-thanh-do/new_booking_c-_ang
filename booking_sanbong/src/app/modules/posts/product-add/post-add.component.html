@@ -124,7 +124,28 @@
           <div class="col-6">
             <div class="form__field">
               <div>Dịch vụ đã chọn </div>
-                <div *ngFor="let icC of selectedServices ; let i =  index">
+              <table style="border:1px solid #ccc;margin-top:3px" class="table">
+                <thead>
+                  <tr>
+                    <th style="border:1px solid #ccc"  scope="col">STT</th>
+                    <th style="border:1px solid #ccc" scope="col">Tên dịch vụ</th>
+                    <th style="border:1px solid #ccc" scope="col">Giá tiển</th>
+                    <th style="border:1px solid #ccc" scope="col">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let icC of selectedServices ; let i =  index">
+                    <td  style="border:1px solid #ccc">{{i + 1}}</td>
+                    <td style="border:1px solid #ccc">{{icC.name}}</td>
+                    <td style="border:1px solid #ccc">{{icC.Price?.toLocaleString()}}</td>
+                    <td style="border:1px solid #ccc;display: flex;justify-content: center;">
+                          <button (click)="handelRemove(i)" style="width: 40px; height: 40px; background-color: red ;
+                    color: white; font-weight: bold; border-radius: 9px;">X</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+                <!-- <div *ngFor="let icC of selectedServices ; let i =  index">
                  <div style="display: flex; justify-content: space-between; padding-left: 5px; margin-bottom: 10px;align-items: center; border:1px solid #ccc; margin-top: 5px; border-radius: 4px; gap: 10px;">
                   <div style="display: flex; justify-content: center; align-items: center;">
                       <p style="font-weight: bold;">{{icC.name}}</p>
@@ -135,7 +156,7 @@
                     color: white; font-weight: bold;">X</button>
                   </div>
                  </div>
-                </div>
+                </div> -->
             </div>
 
           </div>

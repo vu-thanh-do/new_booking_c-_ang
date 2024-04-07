@@ -48,10 +48,13 @@ export class OrderService {
       data
     );
   }
-  paymentVNPayService(id :string , returnUrl :string){
+  paymentVNPayService(id: string, returnUrl: string) {
     // /api/Booking/Payment
     return this.http.get(
       `${this.baseURL}/api/Booking/Payment?id=${id}&returnUrl=${returnUrl}`
     );
+  }
+  getDetailsBooking(id: string) {
+    return this.http.get(`${this.baseURL}/api/Booking/GetBooking/${id}`);
   }
 }

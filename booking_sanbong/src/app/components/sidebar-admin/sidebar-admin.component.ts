@@ -132,75 +132,75 @@ export class SidebarAdminComponent {
     this.setActiveItemByUrl(this.urlPath);
 
     // Kiểm tra loại người dùng và cài đặt menuItems tương ứng
-    const userType = JSON.parse(localStorage.getItem("user")!)
-    console.log(userType,"userType")
+    const userType = JSON.parse(localStorage.getItem('user')!);
+    console.log(userType, 'userType');
     switch (userType.type) {
       case 'Admin':
         this.menuItems = [
           {
-                  routerLink: 'dashboard',
-                  label: 'Dashboard',
-                  icon: 'fas fa-tachometer-alt',
-                  isActive: true,
-                },
-                {
-                  routerLink: 'order',
-                  label: 'Đơn hàng',
-                  icon: 'fa-solid fa-cart-shopping',
-                  isActive: false,
-                },
-                {
-                  routerLink: 'manager-users',
-                  label: 'Người dùng',
-                  icon: 'fas fa-users',
-                  isActive: false,
-                  queryParams: { type: 'EndUser' }
-                },
-                {
-                  routerLink: 'manager-staff',
-                  label: 'Nhân viên',
-                  icon: 'fas fa-users',
-                  isActive: false,
-                  queryParams: { type: 'Staff' }
-                },
-                {
-                  routerLink: 'manager-owner',
-                  label: 'manager owner',
-                  icon: 'fas fa-users',
-                  isActive: false,
-                  queryParams: { type: 'FieldOwner' }
-                },
-                {
-                  routerLink: 'manager-manager',
-                  label: 'manager',
-                  icon: 'fas fa-users',
-                  isActive: false,
-                  queryParams: { type: 'Manager' }
-                },
-                {
-                  routerLink: 'manager-product',
-                  label: 'Sân bóng',
-                  icon: 'fa-solid fa-file',
-                  isActive: false,
-                },
-                {
-                  routerLink: 'manager-categories',
-                  label: 'Khu vực',
-                  icon: 'fa-solid fa-list',
-                  isActive: false,
-                },
-                {
-                  routerLink: 'all-service',
-                  label: 'services',
-                  icon: 'fa-solid fa-trash',
-                  isActive: false,
-                },
-                {
-                  routerLink: 'analytics',
-                  label: 'Thống kê',
-                  icon: '',
-                  isActive: false,
-                },
+            routerLink: 'dashboard',
+            label: 'Dashboard',
+            icon: 'fas fa-tachometer-alt',
+            isActive: true,
+          },
+          {
+            routerLink: 'order',
+            label: 'Đơn hàng',
+            icon: 'fa-solid fa-cart-shopping',
+            isActive: false,
+          },
+          {
+            routerLink: 'manager-users',
+            label: 'Người dùng',
+            icon: 'fas fa-users',
+            isActive: false,
+            queryParams: { type: 'EndUser' },
+          },
+          {
+            routerLink: 'manager-staff',
+            label: 'Nhân viên',
+            icon: 'fas fa-users',
+            isActive: false,
+            queryParams: { type: 'Staff' },
+          },
+          {
+            routerLink: 'manager-owner',
+            label: 'manager owner',
+            icon: 'fas fa-users',
+            isActive: false,
+            queryParams: { type: 'FieldOwner' },
+          },
+          {
+            routerLink: 'manager-manager',
+            label: 'manager',
+            icon: 'fas fa-users',
+            isActive: false,
+            queryParams: { type: 'Manager' },
+          },
+          {
+            routerLink: 'manager-product',
+            label: 'Sân bóng',
+            icon: 'fa-solid fa-file',
+            isActive: false,
+          },
+          {
+            routerLink: 'manager-categories',
+            label: 'Khu vực',
+            icon: 'fa-solid fa-list',
+            isActive: false,
+          },
+          {
+            routerLink: 'all-service',
+            label: 'services',
+            icon: 'fa-solid fa-trash',
+            isActive: false,
+          },
+          {
+            routerLink: 'analytics',
+            label: 'Thống kê',
+            icon: '',
+            isActive: false,
+          },
           // Thêm các mục khác cho Admin ở đây
         ];
         break;
@@ -223,7 +223,7 @@ export class SidebarAdminComponent {
             label: 'Người dùng',
             icon: 'fas fa-users',
             isActive: false,
-            queryParams: { type: 'EndUser' }
+            queryParams: { type: 'EndUser' },
           },
 
           {
@@ -231,7 +231,7 @@ export class SidebarAdminComponent {
             label: 'manager owner',
             icon: 'fas fa-users',
             isActive: false,
-            queryParams: { type: 'FieldOwner' }
+            queryParams: { type: 'FieldOwner' },
           },
 
           {
@@ -258,7 +258,6 @@ export class SidebarAdminComponent {
             icon: '',
             isActive: false,
           },
-          // Thêm các mục khác cho Staff ở đây
         ];
         break;
       case 'Manager':
@@ -280,14 +279,14 @@ export class SidebarAdminComponent {
             label: 'Người dùng',
             icon: 'fas fa-users',
             isActive: false,
-            queryParams: { type: 'EndUser' }
+            queryParams: { type: 'EndUser' },
           },
           {
             routerLink: 'manager-staff',
             label: 'Nhân viên',
             icon: 'fas fa-users',
             isActive: false,
-            queryParams: { type: 'Staff' }
+            queryParams: { type: 'Staff' },
           },
           // Thêm các mục khác cho Manager ở đây
         ];
@@ -306,10 +305,15 @@ export class SidebarAdminComponent {
             icon: 'fa-solid fa-cart-shopping',
             isActive: false,
           },
+          {
+            routerLink: 'manager-product',
+            label: 'Sân bóng',
+            icon: 'fa-solid fa-file',
+            isActive: false,
+          },
         ];
         break;
       default:
-
     }
   }
 

@@ -20,6 +20,7 @@ import { AnalyticsComponent } from 'src/app/pages/analytics/analytics.component'
 import { ServiceFeeComponent } from 'src/app/components/service-fee/service-fee.component';
 import { GetallServiceComponent } from 'src/app/components/getall-service/getall-service.component';
 import { EditServiceComponent } from 'src/app/components/edit-service/edit-service.component';
+import { DetailsBookingComponent } from 'src/app/components/details-booking/details-booking.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,7 @@ const routes: Routes = [
       { path: 'edit-service/:id', component: EditServiceComponent },
       { path: 'trash-can', component: ManagerTrashCanComponent },
       { path: 'analytics', component: AnalyticsComponent },
+      { path: 'details-booking/:id', component: DetailsBookingComponent },
     ],
   },
 ];

@@ -33,7 +33,7 @@ export class ManageOrderComponent {
   orderDones: IOrder[] = [];
   orderCancel: IOrder[] = [];
   orderPending: IOrder[] = [];
-  confirmData : IOrder[] = [];
+  confirmData: IOrder[] = [];
   constructor(
     private userService: UserService,
     private orderServer: OrderService,
@@ -48,22 +48,22 @@ export class ManageOrderComponent {
       console.log(order);
       this.orders = order.data.items;
       this.orderCancel = order.data.items.filter(
-        (orderA: any) =>orderA.status === 'Cancel'
+        (orderA: any) => orderA.status === 'Cancel'
       );
       this.orderDones = order.data.items.filter(
-        (orderA: any) =>orderA.status === 'Pair'
+        (orderA: any) => orderA.status === 'Pair'
       );
-      this.orderPending =  order.data.items.filter(
+      this.orderPending = order.data.items.filter(
         (orderA: any) => orderA.status === 'Wait'
       );
-      this.confirmData =  order.data.items.filter(
+      this.confirmData = order.data.items.filter(
         (orderA: any) => orderA.status === 'Confirm'
       );
       this.dataSourcePending = this.orderPending;
       this.dataSourceDone = this.orderDones;
       this.dataSourceCancel = this.orderCancel;
     });
-    console.log(this.orderCancel,'orderCancel')
+    console.log(this.orderCancel, 'orderCancel');
   }
 
   /* format currentcy */
@@ -124,5 +124,8 @@ export class ManageOrderComponent {
       this.getAllOrder();
       this.toastr.success('updated status');
     });
+  }
+  handelDetailsBooking(id: string) {
+    window.location.href = '';
   }
 }

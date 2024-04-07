@@ -80,6 +80,7 @@ import { GetallServiceComponent } from './components/getall-service/getall-servi
 import { EditServiceComponent } from './components/edit-service/edit-service.component';
 import { PriceDialogComponent } from './components/price-dialog/price-dialog.component';
 import { InvitebymeComponent } from './components/invitebyme/invitebyme.component';
+import { DetailsBookingComponent } from './components/details-booking/details-booking.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { InvitebymeComponent } from './components/invitebyme/invitebyme.componen
     EditServiceComponent,
     PriceDialogComponent,
     InvitebymeComponent,
+    DetailsBookingComponent,
   ],
   imports: [
     BrowserModule,
