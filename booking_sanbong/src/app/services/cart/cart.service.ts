@@ -19,12 +19,14 @@ export class CartService {
   getAllCart(id: string): Observable<any> {
     return this.http.get<IDocCategories>(`${this.baseURL}getall-cart/${id}`);
   }
-  /* add new cart */
+  /* Thêm mới cart */
   addCart(id: string, idPod: string): Observable<any> {
     return this.http.post<any>(`${this.baseURL}add-to-cart/${id}`, { idPod });
   }
   /* delete cart */
   deleteItemCart(id: string, idPod: string): Observable<any> {
-    return this.http.delete<any>(`${this.baseURL}remove-to-cart/${id}/${idPod}`);
+    return this.http.delete<any>(
+      `${this.baseURL}remove-to-cart/${id}/${idPod}`
+    );
   }
 }

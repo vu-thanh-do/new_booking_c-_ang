@@ -42,7 +42,7 @@
 //     },
 //     {
 //       routerLink: 'manager-owner',
-//       label: 'manager owner',
+//       label: 'Chủ sân',
 //       icon: 'fas fa-users',
 //       isActive: false,
 //       queryParams: { type: 'FieldOwner' }
@@ -139,7 +139,7 @@ export class SidebarAdminComponent {
         this.menuItems = [
           {
             routerLink: 'dashboard',
-            label: 'Dashboard',
+            label: 'Thống kê',
             icon: 'fas fa-tachometer-alt',
             isActive: true,
           },
@@ -165,14 +165,14 @@ export class SidebarAdminComponent {
           },
           {
             routerLink: 'manager-owner',
-            label: 'manager owner',
+            label: 'Chủ sân',
             icon: 'fas fa-users',
             isActive: false,
             queryParams: { type: 'FieldOwner' },
           },
           {
             routerLink: 'manager-manager',
-            label: 'manager',
+            label: 'Quản lý',
             icon: 'fas fa-users',
             isActive: false,
             queryParams: { type: 'Manager' },
@@ -191,7 +191,7 @@ export class SidebarAdminComponent {
           },
           {
             routerLink: 'all-service',
-            label: 'services',
+            label: 'Dịch vụ',
             icon: 'fa-solid fa-trash',
             isActive: false,
           },
@@ -208,7 +208,7 @@ export class SidebarAdminComponent {
         this.menuItems = [
           {
             routerLink: 'dashboard',
-            label: 'Dashboard',
+            label: 'Thống kê',
             icon: 'fas fa-tachometer-alt',
             isActive: true,
           },
@@ -228,7 +228,7 @@ export class SidebarAdminComponent {
 
           {
             routerLink: 'manager-owner',
-            label: 'manager owner',
+            label: 'Chủ sân',
             icon: 'fas fa-users',
             isActive: false,
             queryParams: { type: 'FieldOwner' },
@@ -264,7 +264,7 @@ export class SidebarAdminComponent {
         this.menuItems = [
           {
             routerLink: 'dashboard',
-            label: 'Dashboard',
+            label: 'Thống kê',
             icon: 'fas fa-tachometer-alt',
             isActive: true,
           },
@@ -288,14 +288,13 @@ export class SidebarAdminComponent {
             isActive: false,
             queryParams: { type: 'Staff' },
           },
-          // Thêm các mục khác cho Manager ở đây
         ];
         break;
       case 'FieldOwner':
         this.menuItems = [
           {
             routerLink: 'dashboard',
-            label: 'Dashboard',
+            label: 'Thống kê',
             icon: 'fas fa-tachometer-alt',
             isActive: true,
           },

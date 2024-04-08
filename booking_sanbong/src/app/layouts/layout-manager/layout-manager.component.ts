@@ -88,7 +88,7 @@ export class LayoutManagerComponent {
       }
     });
   }
-  /* handle add new user */
+  /* handle Thêm mới user */
   handleAdd(info: any) {
     this.handleAddNewUser.emit(info);
   }

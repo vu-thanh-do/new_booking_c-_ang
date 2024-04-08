@@ -31,7 +31,7 @@ export class AddCategoryComponent {
       console.log(this.categories);
     });
   }
-  /* handle add new category */
+  /* handle Thêm mới category */
   handleAddNewCategory() {
     if (this.addForm.invalid) return;
     const category: any = {

@@ -53,6 +53,13 @@
         <div>
             <img style="width: 200px;" [src]=" urlImage + dataDetails.field.picture"alt="">
         </div>
+
+        <div style="display: flex;align-items: center ; gap: 20px;">
+        <button (click)="exportToExcel()" class="btn btn-dark">
+Tạo hoá đơn
+        </button>
+        <img style="width: 80px;" src="../../../assets/images/xls.png" alt="">
+        </div>
       </div>
     </div>
 

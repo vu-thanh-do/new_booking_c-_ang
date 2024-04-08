@@ -45,7 +45,7 @@ export class CategoryService {
   getAllCategories(): Observable<any> {
     return this.http.get<any>(`${this.baseURL}/api/FieldArea/GetAll`);
   }
-  /* add new category */
+  /* Thêm mới category */
   addNewCategory(category: ICategory): Observable<ICategory> {
     // const options = this.getAccessToken();
     return this.http.post<ICategory>(

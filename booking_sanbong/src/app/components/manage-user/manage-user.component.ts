@@ -22,7 +22,7 @@ export class ManageUserComponent {
     hasPrevPage: false,
   };
   urlImage: string = environment.API_URL + '/root/';
-  dataUser : any = {}
+  dataUser: any = {};
   title: string = 'Quản lý người dùng';
   titleModal: string = 'Thêm người dùng';
   linkActive: string = '/admin/add-user';
@@ -48,9 +48,9 @@ export class ManageUserComponent {
     private userService: UserService,
     private builder: FormBuilder,
     private toastr: ToastrService,
-    private route: ActivatedRoute,
-    // private activatedRoute: ActivatedRoute
-  ) {
+    private route: ActivatedRoute
+  ) // private activatedRoute: ActivatedRoute
+  {
     this.getAllUsers();
   }
   /* handle delete user */
@@ -71,8 +71,8 @@ export class ManageUserComponent {
     this.route.queryParams.subscribe((params) => {
       console.log(params);
       // const type = params.get('type');
-   const type =   params['type']
-   console.log(type);
+      const type = params['type'];
+      console.log(type);
       if (type) {
         this.userService
           .getUserByAll({
@@ -85,7 +85,7 @@ export class ManageUserComponent {
       }
     });
   }
-  /* handle add new user */
+  /* handle Thêm mới user */
   handleAddNewUser() {
     console.log(this.userForm.value);
   }
@@ -111,10 +111,10 @@ export class ManageUserComponent {
       this.getAllUsers();
     }
   }
-  handelGetIdUser(userId: string){
-    this.userService.getIdUser(userId).subscribe((user : any) => {
-      console.log(user,'user');
-      this.dataUser = user.data
-    })
+  handelGetIdUser(userId: string) {
+    this.userService.getIdUser(userId).subscribe((user: any) => {
+      console.log(user, 'user');
+      this.dataUser = user.data;
+    });
   }
 }
