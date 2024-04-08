@@ -81,6 +81,7 @@ import { EditServiceComponent } from './components/edit-service/edit-service.com
 import { PriceDialogComponent } from './components/price-dialog/price-dialog.component';
 import { InvitebymeComponent } from './components/invitebyme/invitebyme.component';
 import { DetailsBookingComponent } from './components/details-booking/details-booking.component';
+import { DetailsFieldAreaComponent } from './components/details-field-area/details-field-area.component';
 
 @NgModule({
   declarations: [
@@ -140,6 +141,7 @@ import { DetailsBookingComponent } from './components/details-booking/details-bo
     PriceDialogComponent,
     InvitebymeComponent,
     DetailsBookingComponent,
+    DetailsFieldAreaComponent,
   ],
   imports: [
     BrowserModule,

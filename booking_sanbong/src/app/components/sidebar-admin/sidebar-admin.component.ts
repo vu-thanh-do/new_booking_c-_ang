@@ -195,12 +195,7 @@ export class SidebarAdminComponent {
             icon: 'fa-solid fa-trash',
             isActive: false,
           },
-          {
-            routerLink: 'analytics',
-            label: 'Thống kê',
-            icon: '',
-            isActive: false,
-          },
+
           // Thêm các mục khác cho Admin ở đây
         ];
         break;
@@ -250,12 +245,6 @@ export class SidebarAdminComponent {
             routerLink: 'trash-can',
             label: 'Trash can',
             icon: 'fa-solid fa-trash',
-            isActive: false,
-          },
-          {
-            routerLink: 'analytics',
-            label: 'Thống kê',
-            icon: '',
             isActive: false,
           },
         ];

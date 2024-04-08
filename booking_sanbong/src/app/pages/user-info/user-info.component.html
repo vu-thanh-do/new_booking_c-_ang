@@ -7,7 +7,7 @@
       <div class="card mb-4 mb-xl-0">
         <div class="card-header">Profile Picture</div>
 
-        <form class="card-body text-center" (submit)="handleSubmitPostForm($event)">
+        <form [formGroup]="userInfo" class="card-body text-center" (submit)="handleSubmitPostForm($event)">
           <!-- Profile picture image-->
           <img
               formControlName="images"
@@ -47,6 +47,7 @@
                 placeholder="Enter your username"
                 value="username"
                 formControlName="username"
+
                 [readOnly]="
                   user && userLocal && user.id !== userLocal.id ? true : false
                 "
@@ -101,11 +102,11 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputPhone">Address</label>
+                <label class="small mb-1" for="inputPhone">gender</label>
                 <input
                   class="form-control"
                   type="string"
-                  placeholder="Enter your address"
+                  placeholder="Enter your gender"
                   formControlName="address"
                   [readOnly]="
                     user && userLocal && user._id !== userLocal._id
@@ -122,7 +123,7 @@
                   <span
                     class="text-danger"
                     *ngIf="checkAddress.errors?.['required']"
-                    >Address is required</span
+                    >gender is required</span
                   >
                 </div>
               </div>

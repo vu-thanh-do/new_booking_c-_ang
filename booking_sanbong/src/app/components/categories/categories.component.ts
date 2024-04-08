@@ -11,7 +11,7 @@ import { ICategory } from 'src/app/interfaces/Category';
 export class CategoriesComponent {
   title: string = 'Quản lý khu vực';
   routerLink: string = '/admin/add-category';
-  theadTable: string[] = ['STT', 'Tên danh mục', 'mô trả', 'Action'];
+  theadTable: string[] = ['STT', 'Tên khu vực', 'mô trả', 'Action'];
   categories: any[] = [];
   detailsCategory: any = {};
   constructor(
@@ -46,11 +46,9 @@ export class CategoriesComponent {
     this.excelServiceService.exportToExcel(this.categories, 'categories');
   }
   getIdCategory(id: string) {
-    this.categoryService
-      .getCategoryById(id)
-      .subscribe((dataCategory) => {
-        console.log(dataCategory)
-        this.detailsCategory = dataCategory.data
-      });
+    this.categoryService.getCategoryById(id).subscribe((dataCategory) => {
+      console.log(dataCategory);
+      this.detailsCategory = dataCategory.data;
+    });
   }
 }

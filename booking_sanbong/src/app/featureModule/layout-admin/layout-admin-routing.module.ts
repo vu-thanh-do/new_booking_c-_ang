@@ -21,6 +21,7 @@ import { ServiceFeeComponent } from 'src/app/components/service-fee/service-fee.
 import { GetallServiceComponent } from 'src/app/components/getall-service/getall-service.component';
 import { EditServiceComponent } from 'src/app/components/edit-service/edit-service.component';
 import { DetailsBookingComponent } from 'src/app/components/details-booking/details-booking.component';
+import { DetailsFieldAreaComponent } from 'src/app/components/details-field-area/details-field-area.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,7 @@ const routes: Routes = [
       { path: 'trash-can', component: ManagerTrashCanComponent },
       { path: 'analytics', component: AnalyticsComponent },
       { path: 'details-booking/:id', component: DetailsBookingComponent },
+      { path: 'details-field-area/:id', component: DetailsFieldAreaComponent },
     ],
   },
 ];

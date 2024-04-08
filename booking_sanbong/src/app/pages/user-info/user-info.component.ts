@@ -16,11 +16,12 @@ import { environment } from 'src/environment';
 })
 export class UserInfoComponent {
   user!: IUserRequest;
-  userLocal: IUser = JSON.parse(
+  userLocal: any = JSON.parse(
     localStorage.getItem(this.auth.TOKEN_USER) || '{}'
   );
   urlImage: string = environment.API_URL + '/root/';
-  defaultImageUrl = "https://cdn5.vectorstock.com/i/1000x1000/51/99/icon-of-user-avatar-for-web-site-or-mobile-app-vector-3125199.jpg"
+  defaultImageUrl =
+    'https://cdn5.vectorstock.com/i/1000x1000/51/99/icon-of-user-avatar-for-web-site-or-mobile-app-vector-3125199.jpg';
 
   listUserPosts!: IPosts[];
   avatarForm: any;
@@ -41,28 +42,29 @@ export class UserInfoComponent {
     private userService: UserService,
     private toastr: ToastrService
   ) {
-    // this.router.paramMap.subscribe((params) => {
-    //   const id = params.get('id');
-    //   this.userService.getUser(id!).subscribe(({ user }) => {
-    //     this.user = user;
-    //     this.userInfo.patchValue({
-    //       username: user.username,
-    //       email: user.email,
-    //       address: user.address,
-    //       phone: user.phone,
-    //     });
-    //   });
-    //   this.profile.getUserPosts(id!).subscribe(
-    //     ({ data }) => {
-    //       if (data.postList) {
-    //         this.listUserPosts = data.postList;
-    //       }
-    //     },
-    //     (err) => {
-    //       console.log(err.message);
-    //     }
-    //   );
-    // });
+    this.router.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      this.userService.getIdUser(id!).subscribe((data: any) => {
+        console.log(data, 'm');
+        // this.user = user;
+        this.userInfo.patchValue({
+          username: data.data.name,
+          email: data.data.email,
+          address: data.data.gender,
+          phone: data.data.phone,
+        });
+      });
+      // this.profile.getUserPosts(id!).subscribe(
+      //   ({ data }) => {
+      //     if (data.postList) {
+      //       this.listUserPosts = data.postList;
+      //     }
+      //   },
+      //   (err) => {
+      //     console.log(err.message);
+      //   }
+      // );
+    });
   }
 
   get checkUsername() {
@@ -95,10 +97,10 @@ export class UserInfoComponent {
   }
   handleFileInput(event: any): void {
     const files: FileList = event.target.files;
-    console.log(files)
+    console.log(files);
     this.urls.push(files[0]);
   }
-  handleSubmitPostForm(event : any) {
+  handleSubmitPostForm(event: any) {
     event.preventDefault();
     /* lấy ra thông tin người dùng */
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -107,7 +109,7 @@ export class UserInfoComponent {
       return;
     }
     const imageFrom = new FormData();
-    console.log(this.urls[0])
+    console.log(this.urls[0]);
     imageFrom.append('file', this.urls[0]);
     this.auth.uploadAvatarUser(imageFrom).subscribe(
       () => {
