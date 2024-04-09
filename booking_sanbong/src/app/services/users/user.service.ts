@@ -65,6 +65,9 @@ export class UserService {
   updateUser(id: string | undefined, user: IUserRequest) {
     return this.http.put<any>(`${this.baseURL}/${id}`, user);
   }
+  updateUser2( user: any) {
+    return this.http.post<any>(`${this.baseURL}/api/Account/UpdateProfile`, user);
+  }
   /* delete fake */
   deleteUserFake(id: string) {
     return this.http.put(`${this.baseURL}/delete-fake/${id}`, {

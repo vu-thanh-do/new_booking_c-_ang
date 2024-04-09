@@ -12,11 +12,11 @@ import { UploadImageService } from 'src/app/services/uploadImage/upload-image.se
   styleUrls: ['./edit-user.component.scss'],
 })
 export class EditUserComponent {
-  user!: IUser;
+  user!: any;
   imagePreview: any;
   userForm = this.fb.group({
     username: ['', [Validators.required]],
-    // password: ['', [Validators.required, Validators.minLength(6)]],
+    phone: ['', [Validators.required, Validators.minLength(6)]],
     email: ['', [Validators.required, Validators.email]],
     role: ['user', [Validators.required]],
     avatar: ['', [Validators.required]],
@@ -28,19 +28,21 @@ export class EditUserComponent {
     private router: ActivatedRoute,
     private redirect: Router,
     private toastr: ToastrService,
-    private ImageService: UploadImageService
+    private ImageService: UploadImageService,
+    private params: ActivatedRoute
+
   ) {
     this.router.paramMap.subscribe((params) => {
       const id = params.get('id');
-      this.userService.getUser(id!).subscribe(({ user: userResponse }) => {
-        this.user = userResponse;
+      this.userService.getIdUser(id!).subscribe((data :any) => {
+        console.log(data);
+        this.user = data.data;
 
-        // this.imagePreview = userResponse.avatar;
         this.userForm.patchValue({
-          username: userResponse.username,
-          email: userResponse.email,
-          role: userResponse.role,
-          avatar: userResponse.avatar,
+          username: data.data.name,
+          email: data.data.email,
+          role: data.data.type,
+          phone : data.data.phone
         });
       });
     });
@@ -79,20 +81,18 @@ export class EditUserComponent {
   onHandleSubmit() {
     // console.log(this.userForm.value);
     // return;
-
-    if (this.userForm.invalid) return;
-    const user: IUserRequest = {
-      username: this.userForm.value.username || '',
-      email: this.userForm.value.email || '',
-      // password: this.userForm.value.password || '',
-      role: this.userForm.value.role || 'user',
-      avatar: this.userForm.value.avatar || '',
+    const id = this.params.snapshot.params['id']
+    const user: any = {
+      id : id,
+      name: this.userForm.value.username || '',
+      type: this.userForm.value.role || 'user',
+      gender : this.user.gender,
+      phone: this.userForm.value.phone || '',
     };
-    this.userService.updateUser(this.user._id!, user).subscribe(
-      () => {
+    this.userService.updateUser2(user).subscribe(
+      (data : any) => {
         this.toastr.success('Update successful');
-        this.redirect.navigate(['admin/manager-users']);
-
+        // this.redirect.navigate(['admin/manager-users']);
         // return;
       },
       () => {
