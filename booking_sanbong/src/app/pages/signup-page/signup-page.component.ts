@@ -50,7 +50,7 @@ export class SignupPageComponent {
     return { notMatch: true };
   }
 
-  onHandleSubmit() {
+ onHandleSubmit() {
     const user: IUserRegister = {
       name: this.signUpForm.value.name || '',
       email: this.signUpForm.value.email || '',
@@ -61,9 +61,14 @@ export class SignupPageComponent {
 
     this.authService.signUpUser(user).subscribe(
       (user) => {
-        this.toastr.success('Successful account registration');
-
-        this.router.navigate(['/login']);
+        console.log(user, 'user');
+        if (user.success == false) {
+          this.toastr.error(user.message);
+          return;
+        } else {
+          this.toastr.success('Successful account registration');
+          this.router.navigate(['/login']);
+        }
       },
       (error) => console.log(error.message)
     );
