@@ -70,7 +70,8 @@
                     <a id="Zoomer" href="javascript:void(0)"
                       data-image="https://datsantructuyen.vn/images/products/2022/08/24/large/san-bong-den-lu_1661351091-copy-1.jpg"
                       class="MagicZoomPlus" title="">
-                      <img style="width: 100%;" onclick="gotoGallery(1,0,0);" [src]=" urlImage + post.picture" />
+                     <img style="width: 100%;" [src]="urlImage + (post?.picture || '')" />
+
                     </a>
                   </div>
 
@@ -87,8 +88,7 @@
                               <a href="javascript:void(0)"
                                 id="images/products/2022/08/24/original/san-bong-den-lu_1661351091-copy-1.jpg"
                                 rel="image_large1" class="selected cboxElement cb-image-link" title="Sân Bóng Đền Lừ 3">
-                                <img onclick="gotoGallery(1,0,0);" [src]=" urlImage + post.picture"
-                                  alt="Sân Bóng Đền Lừ 3" itemprop="image" />
+                               <img style="width: 100%;" [src]="urlImage + (post?.picture || '')" />
                               </a>
                             </div>
                           </div>
@@ -96,8 +96,7 @@
                             <div class="item">
                               <a href="javascript:void(0)" class="cboxElement cb-image-link" rel="image_large1"
                                 title="Sân Bóng Đền Lừ 3">
-                                <img onclick="gotoGallery(1,0,0);" [src]=" urlImage + post.picture"
-                                  alt="Sân Bóng Đền Lừ 3" class="image0" itemprop="image" />
+                                 <img style="width: 100%;" [src]="urlImage + (post?.picture || '')" />
                               </a>
                             </div>
                           </div>
@@ -105,8 +104,7 @@
                             <div class="item">
                               <a href="javascript:void(0)" class="cboxElement cb-image-link" rel="image_large1"
                                 title="Sân Bóng Đền Lừ 3">
-                                <img onclick="gotoGallery(1,0,0);" [src]=" urlImage + post.picture"
-                                  alt="Sân Bóng Đền Lừ 3" class="image1" itemprop="image" />
+                             <img style="width: 100%;" [src]="urlImage + (post?.picture || '')" />
                               </a>
                             </div>
                           </div>
@@ -1219,25 +1217,7 @@
                   <div class="address">
                     <span class="mr-2">Khu vực:</span> {{featureItem.address}}
                   </div>
-                  <!-- <div class="people-star d-flex align-items-center justify-content-between">
-                    <div class="people">Số sân: 6</div>
-                    <div class="star-item">
-                      <div class="icon">
-                        <svg width="12" height="12">
-                          <use href="#svg-star"></use>
-                        </svg><svg width="12" height="12">
-                          <use href="#svg-star"></use>
-                        </svg><svg width="12" height="12">
-                          <use href="#svg-star"></use>
-                        </svg><svg width="12" height="12">
-                          <use href="#svg-star"></use>
-                        </svg><svg width="12" height="12">
-                          <use href="#svg-star"></use>
-                        </svg>
-                      </div>
-                      <div class="number">(1)</div>
-                    </div>
-                  </div> -->
+
                   <div class="price mt-2">
                     <span class="price-amount"></span>
                   </div>

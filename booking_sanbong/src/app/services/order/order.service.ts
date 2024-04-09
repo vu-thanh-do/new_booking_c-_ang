@@ -57,4 +57,16 @@ export class OrderService {
   getDetailsBooking(id: string) {
     return this.http.get(`${this.baseURL}/api/Booking/GetBooking/${id}`);
   }
+
+  stakeMoneyService(id: string, returnUrl: string) {
+    return this.http.get(
+      `${this.baseURL}/api/Booking/Deposit?id=${id}&returnUrl=${returnUrl}`
+    );
+    // /api/Booking/Deposit
+  }
+
+  acceptStakeService(id: any) {
+    return this.http.get(`${this.baseURL}/api/Booking/DepositSuccess/${id}`);
+    // api/Booking/DepositSuccess
+  }
 }

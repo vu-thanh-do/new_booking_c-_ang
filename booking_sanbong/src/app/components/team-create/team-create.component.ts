@@ -13,6 +13,7 @@ export class TeamCreateComponent {
   routerLink: string = '/admin/add-category';
   theadTable: string[] = ['STT', 'Tên team', 'mô trả', 'Action'];
   team: any[] = [];
+  dataDetailsTeam: any;
   constructor(
     private categoryService: CategoryService,
     private excelServiceService: ExcelServiceService,
@@ -32,5 +33,11 @@ export class TeamCreateComponent {
         window.location.reload();
         this.getAllTeamByUSer();
       });
+  }
+  getIdTeam(id: any) {
+    this.TeamserviceService.getIdTeam(id).subscribe((db: any) => {
+      console.log(db, 'db');
+      this.dataDetailsTeam = db.data;
+    });
   }
 }

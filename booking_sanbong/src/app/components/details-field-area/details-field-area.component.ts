@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/services/category/category.service';
+import { environment } from 'src/environment';
 
 @Component({
   selector: 'app-details-field-area',
@@ -9,6 +10,8 @@ import { CategoryService } from 'src/app/services/category/category.service';
 })
 export class DetailsFieldAreaComponent {
   detailField: any[] = [];
+  urlImage: string = environment.API_URL + '/root/';
+  titleField: string = '';
   constructor(
     private categoryService: CategoryService,
     private params: ActivatedRoute
@@ -20,7 +23,8 @@ export class DetailsFieldAreaComponent {
     var id = this.params.snapshot.params['id'];
 
     this.categoryService.getCategoryById(id).subscribe((category) => {
-      console.log(category, 'ccc');
+      this.detailField = category.data.fields;
+      this.titleField = category.data.name;
     });
   }
 }

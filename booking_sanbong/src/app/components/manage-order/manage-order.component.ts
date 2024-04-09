@@ -34,6 +34,8 @@ export class ManageOrderComponent {
   orderCancel: IOrder[] = [];
   orderPending: IOrder[] = [];
   confirmData: IOrder[] = [];
+  stakeMoneyData: IOrder[] = [];
+
   constructor(
     private userService: UserService,
     private orderServer: OrderService,
@@ -54,10 +56,17 @@ export class ManageOrderComponent {
         (orderA: any) => orderA.status === 'Pair'
       );
       this.orderPending = order.data.items.filter(
-        (orderA: any) => orderA.status === 'Wait'
+        (orderA: any) => orderA.status === 'Wait' && orderA.deposited == false
       );
       this.confirmData = order.data.items.filter(
-        (orderA: any) => orderA.status === 'Confirm'
+        (orderA: any) =>
+          orderA.status === 'Confirm' && orderA.deposited == false
+      );
+      this.stakeMoneyData = order.data.items.filter(
+        (orderA: any) =>
+          orderA.deposited == true &&
+          orderA.status !== 'Pair' &&
+          orderA.status !== 'Cancel'
       );
       this.dataSourcePending = this.orderPending;
       this.dataSourceDone = this.orderDones;

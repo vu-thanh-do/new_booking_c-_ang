@@ -64,7 +64,7 @@ export class CartGioHangComponent {
       // Tùy thuộc vào giá trị của tham số 'items', lọc dữ liệu phù hợp
       if (items === '1') {
         this.dataUserBooking = data.data.items.filter(
-          (it: any) => it.status == 'Pair'
+          (it: any) => it.status == 'Pair' && it.deposited == false
         );
         this.titleCheck = 'Đơn hàng';
       } else {
@@ -203,5 +203,16 @@ export class CartGioHangComponent {
     this.orderService.updateStatusOrder(data).subscribe((data: any) => {
       this.Toast.success('updated status');
     });
+  }
+  handelStatePayment(orderId: any) {
+    var returnUrl = 'http://localhost:4200/cart';
+    this.orderService
+      .stakeMoneyService(orderId, returnUrl)
+      .subscribe((data: any) => {
+        this.orderService.acceptStakeService(orderId).subscribe((db: any) => {
+          console.log(db, 'db');
+        });
+        window.location.href = data.data;
+      });
   }
 }
