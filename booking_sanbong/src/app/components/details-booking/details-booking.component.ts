@@ -11,18 +11,30 @@ import * as XLSX from 'xlsx';
 })
 export class DetailsBookingComponent {
   dataDetails: any = {};
+  checkUserOrAdmin : boolean = false;
+  priceStake : number = 0;
   urlImage: string = environment.API_URL + '/root/';
   dataToExport: any;
   constructor(
     private orderService: OrderService,
     private params: ActivatedRoute
   ) {
+    this.params.queryParams.subscribe(params => {
+      const userId = params['user'];
+      if(userId == 1){
+        this.checkUserOrAdmin = true
+      }else{
+        this.checkUserOrAdmin = false
+
+      }
+    });
     this.handelGetDetailsBooking();
   }
   handelGetDetailsBooking() {
     var id = this.params.snapshot.params['id'];
     this.orderService.getDetailsBooking(id).subscribe((data: any) => {
       console.log(data);
+      this.priceStake = data.data.price / 10
       this.dataDetails = data.data;
       this.dataToExport = {
         name: data.data.user.email,

@@ -63,7 +63,7 @@
                           </td>
                           <td style="border-right:1px solid #ccc">
                           <div>
-                             <button [routerLink]="'/details-book/' +  item.id"  style="margin-top:10px; background-color:#ccc;margin-bottom:4px;width: 100%;" type="button"
+                             <button [routerLink]="'/details-book/' +  item.id" [queryParams]="{ user: 1 }"  style="margin-top:10px; background-color:#ccc;margin-bottom:4px;width: 100%;" type="button"
                                 class=" btn btn-dark">
                                 chi tiết
                               </button>

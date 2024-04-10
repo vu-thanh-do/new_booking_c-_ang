@@ -24,6 +24,14 @@
                   <span class="">{{dataDetails.price?.toLocaleString()}} VND</span>
                 </div>
                 </div>
+                <div *ngIf="checkUserOrAdmin" class="">
+                  <div class="">
+                  <span class="">
+                    Đã cọc :
+                  </span>
+                  <span class="">{{priceStake?.toLocaleString()}} VND</span>
+                </div>
+                </div>
               </div>
             </div>
           </div>
