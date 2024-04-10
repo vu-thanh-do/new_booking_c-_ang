@@ -29,6 +29,7 @@ export interface IPosts {
   createdAt: string;
   updatedAt: string;
   price: string;
+  reason?: string;
 }
 
 export interface IDocPosts {

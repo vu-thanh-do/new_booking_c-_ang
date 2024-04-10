@@ -156,7 +156,7 @@
                 <!-- <button class="text-warning" (click)="getPostById(post._id!)" data-toggle="modal"
                   data-target="#exampleModal"> -->
                     <button
-                    *ngIf="infoUser.type !== 'FieldOwner'"
+                    *ngIf="infoUser.type !== 'FieldOwner' && post.status != 'Approved'"
                     (click)="handelApproved(post.id!)"
                   class="text-23BB86"
                 >
@@ -395,10 +395,10 @@
                   }}</span>
                 </div>
                 <div *ngIf="infoUser.type !== 'FieldOwner'" class="d-flex gap-5">
-                   <button (click)="handelApproved(postInfo.id!)" class="btn btn-success">
+                   <button *ngIf="postInfo.status != 'Approved'" (click)="handelApproved(postInfo.id!)" class="btn btn-success">
                     Approve
                   </button>
-                   <button (click)="handelRejected(postInfo.id!)" class="btn btn-danger">
+                   <button  *ngIf="postInfo.status != 'Reject'"  (click)="handelRejected(postInfo.id!)" class="btn btn-danger">
                     Reject
                   </button>
                 </div>
@@ -413,9 +413,9 @@
                 </div>
                 <div class="col-sm-12 col-md-8">
                   <div class="infomation">
-                    <div class="quote">
-                      <p style="color:black">
-
+                    <div *ngIf="postInfo.status == 'Reject'" class="quote">
+                      <p  style="color:black">
+                          Lý do huỷ : {{postInfo.reason}}
                       </p>
                     </div>
                   </div>

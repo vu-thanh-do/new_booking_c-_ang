@@ -139,15 +139,22 @@ export class LayoutManagerComponent {
     });
   }
   handelRejected(id: string) {
-    var data = {
-      id: id,
-      status: 'Reject',
-    };
-    this.postsService.updateStatusField(data).subscribe((items) => {
-      this.toastr.success('Updated');
-      setTimeout(() => {
-        window.location.reload();
-      }, 350);
-    });
+    let userInput = prompt('Nhập vào lý do từ chối của bạn:');
+    if (userInput == null || userInput.trim() == '') {
+      this.toastr.error('Lý do là bắt buộc !');
+      return;
+    } else {
+      var data = {
+        id: id,
+        status: 'Reject',
+        reason: userInput,
+      };
+      this.postsService.updateStatusField(data).subscribe((items) => {
+        this.toastr.success('Updated');
+        setTimeout(() => {
+          window.location.reload();
+        }, 350);
+      });
+    }
   }
 }
