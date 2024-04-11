@@ -19,6 +19,7 @@ export class ProductsDetailPageComponent {
   mailUser!: string | null;
   post!: IPosts;
   checkedTimeBook: string = '';
+  checkDisabled: boolean = false;
   relatedPosts!: IPosts[];
   newDateBookingResultStart: string = '';
   newDateBookingResultEnd: string = '';
@@ -95,15 +96,28 @@ export class ProductsDetailPageComponent {
       this.toastr.error('vui lòng chọn giờ bắt đầu và kết thúc');
       return;
     }
-    if (
-      this.bookingForm.value.start == '' ||
-      this.bookingForm.value.end == ''
-    ) {
+    if (this.bookingForm.value.start == '') {
       this.toastr.error('vui lòng chọn ngày bắt đầu và kết thúc');
       return;
     }
+    var checkDate = new Date();
+    var currentDate: any = this.formatDate(checkDate);
+    var newCheck = parseInt(currentDate.split('-')[2]);
+    var checkMonth = parseInt(currentDate.split('-')[1]);
+    var newDateBookCheck = this.bookingForm.value.start?.split('-')[2];
+    var checkMonthBook = this.bookingForm.value.start?.split('-')[1];
+
+    if (
+      Number(checkMonth) > Number(checkMonthBook) ||
+      (Number(checkMonth) === Number(checkMonthBook) &&
+        Number(newCheck) > Number(newDateBookCheck))
+    ) {
+      console.log('1');
+      this.toastr.error('Không được chọn ngày ở quá khứ');
+      return;
+    }
     const startValue = this.bookingForm.value.start;
-    const endValue = this.bookingForm.value.end;
+    const endValue = this.bookingForm.value.start;
     const newIdService = this.serviceUsed.map((ite) => ite.id);
     let arrayId = [];
     for (const newi of this.serviceUsed) {
@@ -178,8 +192,16 @@ export class ProductsDetailPageComponent {
     alert('Pay to VN');
   }
   handelCheckedDate(data: any) {
-    console.log('handelCheckedDate', data);
-    if (data.booked == true) {
+    var checkDate = new Date();
+    var currentDate: any = this.formatDate(checkDate);
+    var newCheck = parseInt(currentDate.split('-')[2]);
+    var checkMonth = parseInt(currentDate.split('-')[1]);
+    var newDateBookCheck = this.bookingForm.value.start?.split('-')[2];
+    var checkMonthBook = this.bookingForm.value.start?.split('-')[1];
+
+    if (
+        data.booked == true &&  this.checkDisabled == false
+    ) {
       this.toastr.error('Sân đã có người đặt từ trước');
       return;
     } else {
@@ -198,5 +220,39 @@ export class ProductsDetailPageComponent {
       this.dataPostsRelate = result.data.items.slice(0, 4);
       console.log(this.dataPostsRelate, 'result');
     });
+  }
+  formatDate(date: any) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+  handelChangeEventBooking(event: any) {
+    const selectedDate = (event.target as HTMLInputElement).value;
+    console.log(selectedDate);
+
+    var checkDate = new Date();
+    var currentDate: any = this.formatDate(checkDate);
+    var newCheck = parseInt(currentDate.split('-')[2]);
+    var checkMonth = parseInt(currentDate.split('-')[1]);
+    var newDateBookCheck = selectedDate?.split('-')[2];
+    var checkMonthBook = selectedDate?.split('-')[1];
+
+    if (
+      Number(checkMonth) > Number(checkMonthBook) ||
+      (Number(checkMonth) === Number(checkMonthBook) &&
+        Number(newCheck) > Number(newDateBookCheck))
+    ) {
+      console.log('1');
+      this.toastr.error('Không được chọn ngày ở quá khứ');
+      this.checkDisabled = false;
+
+      return;
+    } else if(Number(newCheck) == Number(newDateBookCheck)){
+      this.checkDisabled = false;
+    } else {
+      this.checkDisabled = true;
+    }
   }
 }

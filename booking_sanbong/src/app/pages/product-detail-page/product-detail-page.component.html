@@ -347,19 +347,15 @@
                             id="email_buy_fast" [defaultValue]="mailUser" name="email_buy_fast" class="input-text" />
 
                           <div class="form-group">
-                            <label style="padding:10px 0px" for="datetimepicker">Chọn ngày và giờ bắt đầu:</label>
-                            <input formControlName="start" type="date" class="form-control" id="datetimepicker"
+                            <label style="padding:10px 0px" for="datetimepicker">Chọn ngày :</label>
+                            <input (change)="handelChangeEventBooking($event)" formControlName="start" type="date" class="form-control" id="datetimepicker"
                               name="start" required>
                           </div>
-                          <div class="form-group">
-                            <label style="padding:10px 0px" for="datetimepicker">Chọn ngày và giờ kết thúc:</label>
-                            <input formControlName="end" type="date" class="form-control" id="datetimepicker" name="end"
-                              required>
-                          </div>
+
                           <textarea style="margin:10px 0px" placeholder="Lời nhắn..." rows="6" cols="30"
                             name="description" formControlName="description" id="mes_buy_fast" required></textarea>
                           <button type="submit" class="button-buy-fast button">
-                            Gửi yêu cầu
+                            Đặt cọc
                           </button>
 
                         </div>
@@ -425,15 +421,15 @@
                                 style="padding-left: 0 !important;padding-right: 0 !important;"
                                 data-time-frame="15:30 - 17:00" data-day="4" data-price="800000" data-date="27/3/2024"
                                 frame-price=""
-                                class="{{timeItem.booked == true ? 'over-time frame-price' :' frame-price' }}">
+                                class="{{timeItem.booked == true && !checkDisabled ? 'over-time frame-price' :' frame-price' }}">
                                 <span [style.color]="checkedTimeBook == timeItem.start ? 'white !important': 'black'"
                                   class="price-label  text-nowrap">
                                   {{timeItem.start?.split('T')[1]}} - {{timeItem.end?.split('T')[1]}}
                                 </span>
-                                <div style="text-align: center;" class="price-label" *ngIf="timeItem.booked">
+                                <div style="text-align: center;" class="price-label" *ngIf="timeItem.booked && !checkDisabled">
                                   <b>Quá hạn</b>
                                 </div>
-                                <div style="text-align: center;" class="price-label" *ngIf="!timeItem.booked">
+                                <div style="text-align: center;" class="price-label" *ngIf="!timeItem.booked || checkDisabled">
                                   <strong
                                     [style.color]="checkedTimeBook == timeItem.start ? 'white !important': 'black'">{{post?.price?.toLocaleString()}}
                                     VND</strong>
