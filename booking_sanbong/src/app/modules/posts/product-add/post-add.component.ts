@@ -19,6 +19,8 @@ import { UploadImageService } from '../../../services/uploadImage/upload-image.s
   styleUrls: ['./post-add.component.scss'],
 })
 export class PostAddComponent {
+  checkUsedService: boolean = false;
+  checkAddedService: boolean = false;
   postForm = this.builder.group({
     title: ['', [Validators.required, Validators.minLength(4)]],
     content: ['', [Validators.required]],
@@ -30,6 +32,11 @@ export class PostAddComponent {
     is_active: ['public', [Validators.required]],
     status: ['pending', [Validators.required]],
     price: [0, [Validators.required]],
+  });
+  addForm = this.builder.group({
+    name: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    level: ['', [Validators.required]],
   });
   categories: any[] = [];
   service: any[] = [];
@@ -140,6 +147,7 @@ export class PostAddComponent {
           name: selectedService.name,
           Price: price,
         });
+        this.checkUsedService = true;
         console.log(this.selectedServices, 'selectedServices');
       } else {
         alert('Vui lòng nhập giá hợp lệ.');
@@ -151,5 +159,32 @@ export class PostAddComponent {
   }
   handelRemove(i: any) {
     this.selectedServices.splice(i, 1);
+    if (this.selectedServices.length == 0) {
+      this.checkUsedService = false;
+    }
+  }
+  AddNewService() {
+    this.checkAddedService = true;
+  }
+  closeDrawer() {
+    this.checkAddedService = false;
+  }
+  createTeamByUser() {
+    if (this.addForm.invalid) {
+      this.toastr.error('Vui lòng nhập đầy đủ thông tin');
+      return;
+    }
+    const category: any = {
+      name: this.addForm.value.name || '',
+      description: this.addForm.value.description || '',
+      icon: this.addForm.value.level || '',
+    };
+    this.ServicesService.createService(category).subscribe((data) => {
+      this.onServiceSelectionChange(data.data);
+      this.checkUsedService = true;
+      this.checkAddedService = false;
+      this.addForm.reset();
+      this.toastr.success('Add team successfully');
+    });
   }
 }

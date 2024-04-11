@@ -65,8 +65,9 @@ export class ManageOrderComponent {
       this.stakeMoneyData = order.data.items.filter(
         (orderA: any) =>
           orderA.deposited == true &&
-          orderA.status !== 'Pair' &&
-          orderA.status !== 'Cancel'
+          orderA.status === 'Confirm' &&
+          orderA.status !== 'Cancel' &&
+          orderA.status !== 'Pair'
       );
       this.dataSourcePending = this.orderPending;
       this.dataSourceDone = this.orderDones;

@@ -176,6 +176,7 @@
                   </button>
                 </a>
                 <button
+                 *ngIf="infoUser.type == 'FieldOwner'"
                   class="delete text-danger"
                   (click)="handleDelete(post.id!)"
                 >

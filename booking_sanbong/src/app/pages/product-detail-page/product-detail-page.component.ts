@@ -55,12 +55,16 @@ export class ProductsDetailPageComponent {
     this.router.paramMap.subscribe((params) => {
       const id = params.get('id');
       this.idPost = id || '';
-
+      var checkDate = new Date();
+      var currentDate: any = this.formatDate(checkDate);
+      var newCheck = parseInt(currentDate.split('-')[0]);
+      var checkMonth = parseInt(currentDate.split('-')[1]);
+      var checkDay = parseInt(currentDate.split('-')[2]);
       if (this.idPost) {
         /* get all comment by id with socket */
         console.log(id);
       }
-      this.postService.getPost(id!).subscribe(
+      this.postService.getPost(id!, checkDay, checkMonth, newCheck).subscribe(
         (data) => {
           this.idUserCreatePost = data.data.userId;
           console.log(data.data.userId, 'db');
@@ -199,9 +203,7 @@ export class ProductsDetailPageComponent {
     var newDateBookCheck = this.bookingForm.value.start?.split('-')[2];
     var checkMonthBook = this.bookingForm.value.start?.split('-')[1];
 
-    if (
-        data.booked == true &&  this.checkDisabled == false
-    ) {
+    if (data.booked == true && this.checkDisabled == false) {
       this.toastr.error('Sân đã có người đặt từ trước');
       return;
     } else {
@@ -236,9 +238,9 @@ export class ProductsDetailPageComponent {
     var currentDate: any = this.formatDate(checkDate);
     var newCheck = parseInt(currentDate.split('-')[2]);
     var checkMonth = parseInt(currentDate.split('-')[1]);
-    var newDateBookCheck = selectedDate?.split('-')[2];
-    var checkMonthBook = selectedDate?.split('-')[1];
-
+    var newDateBookCheck = parseInt(selectedDate?.split('-')[2]);
+    var checkMonthBook = parseInt(selectedDate?.split('-')[1]);
+    var checkDayBook = parseInt(selectedDate?.split('-')[0]);
     if (
       Number(checkMonth) > Number(checkMonthBook) ||
       (Number(checkMonth) === Number(checkMonthBook) &&
@@ -249,10 +251,32 @@ export class ProductsDetailPageComponent {
       this.checkDisabled = false;
 
       return;
-    } else if(Number(newCheck) == Number(newDateBookCheck)){
+    } else if (Number(newCheck) == Number(newDateBookCheck)) {
       this.checkDisabled = false;
     } else {
-      this.checkDisabled = true;
+      this.checkDisabled = false;
+      this.postService
+        .getPost(this.idPost!, newDateBookCheck, checkMonth, checkDayBook)
+        .subscribe(
+          (data) => {
+            this.idUserCreatePost = data.data.userId;
+            console.log(data.data.userId, 'db');
+            this.total = data.data.price;
+            this.post = data.data;
+            this.getTimeField = data.data.fieldTimes;
+            this.serviceField = data.data.services;
+            this.handelGetPostsRelate(data.data.userId);
+            // this.cateService
+            //   .getRelatedPost(data.post.category._id)
+            //   .subscribe(({ data }) => {
+            //     this.relatedPosts = data.posts!;
+            //   });
+            console.log(this.idUserCreatePost, 'this.idUserCreatePost');
+          },
+          () => {
+            this.toastr.error("Couldn't find this post.Please try again😥😥");
+          }
+        );
     }
   }
 }

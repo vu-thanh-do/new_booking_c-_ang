@@ -39,8 +39,15 @@ export class ProductsService {
   getPostsRelate(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseURL}/api/Field/GetData`, data);
   }
-  getPost(id: number | string): Observable<any> {
-    return this.http.get<any>(`${this.baseURL}/api/Field/GetField/${id}`);
+  getPost(
+    id: number | string,
+    ngay: number,
+    thang: number,
+    nam: number
+  ): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseURL}/api/Field/GetField?id=${id}&ngay=${ngay}&thang=${thang}&nam=${nam}`
+    );
   }
   deleteFakePost(id: number | string) {
     return this.http.post(`${this.baseURL}/api/Field/Delete/${id}`, {});
