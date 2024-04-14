@@ -70,7 +70,17 @@
               age cannot be Bob.
             </div>
           </div>
-        </div> <div class="form-group mb-5">
+        </div>
+        <div>
+            <mat-form-field class="form__field">
+              <mat-label>Trạng thái team</mat-label>
+              <mat-select formControlName="statusTeam">
+                <mat-option value="0">Default</mat-option>
+                <mat-option value="1">Used</mat-option>
+              </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-group mb-5">
           <input type="text" placeholder="phone" formControlName="phone" class="form__input">
           <div *ngIf="addForm.get('phone')?.invalid && (addForm.get('phone')?.dirty || addForm.get('phone')?.touched)"
             class="text-danger">

@@ -101,10 +101,17 @@ export class LayoutManagerComponent {
   getPostById(id: string): void {
     console.log(id);
     if (!id) return;
-    this.postsService.getPostById(id).subscribe((post) => {
-      console.log(post, 'post');
-      this.postInfo = post.data;
-    });
+    var checkDate = new Date();
+    var currentDate: any = this.formatDate(checkDate);
+    var newCheck = parseInt(currentDate.split('-')[0]);
+    var checkMonth = parseInt(currentDate.split('-')[1]);
+    var checkDay = parseInt(currentDate.split('-')[2]);
+    this.postsService
+      .getPost(id, checkDay, checkMonth, newCheck)
+      .subscribe((post) => {
+        console.log(post, 'post');
+        this.postInfo = post.data;
+      });
   }
   handleFomatDate(dateString: any) {
     const date = new Date(dateString);
@@ -156,5 +163,12 @@ export class LayoutManagerComponent {
         }, 350);
       });
     }
+  }
+  formatDate(date: any) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 }

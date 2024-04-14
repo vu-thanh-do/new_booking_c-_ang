@@ -20,6 +20,7 @@ export class CartGioHangComponent {
   cartData!: any[];
   totalCart!: number;
   totalAll = 0;
+  popUpConfirm: boolean = false;
   ship = 15000;
   orderSuccess = false;
   urlImage: string = environment.API_URL + '/root/';
@@ -47,9 +48,6 @@ export class CartGioHangComponent {
     this.handelGetAllBookingByUser();
     if (window.location.href.includes('vnp_ResponseCode=00')) {
       this.handlePayment();
-      setTimeout(() => {
-        window.location.href = 'http://localhost:4200/cart?items=1';
-      }, 500);
     }
   }
   handelGetAllBookingByUser() {
@@ -66,12 +64,12 @@ export class CartGioHangComponent {
         this.dataUserBooking = data.data.items.filter(
           (it: any) => it.status == 'Pair' && it.deposited == false
         );
-        this.titleCheck = 'Đơn hàng';
+        this.titleCheck = 'Lịch sử';
       } else {
         this.dataUserBooking = data.data.items.filter(
           (it: any) => it.status !== 'Pair'
         );
-        this.titleCheck = 'Lịch sử';
+        this.titleCheck = 'Đơn hàng';
       }
     });
   }
@@ -202,6 +200,7 @@ export class CartGioHangComponent {
     };
     this.orderService.updateStatusOrder(data).subscribe((data: any) => {
       this.Toast.success('updated status');
+      this.popUpConfirm = true;
     });
   }
   handelStatePayment(orderId: any) {
@@ -214,5 +213,8 @@ export class CartGioHangComponent {
         });
         window.location.href = data.data;
       });
+  }
+  handelClosePopup() {
+    this.popUpConfirm = false;
   }
 }

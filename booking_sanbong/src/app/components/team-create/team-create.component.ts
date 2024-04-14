@@ -40,4 +40,5 @@ export class TeamCreateComponent {
       this.dataDetailsTeam = db.data;
     });
   }
+  handelUseTeam(team: any) {}
 }

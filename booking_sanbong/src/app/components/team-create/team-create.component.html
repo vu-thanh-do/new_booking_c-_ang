@@ -127,6 +127,12 @@
                   >
                     <i class="fa-sharp fa-solid fa-trash"></i>
                   </button>
+                    <button
+                    *ngIf="post.status == '1'"
+                    class=" text-success"
+                  >
+                    Used
+                  </button>
                 </div>
               </td>
             </tr>
