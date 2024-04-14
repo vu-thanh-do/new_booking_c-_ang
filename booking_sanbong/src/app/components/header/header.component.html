@@ -168,7 +168,7 @@
                 class="btn-user btn-action-header" title="Tài khoản" href="javascript:;"><span class="icon"><i class="fa-solid fa-user"></i>></span><span>Tài khoản</span></a>
                 <div class="content">
                   <ul>
-                    <li *ngIf="userInfo.type !== 'EndUser'">
+                    <li *ngIf="userInfo.type && userInfo.type !== 'EndUser'">
                       <a class="dropdown-item" routerLink="/admin"> <i class="fa-regular fa-user"></i> <span>Admin</span></a>
                   </li>
 

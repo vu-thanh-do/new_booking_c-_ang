@@ -39,6 +39,7 @@ export class HeaderComponent {
     if (!this.userInfo) {
       this.redirect.navigate(['/']);
     }
+    console.log(this.userInfo);
   }
 
   handleLogout() {

@@ -177,20 +177,30 @@ export class ProductsDetailPageComponent {
   // Phương thức kiểm tra xem một thời gian đã được đặt hay chưa
 
   handelUseService(data: any) {
-    this.serviceUsed.push({
-      serviceName: data.serviceName,
-      id: data.id,
-      price: data.price,
-    });
-    this.total += data.price;
-    console.log('handelUseService', this.serviceUsed);
-    const newIdService = this.serviceUsed.map((ite) => ite.id);
-    console.log('newIdService', newIdService);
+    const existingServiceIndex = this.serviceUsed.findIndex(
+      (item) => item.id === data.id
+    );
+    if (existingServiceIndex !== -1) {
+      // Nếu dịch vụ đã được chọn trước đó, tăng số lượng và cập nhật tổng tiền
+      this.serviceUsed[existingServiceIndex].quantity++;
+      this.total += data.price;
+    } else {
+      // Nếu đây là lần đầu tiên chọn dịch vụ, thêm vào mảng với số lượng là 1
+      this.serviceUsed.push({ ...data, quantity: 1 });
+      this.total += data.price;
+    }
+  }
+  getServiceQuantity(id: number): number {
+    const service = this.serviceUsed.find((item) => item.id === id);
+    return service ? service.quantity : 0;
   }
   handelRemoveServiceUsed(i: any) {
+    this.serviceUsed[i].quantity--;
+    if (this.serviceUsed[i].quantity === 0) {
+      // Nếu số lượng giảm xuống 0, xóa dịch vụ khỏi mảng
+      this.serviceUsed.splice(i, 1);
+    }
     this.total -= this.serviceUsed[i].price;
-    console.log(this.serviceUsed[i]);
-    this.serviceUsed.splice(i, 1);
   }
   payToVNPay() {
     alert('Pay to VN');
@@ -233,7 +243,6 @@ export class ProductsDetailPageComponent {
   handelChangeEventBooking(event: any) {
     const selectedDate = (event.target as HTMLInputElement).value;
     console.log(selectedDate);
-
     var checkDate = new Date();
     var currentDate: any = this.formatDate(checkDate);
     var newCheck = parseInt(currentDate.split('-')[2]);

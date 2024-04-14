@@ -33,7 +33,7 @@ export class UserInfoComponent {
     address: [''],
     phone: [''],
   });
-
+  idUser: any = '';
   constructor(
     private profile: UserService,
     private auth: AuthService,
@@ -44,6 +44,7 @@ export class UserInfoComponent {
   ) {
     this.router.paramMap.subscribe((params) => {
       const id = params.get('id');
+      this.idUser = id;
       this.userService.getIdUser(id!).subscribe((data: any) => {
         console.log(data, 'm');
         // this.user = user;
@@ -84,15 +85,15 @@ export class UserInfoComponent {
   }
 
   onEdit() {
-    const editProfile: IUserRequest = {
-      username: this.userInfo.value.username || '',
-      email: this.userInfo.value.email || '',
-      address: this.userInfo.value.address || '',
+    const editProfile: any = {
+      id: this.idUser || '',
+      name: this.userInfo.value.username || '',
+      gender: this.userInfo.value.address || '',
       phone: this.userInfo.value.phone || '',
     };
-
-    this.profile.updateUser(this.user._id, editProfile).subscribe((data) => {
-      localStorage.setItem(this.auth.TOKEN_USER, JSON.stringify(data.user));
+    this.profile.updateUser2(editProfile).subscribe((data) => {
+      console.log(data, 'as');
+      localStorage.setItem(this.auth.TOKEN_USER, JSON.stringify(data.data));
     });
   }
   handleFileInput(event: any): void {
