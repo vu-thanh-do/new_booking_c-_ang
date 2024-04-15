@@ -89,7 +89,7 @@ export class UserInfoComponent {
       id: this.idUser || '',
       name: this.userInfo.value.username || '',
       gender: this.userInfo.value.address || '',
-      phone: this.userInfo.value.phone || '',
+      phone: this.userInfo.value.phone || ''
     };
     this.profile.updateUser2(editProfile).subscribe((data) => {
       console.log(data, 'as');
