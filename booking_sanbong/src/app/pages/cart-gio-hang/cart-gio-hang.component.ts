@@ -209,7 +209,14 @@ export class CartGioHangComponent {
       .stakeMoneyService(orderId, returnUrl)
       .subscribe((data: any) => {
         this.orderService.acceptStakeService(orderId).subscribe((db: any) => {
-          console.log(db, 'db');
+          const data2 = {
+            id: orderId,
+            status: 'Confirm',
+          };
+          this.orderService.updateStatusOrder(data2).subscribe((data: any) => {
+            this.Toast.success('updated status');
+            this.popUpConfirm = true;
+          });
         });
         window.location.href = data.data;
       });

@@ -50,10 +50,9 @@ export class TeamserviceService {
     return this.http.get<any>(`${this.baseURL}/api/Team/GetByUser`);
     // GetByUser
   }
-
   //
   getDataInviteByUser(data: any): Observable<any> {
-    return this.http.post<any>(`${this.baseURL}/api/Invite/GetData`, data);
+    return this.http.get<any>(`${this.baseURL}/api/Invite/InviteMe`);
     // Invite/GetData
   }
 
@@ -62,15 +61,15 @@ export class TeamserviceService {
     return this.http.post<any>(`${this.baseURL}/api/Invite/Accept`, data);
   }
 
-  getInvitWithMe(){
+  getInvitWithMe() {
     // /api/Invite/InviteMe
     return this.http.get<any>(`${this.baseURL}/api/Invite/InviteMe`);
   }
-  getInviAcceptMe(){
+  getInviAcceptMe() {
     // /api/Invite/InviteMe
     return this.http.get<any>(`${this.baseURL}/api/Invite/AcceptedMe`);
   }
-  getRejectedMe(){
+  getRejectedMe() {
     // /api/Invite/InviteMe
     return this.http.get<any>(`${this.baseURL}/api/Invite/RejectMe`);
   }

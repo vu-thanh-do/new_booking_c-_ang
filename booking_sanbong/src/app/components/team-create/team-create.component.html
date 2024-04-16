@@ -55,33 +55,33 @@
           <mat-form-field class="form__field">
             <mat-label>Danh sách</mat-label>
             <mat-select formControlName="role">
-              <mat-option value="Admin">
-                <span [routerLink]="['/create-team/all']" [queryParams]="{ accept: 1 }">
+              <mat-option [routerLink]="['/create-team/all']" [queryParams]="{ accept: 1 }" >
+                <span >
                 tất cả danh sách
                 </span>
               </mat-option>
-              <mat-option value="Manager">
-                <span [routerLink]="['/create-team/all']" [queryParams]="{ accept: true }" >
+              <mat-option [routerLink]="['/create-team/all']" [queryParams]="{ accept: true }" >
+                <span  >
                  danh sách đã xác nhận
                 </span>
               </mat-option>
-              <mat-option value="Staff">
-                <span [routerLink]="['/create-team/all']" [queryParams]="{ accept: false }" >
+              <mat-option [routerLink]="['/create-team/all']" [queryParams]="{ accept: false }" >
+                <span  >
                  danh sách đã từ chối
                 </span>
               </mat-option>
-              <mat-option value="FieldOwner">
-                <span [routerLink]="['/create-team/all']" [queryParams]="{ accept: 2 }" >
-                 danh sách bạn mời
+              <mat-option [routerLink]="['/create-team/all']" [queryParams]="{ accept: 2 }" >
+                <span >
+                 danh sách mời bạn
                 </span>
               </mat-option>
-              <mat-option value="EndUser">
-                <span [routerLink]="['/create-team/byme']" [queryParams]="{ accept: 5 }" >
+              <mat-option  [routerLink]="['/create-team/byme']" [queryParams]="{ accept: 5 }" >
+                <span>
                  ds đồng ý lời mời từ bạn
                 </span>
               </mat-option>
-              <mat-option value="EndUser">
-                <span   [routerLink]="['/create-team/byme']" [queryParams]="{ accept: 6 }" >
+              <mat-option [routerLink]="['/create-team/byme']" [queryParams]="{ accept: 6 }" >
+                <span    >
                  ds từ chối lời mời từ bạn
                 </span>
               </mat-option>

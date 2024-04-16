@@ -49,6 +49,7 @@ export class InvitebymeComponent {
     switch (this.acceptValue) {
       case '5':
         this.TeamserviceService.getInviAcceptMe().subscribe((team) => {
+          console.log('x');
           var newResult = [];
           for (const v1 of team.data.items) {
             newResult.push({
@@ -66,7 +67,7 @@ export class InvitebymeComponent {
           }
           console.log(newResult, 'newResult');
           this.inviteMe = newResult;
-          this.title2 ="Tất cả danh sách team đã đồng ý"
+          this.title2 = 'Tất cả danh sách team đã đồng ý';
         });
         break;
       case '6':
@@ -88,8 +89,7 @@ export class InvitebymeComponent {
           }
           console.log(newResult, 'newResult');
           this.inviteMe = newResult;
-          this.title2 ="Tất cả danh sách team đã từ chối"
-
+          this.title2 = 'Tất cả danh sách team đã từ chối';
         });
         break;
       default:
@@ -111,8 +111,7 @@ export class InvitebymeComponent {
           }
           console.log(newResult, 'newResult');
           this.inviteMe = newResult;
-          this.title2 ="Tất cả danh sách team đã đồng ý"
-
+          this.title2 = 'Tất cả danh sách team đã đồng ý';
         });
     }
   }

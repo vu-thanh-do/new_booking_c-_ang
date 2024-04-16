@@ -109,6 +109,7 @@ export class ManageOrderComponent {
       status: 'Confirm',
     };
     this.orderServer.updateStatusOrder(data).subscribe((data: any) => {
+      this.orderServer.acceptStakeService(id).subscribe((db: any) => {});
       this.getAllOrder();
       this.toastr.success('updated status');
     });

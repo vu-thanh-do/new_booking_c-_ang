@@ -146,7 +146,10 @@ export class ProductsDetailPageComponent {
     this.postService.createBookingFb(newDataBooking).subscribe(() => {
       this.bookingForm.reset();
       this.toastr.success('Booking thành công');
-      alert('Booking thành công !');
+      const checkConfirm = window.confirm('bạn có muốn thanh toán ?');
+      if (checkConfirm) {
+        window.location.href = '/cart';
+      }
       setTimeout(() => {
         window.location.reload();
       }, 400);
@@ -174,18 +177,14 @@ export class ProductsDetailPageComponent {
     '2024-04-01T14:00',
   ];
 
-  // Phương thức kiểm tra xem một thời gian đã được đặt hay chưa
-
   handelUseService(data: any) {
     const existingServiceIndex = this.serviceUsed.findIndex(
       (item) => item.id === data.id
     );
     if (existingServiceIndex !== -1) {
-      // Nếu dịch vụ đã được chọn trước đó, tăng số lượng và cập nhật tổng tiền
       this.serviceUsed[existingServiceIndex].quantity++;
       this.total += data.price;
     } else {
-      // Nếu đây là lần đầu tiên chọn dịch vụ, thêm vào mảng với số lượng là 1
       this.serviceUsed.push({ ...data, quantity: 1 });
       this.total += data.price;
     }
@@ -197,7 +196,6 @@ export class ProductsDetailPageComponent {
   handelRemoveServiceUsed(i: any) {
     this.serviceUsed[i].quantity--;
     if (this.serviceUsed[i].quantity === 0) {
-      // Nếu số lượng giảm xuống 0, xóa dịch vụ khỏi mảng
       this.serviceUsed.splice(i, 1);
     }
     this.total -= this.serviceUsed[i].price;

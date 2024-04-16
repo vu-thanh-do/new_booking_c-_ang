@@ -16,7 +16,15 @@ export class DetailsDanhsachComponent {
 
   routerLink: string = '/admin/add-category';
   theadTable: string[] = ['STT', 'Tên team', 'số điện thoại', 'level', 'tuổi'];
-  theadTable2: string[] = ['STT', 'team mời', 'level', 'tuổi', 'SĐT team mời' ,'team được mời','action'];
+  theadTable2: string[] = [
+    'STT',
+    'team mời',
+    'level',
+    'tuổi',
+    'SĐT team mời',
+    'team được mời',
+    'action',
+  ];
 
   team: any[] = [];
   user: any;
@@ -51,6 +59,7 @@ export class DetailsDanhsachComponent {
         this.nextResult = { accept: false, userId: this.user.id };
         break;
       case '2':
+        console.log('222');
         this.check2 = true;
         break;
       default:
@@ -75,7 +84,7 @@ export class DetailsDanhsachComponent {
           });
         }
         this.newResult = nextResult;
-        console.log(this.newResult);
+        console.log(this.newResult, 'acc');
       }
     );
   }
@@ -89,21 +98,21 @@ export class DetailsDanhsachComponent {
   getInviteByMe() {
     this.TeamserviceService.getInvitWithMe().subscribe((team) => {
       var newResult = [];
-      for(const v1 of  team.data.items){
+      for (const v1 of team.data.items) {
         newResult.push({
-          teamId : v1.team.id,
-          name : v1.team.name,
-          level : v1.team.level,
-          age : v1.team.age,
-          phone : v1.team.phone,
-          myTeamId : v1.inviteTeam.id,
-          nameMyTeam : v1.inviteTeam.name,
-          levelMyTeam : v1.inviteTeam.level,
-          phoneMyTeam : v1.inviteTeam.phone,
-          ageMyteam : v1.inviteTeam.age,
-        })
+          teamId: v1.team.id,
+          name: v1.team.name,
+          level: v1.team.level,
+          age: v1.team.age,
+          phone: v1.team.phone,
+          myTeamId: v1.inviteTeam.id,
+          nameMyTeam: v1.inviteTeam.name,
+          levelMyTeam: v1.inviteTeam.level,
+          phoneMyTeam: v1.inviteTeam.phone,
+          ageMyteam: v1.inviteTeam.age,
+        });
       }
-      console.log(newResult,'newResult')
+      console.log(newResult, 'newResult');
       this.inviteMe = newResult;
     });
   }
