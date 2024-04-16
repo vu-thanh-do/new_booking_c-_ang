@@ -104,6 +104,8 @@ export class CrateTeamEditComponent {
     });
   }
 
+  // errr
+
   handelGetFeidIdStake() {
     this.orderService.getAllOrder().subscribe((order) => {
       console.log('success');
