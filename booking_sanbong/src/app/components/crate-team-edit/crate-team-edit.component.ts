@@ -97,6 +97,7 @@ export class CrateTeamEditComponent {
         }
       }
     }
+
     this.teamService.editTeamByUser(category).subscribe(() => {
       this.toastr.success('Update category successfully!');
       this.router.navigate(['/create-team']);
