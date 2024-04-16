@@ -13,10 +13,18 @@ import { TeamserviceService } from 'src/app/services/team/teamservice.service';
 export class DetailsDanhsachComponent {
   title: string = 'Tất cả Dánh sách mời';
   title2: string = 'Tất cả bạn đã mời';
-
+  checkShowHide: boolean = false;
   routerLink: string = '/admin/add-category';
   theadTable: string[] = ['STT', 'Tên team', 'số điện thoại', 'level', 'tuổi'];
-  theadTable2: string[] = ['STT', 'team mời', 'level', 'tuổi', 'SĐT team mời' ,'team được mời','action'];
+  theadTable2: string[] = [
+    'STT',
+    'team mời',
+    'level',
+    'tuổi',
+    'SĐT team mời',
+    'team được mời',
+    'action',
+  ];
 
   team: any[] = [];
   user: any;
@@ -58,13 +66,16 @@ export class DetailsDanhsachComponent {
     }
     this.TeamserviceService.getDataInviteByUser(this.nextResult).subscribe(
       (team) => {
-        console.log(team.data.items, 'team');
+        console.log(team.data.items.inviteTeam, 'team');
+        console.log(team.data.items, 'inv');
         this.team = team.data.items;
         var newData = Object.entries(this.team);
         var nextResult = [];
         for (const [key, value] of newData) {
           console.log(key, '1');
           console.log(value, '2');
+          this.checkShowHide =
+            value.inviteTeam.userId == this.user.id ? true : false;
           nextResult.push({
             id: value.id,
             nameTeam: value.team.name,
@@ -75,6 +86,7 @@ export class DetailsDanhsachComponent {
           });
         }
         this.newResult = nextResult;
+
         console.log(this.newResult);
       }
     );
@@ -89,21 +101,21 @@ export class DetailsDanhsachComponent {
   getInviteByMe() {
     this.TeamserviceService.getInvitWithMe().subscribe((team) => {
       var newResult = [];
-      for(const v1 of  team.data.items){
+      for (const v1 of team.data.items) {
         newResult.push({
-          teamId : v1.team.id,
-          name : v1.team.name,
-          level : v1.team.level,
-          age : v1.team.age,
-          phone : v1.team.phone,
-          myTeamId : v1.inviteTeam.id,
-          nameMyTeam : v1.inviteTeam.name,
-          levelMyTeam : v1.inviteTeam.level,
-          phoneMyTeam : v1.inviteTeam.phone,
-          ageMyteam : v1.inviteTeam.age,
-        })
+          teamId: v1.team.id,
+          name: v1.team.name,
+          level: v1.team.level,
+          age: v1.team.age,
+          phone: v1.team.phone,
+          myTeamId: v1.inviteTeam.id,
+          nameMyTeam: v1.inviteTeam.name,
+          levelMyTeam: v1.inviteTeam.level,
+          phoneMyTeam: v1.inviteTeam.phone,
+          ageMyteam: v1.inviteTeam.age,
+        });
       }
-      console.log(newResult,'newResult')
+      console.log(newResult, 'newResult');
       this.inviteMe = newResult;
     });
   }

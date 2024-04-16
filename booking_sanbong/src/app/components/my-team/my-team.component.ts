@@ -67,8 +67,8 @@ export class MyTeamComponent {
   }
   handelUseTeam(idMyTeam: string) {
     const data: any = {
-      teamId: this.idDt,
-      inviteTeamId: idMyTeam,
+      teamId: idMyTeam,
+      inviteTeamId: this.idDt,
       description: '',
     };
     this.TeamserviceService.createInvit(data).subscribe(() => {

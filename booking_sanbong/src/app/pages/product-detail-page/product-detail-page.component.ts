@@ -146,7 +146,11 @@ export class ProductsDetailPageComponent {
     this.postService.createBookingFb(newDataBooking).subscribe(() => {
       this.bookingForm.reset();
       this.toastr.success('Booking thành công');
-      alert('Booking thành công !');
+      const checkConfirm = window.confirm('bạn có muốn thanh toán ?');
+      if (checkConfirm) {
+        window.location.href = '/cart';
+      }
+
       setTimeout(() => {
         window.location.reload();
       }, 400);

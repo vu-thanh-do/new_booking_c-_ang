@@ -40,12 +40,15 @@
                     class="d-flex justify-content-center gap-3"
                   >
                     <button
+                    *ngIf="checkShowHide"
                       (click)="actionOnInvite(post.id, 1)"
                       class="delete text-danger btn btn-success text-white"
                     >
                       đồng ý
                     </button>
                     <button
+                    *ngIf="checkShowHide"
+
                       (click)="actionOnInvite(post.id, 2)"
                       class="delete text-white btn btn-danger text-white"
                     >
