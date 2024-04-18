@@ -46,7 +46,7 @@ export class ManageOrderComponent {
 
   /* get All users */
   getAllOrder() {
-    this.orderServer.getAllOrder().subscribe((order) => {
+    this.orderServer.getAllOwnerAdmin().subscribe((order) => {
       console.log(order);
       this.orders = order.data.items;
       this.orderCancel = order.data.items.filter(

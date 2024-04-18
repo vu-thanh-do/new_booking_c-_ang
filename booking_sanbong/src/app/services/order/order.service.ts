@@ -30,6 +30,9 @@ export class OrderService {
   getAllOrder(): Observable<any> {
     return this.http.post<any>(`${this.baseURL}/api/Booking/History`, {});
   }
+  getAllOwnerAdmin() {
+    return this.http.post<any>(`${this.baseURL}/api/Booking/GetData`, {});
+  }
   getIdOrder(id: string): Observable<any> {
     return this.http.get<any>(`${this.baseURL}getId-order/${id}`);
   }
