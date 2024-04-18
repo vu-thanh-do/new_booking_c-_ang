@@ -27,7 +27,7 @@ export class ManageOrderComponent {
   dataSourceDone: IOrder[] = [];
   dataSourceCancel: IOrder[] = [];
   accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
-
+  user: any;
   theadTable: string[] = ['STT', 'Tên sản phẩm', 'Số lương', 'Trạng thái'];
   orders: any = [];
   orderDones: IOrder[] = [];
@@ -41,12 +41,13 @@ export class ManageOrderComponent {
     private orderServer: OrderService,
     private toastr: ToastrService
   ) {
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
     this.getAllOrder();
   }
 
   /* get All users */
   getAllOrder() {
-    this.orderServer.getAllOwnerAdmin().subscribe((order) => {
+    this.orderServer.getAllOwnerAdmin(this.user.id).subscribe((order) => {
       console.log(order);
       this.orders = order.data.items;
       this.orderCancel = order.data.items.filter(
