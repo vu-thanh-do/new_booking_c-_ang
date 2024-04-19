@@ -13,12 +13,14 @@ export class DetailsBookingComponent {
   dataDetails: any = {};
   checkUserOrAdmin: boolean = false;
   priceStake: number = 0;
+  dataBooking: any;
   urlImage: string = environment.API_URL + '/root/';
   dataToExport: any;
   constructor(
     private orderService: OrderService,
     private params: ActivatedRoute
   ) {
+    this.dataBooking = JSON.parse(localStorage.getItem('booking')|| '{}')
     this.params.queryParams.subscribe((params) => {
       const userId = params['user'];
       if (userId == 1) {
@@ -27,6 +29,7 @@ export class DetailsBookingComponent {
       }
     });
     this.handelGetDetailsBooking();
+
   }
   handelGetDetailsBooking() {
     var id = this.params.snapshot.params['id'];
@@ -45,15 +48,29 @@ export class DetailsBookingComponent {
         nameField: data.data.field.name,
       };
     });
+    console.log(this.dataBooking,'dataBooking')
   }
   exportToExcel(): void {
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
-      Array(this.dataToExport)
-    );
+    const excelData : any[] = [];
+    Array(this.dataBooking).forEach((booking : any) => {
+      const services = booking.services.map((service  : any)=> service.serviceName).join('\n');
+      const row = {
+        fieldId: booking.fieldId,
+        start: booking.start,
+        end: booking.end,
+        status: booking.status,
+        description: booking.description,
+        services: services,
+      };
+      excelData.push(row);
+    });
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(excelData);
     const workbook: XLSX.WorkBook = {
       Sheets: { data: worksheet },
       SheetNames: ['data'],
     };
     XLSX.writeFile(workbook, `hoadon.xlsx`);
   }
+
 }

@@ -143,6 +143,15 @@ export class ProductsDetailPageComponent {
       description: this.bookingForm.value.description || '',
       services: arrayId,
     };
+    const newDataBooking3 = {
+      fieldId: this.params.snapshot.params['id'],
+      start: this.newDateBookingResultStart,
+      end: this.newDateBookingResultEnd,
+      status: this.bookingForm.value.status || '1',
+      description: this.bookingForm.value.description || '',
+      services: this.serviceUsed,
+    };
+    localStorage.setItem('booking', JSON.stringify(newDataBooking3));
     this.postService.createBookingFb(newDataBooking).subscribe(() => {
       this.bookingForm.reset();
       this.toastr.success('Booking thành công');
