@@ -21,6 +21,7 @@ export class DetailsBookingComponent {
     private params: ActivatedRoute
   ) {
     this.dataBooking = JSON.parse(localStorage.getItem('booking')|| '{}')
+
     this.params.queryParams.subscribe((params) => {
       const userId = params['user'];
       if (userId == 1) {
