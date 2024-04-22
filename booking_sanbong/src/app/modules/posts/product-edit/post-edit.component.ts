@@ -55,7 +55,12 @@ export class PostEditComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const id = this.params.snapshot.params['id'];
-    this.postsService.getPostById(id).subscribe((data) => {
+    var checkDate = new Date();
+    var currentDate: any = this.formatDate(checkDate);
+    var newCheck = parseInt(currentDate.split('-')[0]);
+      var checkMonth = parseInt(currentDate.split('-')[1]);
+      var checkDay = parseInt(currentDate.split('-')[2]);
+    this.postsService.getPost(id!, checkDay, checkMonth, newCheck).subscribe((data) => {
       console.log(data.data, 'dataid');
       console.log(data.data.name, 'dataid');
       console.log(data.data.address, 'dataid');
@@ -84,6 +89,13 @@ export class PostEditComponent implements AfterViewInit {
     for (let i = 0; i < files.length; i++) {
       this.urls.push(files[i]);
     }
+  }
+  formatDate(date: any) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
   handleRemoveImage(public_id: string) {
     if (!public_id) return;

@@ -42,7 +42,9 @@ export class ProductsDetailPageComponent {
     status: ['1', Validators.required],
     description: ['', Validators.required],
   });
+  checkdate: string = '';
   dataPostsRelate: any[] = [];
+
   constructor(
     private postService: ProductsService,
     private cateService: CategoryService,
@@ -219,13 +221,31 @@ export class ProductsDetailPageComponent {
     alert('Pay to VN');
   }
   handelCheckedDate(data: any) {
+    console.log(data, 'date');
     var checkDate = new Date();
-    var currentDate: any = this.formatDate(checkDate);
+    const currentDate: any = this.formatDate(checkDate);
     var newCheck = parseInt(currentDate.split('-')[2]);
     var checkMonth = parseInt(currentDate.split('-')[1]);
     var newDateBookCheck = this.bookingForm.value.start?.split('-')[2];
     var checkMonthBook = this.bookingForm.value.start?.split('-')[1];
-
+    const currentDate2 = new Date(); // Lấy ngày và giờ hiện tại
+    console.log(currentDate2, 'checkdate');
+    const endDateTime = new Date(data.end);
+    console.log(endDateTime,currentDate2 ,'ccaaS')
+    if (!this.checkdate || this.checkdate == '') {
+      alert('Vui lòng chọn ngày');
+      return;
+    }
+    // if (endDateTime < currentDate2) {
+    //   alert('Không được chọn giờ trong quá khứ');
+    //   return;
+    // }
+    console.log(currentDate == this.checkdate,endDateTime < currentDate2,endDateTime,currentDate2,'currentDate == this.checkdate')
+    if (currentDate == this.checkdate && endDateTime < currentDate2) {
+      console.log('1')
+      alert('Không được chọn giờ trong quá khứ');
+      return;
+    }
     if (data.booked == true && this.checkDisabled == false) {
       this.toastr.error('Sân đã có người đặt từ trước');
       return;
@@ -256,6 +276,7 @@ export class ProductsDetailPageComponent {
   handelChangeEventBooking(event: any) {
     const selectedDate = (event.target as HTMLInputElement).value;
     console.log(selectedDate);
+    this.checkdate = selectedDate;
     var checkDate = new Date();
     var currentDate: any = this.formatDate(checkDate);
     var newCheck = parseInt(currentDate.split('-')[2]);
@@ -263,6 +284,29 @@ export class ProductsDetailPageComponent {
     var newDateBookCheck = parseInt(selectedDate?.split('-')[2]);
     var checkMonthBook = parseInt(selectedDate?.split('-')[1]);
     var checkDayBook = parseInt(selectedDate?.split('-')[0]);
+    this.checkDisabled = false;
+    this.postService
+      .getPost(this.idPost!, newDateBookCheck, checkMonth, checkDayBook)
+      .subscribe(
+        (data) => {
+          this.idUserCreatePost = data.data.userId;
+          console.log(data.data.userId, 'db');
+          this.total = data.data.price;
+          this.post = data.data;
+          this.getTimeField = data.data.fieldTimes;
+          this.serviceField = data.data.services;
+          this.handelGetPostsRelate(data.data.userId);
+          // this.cateService
+          //   .getRelatedPost(data.post.category._id)
+          //   .subscribe(({ data }) => {
+          //     this.relatedPosts = data.posts!;
+          //   });
+          console.log(this.idUserCreatePost, 'this.idUserCreatePost');
+        },
+        () => {
+          this.toastr.error("Couldn't find this post.Please try again😥😥");
+        }
+      );
     if (
       Number(checkMonth) > Number(checkMonthBook) ||
       (Number(checkMonth) === Number(checkMonthBook) &&
