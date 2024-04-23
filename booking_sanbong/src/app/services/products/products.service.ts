@@ -60,7 +60,15 @@ export class ProductsService {
     // const options = this.getAccessToken();
     return this.http.post(`${this.baseURL}/api/Field/Edit`, post);
   }
-
+  deleteServiceField(id: number | string){
+    return this.http.delete(`${this.baseURL}/api/FieldServiceFee/Delete/${id}`)
+  }
+  editServiceField(data : any){
+    return this.http.post(`${this.baseURL}/api/FieldServiceFee/Edit`,data)
+  }
+  createServiceField(data : any){
+    return this.http.post(`${this.baseURL}/api/FieldServiceFee/Create`,data)
+  }
   /* get post by id */
   getPostById(id: string): Observable<any> {
     return this.http.get<any>(

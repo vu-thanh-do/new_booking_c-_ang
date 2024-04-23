@@ -11,6 +11,7 @@ import { CategoryService } from 'src/app/services/category/category.service';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { UploadImageService } from 'src/app/services/uploadImage/upload-image.service';
 import { MyUploadAdapter } from '../myuploadAdapter';
+import { ServicesService } from 'src/app/services/service/services.service';
 
 @Component({
   selector: 'app-post-edit',
@@ -19,7 +20,7 @@ import { MyUploadAdapter } from '../myuploadAdapter';
 })
 export class PostEditComponent implements AfterViewInit {
   tempFile: any;
-
+  user: any;
   EditForm = this.builder.group({
     title: ['', [Validators.required, Validators.minLength(4)]],
     content: ['', [Validators.required]],
@@ -27,6 +28,7 @@ export class PostEditComponent implements AfterViewInit {
     images: [[''], [Validators.required]],
     author: [''],
     description: ['', [Validators.required]],
+    service: [''],
     category: ['', [Validators.required]],
     is_active: [''],
     status: ['', [Validators.required]],
@@ -37,7 +39,11 @@ export class PostEditComponent implements AfterViewInit {
   public ContentPost!: IPosts;
   imagePreviews: ImagePreview[] = [];
   nextImageId = 0;
+  service: any[] = [];
+  service2: any[] = [];
+
   urls: any[] = [];
+  selectedServices: { id: string; Price: number; name: string }[] = [];
   constructor(
     private postsService: ProductsService,
     private router: Router,
@@ -46,35 +52,41 @@ export class PostEditComponent implements AfterViewInit {
     private uploadImageService: UploadImageService,
     private http: HttpClient,
     private categoryService: CategoryService,
-
+    private ServicesService: ServicesService,
     private params: ActivatedRoute
   ) {
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log(this.user, 'ok');
     this.getAllCategories();
     this.ngAfterViewInit();
+    this.getAllService();
   }
-
+  getAllService() {
+    this.ServicesService.getAlService().subscribe((categories) => {
+      console.log(categories, 'service');
+      this.service2 = categories.data;
+    });
+  }
   ngAfterViewInit(): void {
     const id = this.params.snapshot.params['id'];
     var checkDate = new Date();
     var currentDate: any = this.formatDate(checkDate);
     var newCheck = parseInt(currentDate.split('-')[0]);
-      var checkMonth = parseInt(currentDate.split('-')[1]);
-      var checkDay = parseInt(currentDate.split('-')[2]);
-    this.postsService.getPost(id!, checkDay, checkMonth, newCheck).subscribe((data) => {
-      console.log(data.data, 'dataid');
-      console.log(data.data.name, 'dataid');
-      console.log(data.data.address, 'dataid');
-      console.log(data.data.description, 'dataid');
-      console.log(data.data.status, 'dataid');
-
-      this.EditForm.patchValue({
-        title: data.data.name,
-        address: data.data.address,
-        price: data.data.price,
-        content: data.data.description,
-        status: data.data.status,
+    var checkMonth = parseInt(currentDate.split('-')[1]);
+    var checkDay = parseInt(currentDate.split('-')[2]);
+    this.postsService
+      .getPost(id!, checkDay, checkMonth, newCheck)
+      .subscribe((data) => {
+        this.service = data.data.services;
+        this.EditForm.patchValue({
+          title: data.data.name,
+          address: data.data.address,
+          price: data.data.price,
+          content: data.data.description,
+          status: data.data.status,
+        });
+        console.log(this.service, 'cdc');
       });
-    });
   }
 
   /* get data */
@@ -163,4 +175,68 @@ export class PostEditComponent implements AfterViewInit {
       return new MyUploadAdapter(loader, this.http);
     };
   };
+  isItemSelected(itemId: string): boolean {
+    return this.selectedServices.some((item) => item.id === itemId);
+  }
+  handelRemove(i: any) {
+    console.log(this.service);
+    this.service.filter((item) => item.id != i);
+    this.postsService.deleteServiceField(i).subscribe((data) => {
+      console.log('data');
+
+      this.toastr.success('remove serviceed item');
+      setTimeout(() => {
+        window.location.reload();
+      }, 450);
+    });
+  }
+  onServiceSelectionChange(service: any) {
+    console.log('service selection change', service);
+    const priceInput = prompt('Nhập giá cho dịch vụ', '0');
+    if (priceInput !== null) {
+      const price = parseFloat(priceInput);
+      if (!isNaN(price)) {
+        this.service.push({
+          id: service.id,
+          serviceName: service.name,
+          price: price,
+        });
+        const newData = {
+          serviceFeeId: service.id,
+          fieldId: this.params.snapshot.params['id'],
+          price: price,
+        };
+        this.postsService.createServiceField(newData).subscribe((newData) => {
+          console.log('ok');
+        });
+        console.log(this.selectedServices, 'selectedServices');
+      } else {
+        alert('Vui lòng nhập giá hợp lệ.');
+      }
+    }
+  }
+  handelEditServiceFeild() {
+    alert('ok');
+  }
+  handelEdit(id: string){
+    const priceInput = prompt('Nhập giá cho dịch vụ', '0');
+    if (priceInput !== null) {
+      const price = parseFloat(priceInput);
+      if (!isNaN(price)) {
+        const newData = {
+          id: id,
+          price: price,
+        };
+        this.postsService.editServiceField(newData).subscribe((newData) => {
+          console.log('ok');
+          setTimeout(()=>{
+            window.location.reload()
+          },450)
+        });
+        console.log(this.selectedServices, 'selectedServices');
+      } else {
+        alert('Vui lòng nhập giá hợp lệ.');
+      }
+    }
+  }
 }
