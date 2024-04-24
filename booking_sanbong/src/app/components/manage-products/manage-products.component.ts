@@ -17,6 +17,7 @@ export class ManageProductsComponent {
     hasNextPage: false,
     hasPrevPage: false,
   };
+  user = JSON.parse(localStorage.getItem('user') || '{}');
   title: string = 'Quản lý sân';
   linkActive: string = '/admin/post-add';
   titleModal: string = 'Thông tin bài post';
@@ -41,19 +42,25 @@ export class ManageProductsComponent {
   }
 
   getAllPost() {
-    this.postsService.getAllPosts().subscribe((postsData) => {
-      console.log(postsData.data.items, '.posts.docs');
-      this.PostsList = postsData.data.items;
-      // this.paginationObj.currentPage = postsData.posts.page;
-      // this.paginationObj.totalPage = postsData.posts.totalPages;
-      // this.paginationObj.totalDocs = postsData.posts.totalDocs;
-      // this.paginationObj.limit = postsData.posts.limit;
-      // this.paginationObj.hasNextPage = postsData.posts.hasNextPage;
-      // this.paginationObj.hasPrevPage = postsData.posts.hasPrevPage;
-      // this.paginationObj.totalPagesArray = Array(this.paginationObj.totalPage)
-      //   .fill(0)
-      //   .map((_, index) => index + 1);
-    });
+    var datax = {
+      userId: this.user.id,
+    };
+    var a = {};
+    this.postsService
+      .getPostsRelate(this.user.type == 'FieldOwner' ? datax : a)
+      .subscribe((postsData) => {
+        console.log(postsData.data.items, '.posts.docs');
+        this.PostsList = postsData.data.items;
+        // this.paginationObj.currentPage = postsData.posts.page;
+        // this.paginationObj.totalPage = postsData.posts.totalPages;
+        // this.paginationObj.totalDocs = postsData.posts.totalDocs;
+        // this.paginationObj.limit = postsData.posts.limit;
+        // this.paginationObj.hasNextPage = postsData.posts.hasNextPage;
+        // this.paginationObj.hasPrevPage = postsData.posts.hasPrevPage;
+        // this.paginationObj.totalPagesArray = Array(this.paginationObj.totalPage)
+        //   .fill(0)
+        //   .map((_, index) => index + 1);
+      });
   }
 
   // get post by id

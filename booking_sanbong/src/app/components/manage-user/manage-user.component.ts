@@ -48,9 +48,8 @@ export class ManageUserComponent {
     private userService: UserService,
     private builder: FormBuilder,
     private toastr: ToastrService,
-    private route: ActivatedRoute
-  ) // private activatedRoute: ActivatedRoute
-  {
+    private route: ActivatedRoute // private activatedRoute: ActivatedRoute
+  ) {
     this.getAllUsers();
   }
   /* handle delete user */
@@ -115,6 +114,12 @@ export class ManageUserComponent {
     this.userService.getIdUser(userId).subscribe((user: any) => {
       console.log(user, 'user');
       this.dataUser = user.data;
+    });
+  }
+  handelRemoveUser(id: any) {
+    this.userService.removeIdUser(id).subscribe((user: any) => {
+      this.toastr.success('removed successfully');
+      this.getAllUsers();
     });
   }
 }

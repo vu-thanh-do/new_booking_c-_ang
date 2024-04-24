@@ -65,8 +65,11 @@ export class UserService {
   updateUser(id: string | undefined, user: IUserRequest) {
     return this.http.put<any>(`${this.baseURL}/${id}`, user);
   }
-  updateUser2( user: any) {
-    return this.http.post<any>(`${this.baseURL}/api/Account/UpdateProfile`, user);
+  updateUser2(user: any) {
+    return this.http.post<any>(
+      `${this.baseURL}/api/Account/UpdateProfile`,
+      user
+    );
   }
   /* delete fake */
   deleteUserFake(id: string) {
@@ -110,11 +113,14 @@ export class UserService {
       userId: idUser,
     });
   }
-  getUserByAll(data : any): any{
+  getUserByAll(data: any): any {
     return this.http.post(`${this.baseURL}/api/Account/GetData`, data);
     //Account/GetData
   }
-  getIdUser(id : string) {
-    return this.http.get(`${this.baseURL}/api/Account/GetUser/${id}`)
+  getIdUser(id: string) {
+    return this.http.get(`${this.baseURL}/api/Account/GetUser/${id}`);
+  }
+  removeIdUser(id: string) {
+    return this.http.delete(`${this.baseURL}/api/Account/Delete/${id}`);
   }
 }
