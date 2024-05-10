@@ -49,6 +49,10 @@ export class CartGioHangComponent {
     if (window.location.href.includes('vnp_ResponseCode=00')) {
       this.handlePayment();
     }
+    if (window.location.href.includes('vnp_ResponseCode=00') && window.location.href.includes('idDeposit')) {
+      // Your logic here
+      this.handelDoneDeposit()
+    }
   }
   handelGetAllBookingByUser() {
     this.userService.getALlOrderByUser(this.user.id!).subscribe((data: any) => {
@@ -203,21 +207,35 @@ export class CartGioHangComponent {
       this.popUpConfirm = true;
     });
   }
+  handelDoneDeposit(){
+    const queryParams = new URLSearchParams(window.location.search);
+    const idPayParam = queryParams.get('idDeposit');
+      this.orderService.acceptStakeService(idPayParam).subscribe((db: any) => {
+          const data2 = {
+            id: idPayParam,
+            status: 'Confirm',
+          };
+          this.orderService.updateStatusOrder(data2).subscribe((data: any) => {
+            this.Toast.success('updated status');
+            this.popUpConfirm = true;
+          });
+        });
+  }
   handelStatePayment(orderId: any) {
-    var returnUrl = 'http://localhost:4200/cart';
+    var returnUrl = 'http://localhost:4200/cart?idDeposit=' + orderId;
     this.orderService
       .stakeMoneyService(orderId, returnUrl)
       .subscribe((data: any) => {
-        this.orderService.acceptStakeService(orderId).subscribe((db: any) => {
-          const data2 = {
-            id: orderId,
-            status: 'Confirm',
-          };
-          // this.orderService.updateStatusOrder(data2).subscribe((data: any) => {
-          //   this.Toast.success('updated status');
-          //   this.popUpConfirm = true;
-          // });
-        });
+        // this.orderService.acceptStakeService(orderId).subscribe((db: any) => {
+        //   const data2 = {
+        //     id: orderId,
+        //     status: 'Confirm',
+        //   };
+        //   this.orderService.updateStatusOrder(data2).subscribe((data: any) => {
+        //     this.Toast.success('updated status');
+        //     this.popUpConfirm = true;
+        //   });
+        // });
         window.location.href = data.data;
       });
   }
