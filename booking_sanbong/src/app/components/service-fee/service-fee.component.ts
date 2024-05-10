@@ -15,7 +15,7 @@ export class ServiceFeeComponent {
   addForm = this.builder.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
-    level: ['', [Validators.required]],
+    level: [''],
 
   });
   constructor(
@@ -31,7 +31,7 @@ export class ServiceFeeComponent {
     const category: any = {
       name: this.addForm.value.name || '',
       description: this.addForm.value.description || '',
-      icon: this.addForm.value.level || '',
+      icon: this.addForm.value.level || '2222',
     };
     this.ServicesService.createService(category).subscribe(() => {
       this.router.navigate(['/admin/all-service']);

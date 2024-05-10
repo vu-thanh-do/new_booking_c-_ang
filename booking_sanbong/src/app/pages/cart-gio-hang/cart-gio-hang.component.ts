@@ -213,10 +213,10 @@ export class CartGioHangComponent {
             id: orderId,
             status: 'Confirm',
           };
-          this.orderService.updateStatusOrder(data2).subscribe((data: any) => {
-            this.Toast.success('updated status');
-            this.popUpConfirm = true;
-          });
+          // this.orderService.updateStatusOrder(data2).subscribe((data: any) => {
+          //   this.Toast.success('updated status');
+          //   this.popUpConfirm = true;
+          // });
         });
         window.location.href = data.data;
       });

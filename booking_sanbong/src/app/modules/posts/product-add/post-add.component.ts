@@ -1,5 +1,5 @@
 import { ServicesService } from 'src/app/services/service/services.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
@@ -12,12 +12,23 @@ import { MyUploadAdapter } from '../myuploadAdapter';
 import { CategoryService } from '../../../services/category/category.service';
 import { ProductsService } from '../../../services/products/products.service';
 import { UploadImageService } from '../../../services/uploadImage/upload-image.service';
-
+function positiveNumber(control: AbstractControl): ValidationErrors | null {
+  const value = control.value;
+  if (value === null || value === undefined || value === '') {
+    return null; // If value is empty, leave validation to 'required' validator
+  }
+  const parsedValue = parseFloat(value);
+  if (isNaN(parsedValue) || parsedValue <= 0) {
+    return { positiveNumber: true };
+  }
+  return null;
+}
 @Component({
   selector: 'app-post-add',
   templateUrl: './post-add.component.html',
   styleUrls: ['./post-add.component.scss'],
 })
+
 export class PostAddComponent {
   checkUsedService: boolean = false;
   checkAddedService: boolean = false;
@@ -31,12 +42,12 @@ export class PostAddComponent {
     service: ['', [Validators.required]],
     is_active: ['public', [Validators.required]],
     status: ['pending', [Validators.required]],
-    price: [0, [Validators.required]],
+    price: [0, [Validators.required,positiveNumber]],
   });
   addForm = this.builder.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
-    level: ['', [Validators.required]],
+    level: [''],
   });
   categories: any[] = [];
   service: any[] = [];
@@ -139,7 +150,7 @@ export class PostAddComponent {
   };
   onServiceSelectionChange(selectedService: any) {
     const priceInput = prompt('Nhập giá cho dịch vụ', '0');
-    if (priceInput !== null) {
+    if (priceInput !== null && Number(priceInput) > 1) {
       const price = parseFloat(priceInput);
       if (!isNaN(price)) {
         this.selectedServices.push({
@@ -152,6 +163,8 @@ export class PostAddComponent {
       } else {
         alert('Vui lòng nhập giá hợp lệ.');
       }
+    }else{
+      alert('Vui lòng nhập giá hợp lệ.');
     }
   }
   isItemSelected(itemId: string): boolean {
@@ -177,14 +190,14 @@ export class PostAddComponent {
     const category: any = {
       name: this.addForm.value.name || '',
       description: this.addForm.value.description || '',
-      icon: this.addForm.value.level || '',
+      icon: this.addForm.value.level || '213312',
     };
     this.ServicesService.createService(category).subscribe((data) => {
       this.onServiceSelectionChange(data.data);
       this.checkUsedService = true;
       this.checkAddedService = false;
       this.addForm.reset();
-      this.toastr.success('Add team successfully');
+
     });
   }
 }

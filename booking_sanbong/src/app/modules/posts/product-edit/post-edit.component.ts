@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,18 @@ import { ProductsService } from 'src/app/services/products/products.service';
 import { UploadImageService } from 'src/app/services/uploadImage/upload-image.service';
 import { MyUploadAdapter } from '../myuploadAdapter';
 import { ServicesService } from 'src/app/services/service/services.service';
-
+import { environment } from 'src/environment';
+function positiveNumber(control: AbstractControl): ValidationErrors | null {
+  const value = control.value;
+  if (value === null || value === undefined || value === '') {
+    return null; // If value is empty, leave validation to 'required' validator
+  }
+  const parsedValue = parseFloat(value);
+  if (isNaN(parsedValue) || parsedValue <= 0) {
+    return { positiveNumber: true };
+  }
+  return null;
+}
 @Component({
   selector: 'app-post-edit',
   templateUrl: './post-edit.component.html',
@@ -32,7 +43,7 @@ export class PostEditComponent implements AfterViewInit {
     category: ['', [Validators.required]],
     is_active: [''],
     status: ['', [Validators.required]],
-    price: [0, [Validators.required]],
+    price: [0, [Validators.required,positiveNumber]],
   });
   categories: ICategory[] = [];
   public Editor = ClassicEditor;
@@ -41,7 +52,8 @@ export class PostEditComponent implements AfterViewInit {
   nextImageId = 0;
   service: any[] = [];
   service2: any[] = [];
-
+  urlImage: string = environment.API_URL + '/root/';
+  dataIdPost : any;
   urls: any[] = [];
   selectedServices: { id: string; Price: number; name: string }[] = [];
   constructor(
@@ -78,6 +90,7 @@ export class PostEditComponent implements AfterViewInit {
       .getPost(id!, checkDay, checkMonth, newCheck)
       .subscribe((data) => {
         this.service = data.data.services;
+        this.dataIdPost = data.data.picture
         this.EditForm.patchValue({
           title: data.data.name,
           address: data.data.address,
@@ -193,7 +206,7 @@ export class PostEditComponent implements AfterViewInit {
   onServiceSelectionChange(service: any) {
     console.log('service selection change', service);
     const priceInput = prompt('Nhập giá cho dịch vụ', '0');
-    if (priceInput !== null) {
+    if (priceInput !== null && Number(priceInput) > 1) {
       const price = parseFloat(priceInput);
       if (!isNaN(price)) {
         this.service.push({
@@ -213,14 +226,15 @@ export class PostEditComponent implements AfterViewInit {
       } else {
         alert('Vui lòng nhập giá hợp lệ.');
       }
+    }else{
+      alert('Vui lòng nhập giá hợp lệ.');
+
     }
   }
-  handelEditServiceFeild() {
-    alert('ok');
-  }
+
   handelEdit(id: string){
     const priceInput = prompt('Nhập giá cho dịch vụ', '0');
-    if (priceInput !== null) {
+    if (priceInput !== null && Number(priceInput) > 1) {
       const price = parseFloat(priceInput);
       if (!isNaN(price)) {
         const newData = {
@@ -237,6 +251,9 @@ export class PostEditComponent implements AfterViewInit {
       } else {
         alert('Vui lòng nhập giá hợp lệ.');
       }
+    }else{
+      alert('Vui lòng nhập giá hợp lệ.');
+
     }
   }
 }
