@@ -16,13 +16,14 @@ export class ProductsListPageComponent {
   posts: IPosts[] = [];
   currentPage: number = 1;
   urlImage: string = environment.API_URL + '/root/';
-
+  filteredPosts: any[] = [];
+  searchKeyword: string = '';
   totalDocs!: number;
   totalPages!: number;
   totalPagesArray!: number[];
   hasNextPage: boolean = false;
   hasPrevPage: boolean = false;
-  categories: ICategory[] = [];
+  categories: any[] = [];
   ishiddenPagination: boolean = false;
   constructor(
     private categoryService: CategoryService,
@@ -50,6 +51,7 @@ export class ProductsListPageComponent {
         this.posts = allPosts.data.items.filter(
           (a: any) => a.status == 'Approved'
         );
+        this.filteredPosts = this.posts;
         this.currentPage = allPosts.posts.page;
         this.totalPages = allPosts.posts.totalPages;
         this.hasNextPage = allPosts.posts.hasNextPage;
@@ -65,7 +67,15 @@ export class ProductsListPageComponent {
         });
       });
   }
-
+  filterProducts() {
+    if (this.searchKeyword) {
+      this.filteredPosts = this.posts.filter((post : any) =>
+        post.name.toLowerCase().includes(this.searchKeyword.toLowerCase())
+      );
+    } else {
+      this.filteredPosts = this.posts; // Reset to all posts if search is cleared
+    }
+  }
   getPosts(id: string) {
     this.categoryService.getCategoryPostId(id).subscribe((postList) => {
       if (postList.data.posts) {
@@ -76,7 +86,12 @@ export class ProductsListPageComponent {
       this.isActive = !this.isActive;
     });
   }
+  searchProducts() {
 
+  }
+  searchProductsEra(id: any) {
+    this.filteredPosts = this.posts.filter((post : any) => post.fieldAreaId == id)
+  }
   goToPage(page: number) {
     this.currentPage = page;
     this.getAllPosts();

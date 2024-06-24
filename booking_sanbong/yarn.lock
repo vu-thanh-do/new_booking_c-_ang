@@ -127,7 +127,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/cdk@^16.0.2", "@angular/cdk@16.0.3":
+"@angular/cdk@^16.0.2", "@angular/cdk@>=17.0.0", "@angular/cdk@16.0.3":
   version "16.0.3"
   resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-16.0.3.tgz"
   integrity sha512-KQCKWWNiHuYmzAVSiEyVs1P+859uhlvnmUH2azoL3qUHUcvdyB+iYqv9rTVRJl4N8nOpOYrj4JP3zmvNZLsI1Q==
@@ -160,7 +160,7 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0", "@angular/common@^16.0.0", "@angular/common@^16.0.0 || ^17.0.0", "@angular/common@>=13.0.0", "@angular/common@>=16.0.0-0", "@angular/common@>=8.0.0 <15.0.0", "@angular/common@16.0.4":
+"@angular/common@^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0", "@angular/common@^16.0.0", "@angular/common@^16.0.0 || ^17.0.0", "@angular/common@>=13.0.0", "@angular/common@>=16.0.0-0", "@angular/common@>=17.0.0", "@angular/common@>=8.0.0 <15.0.0", "@angular/common@16.0.4":
   version "16.0.4"
   resolved "https://registry.npmjs.org/@angular/common/-/common-16.0.4.tgz"
   integrity sha512-EX1u46Lwc0uGcc0jjaxFHcnkuXusytYcjcd9pc+7eNNIi9nvLJDRmd8VyZ12ozc6ynBO6vt0mFSpIpjUVsTheQ==
@@ -188,7 +188,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0", "@angular/core@^16.0.0", "@angular/core@^16.0.0 || ^17.0.0", "@angular/core@>=13.0.0", "@angular/core@>=16.0.0-0", "@angular/core@>=8.0.0 <15.0.0", "@angular/core@16.0.4":
+"@angular/core@^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0", "@angular/core@^16.0.0", "@angular/core@^16.0.0 || ^17.0.0", "@angular/core@>=13.0.0", "@angular/core@>=16.0.0-0", "@angular/core@>=17.0.0", "@angular/core@>=8.0.0 <15.0.0", "@angular/core@16.0.4":
   version "16.0.4"
   resolved "https://registry.npmjs.org/@angular/core/-/core-16.0.4.tgz"
   integrity sha512-Lp/qGJt0NFFTKQHofaMjCdGYfVwGCyhBtcbioaTqi1wA5OwXfMZX5MgHZXl1KlnZs1YVqM8vO/Z/4kOxgYXvNQ==
@@ -272,7 +272,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/platform-browser@^16.0.0", "@angular/platform-browser@^16.0.0 || ^17.0.0", "@angular/platform-browser@>=16.0.0-0", "@angular/platform-browser@16.0.4":
+"@angular/platform-browser@^16.0.0", "@angular/platform-browser@^16.0.0 || ^17.0.0", "@angular/platform-browser@>=16.0.0-0", "@angular/platform-browser@>=17.0.0", "@angular/platform-browser@16.0.4":
   version "16.0.4"
   resolved "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-16.0.4.tgz"
   integrity sha512-sU9ZthOtTM8tJCX93MumRGDbkly4wZt0iucmqc7NYhWQfmwPBP+qVBEyXJneVOag6FU7OozyMoQ4e3274ka52w==
@@ -1666,6 +1666,11 @@
   dependencies:
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
+
+"@kurkle/color@^0.3.0":
+  version "0.3.2"
+  resolved "https://registry.npmjs.org/@kurkle/color/-/color-0.3.2.tgz"
+  integrity sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
@@ -3406,6 +3411,13 @@ chardet@^0.7.0:
   resolved "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
+"chart.js@^3.4.0 || ^4.0.0", chart.js@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.npmjs.org/chart.js/-/chart.js-4.4.3.tgz"
+  integrity sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw==
+  dependencies:
+    "@kurkle/color" "^0.3.0"
+
 chokidar@^3.0.0, chokidar@^3.5.1, chokidar@^3.5.2, chokidar@^3.5.3, "chokidar@>=3.0.0 <4.0.0", chokidar@3.5.3:
   version "3.5.3"
   resolved "https://registry.npmjs.org/chokidar/-/chokidar-3.5.3.tgz"
@@ -3927,6 +3939,14 @@ eastasianwidth@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/eastasianwidth/-/eastasianwidth-0.2.0.tgz"
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
+
+echarts@^5.5.0, echarts@>=5.0.0:
+  version "5.5.0"
+  resolved "https://registry.npmjs.org/echarts/-/echarts-5.5.0.tgz"
+  integrity sha512-rNYnNCzqDAPCr4m/fqyUFv7fD9qIsd50S6GDFgO1DxZhncCsNsG7IfUlAlvZe5oSEQxtsjnHiUuppzccry93Xw==
+  dependencies:
+    tslib "2.3.0"
+    zrender "5.5.0"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -5713,6 +5733,21 @@ ng-apexcharts@^1.7.6:
   dependencies:
     tslib "^2.0.0"
 
+ng2-charts@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/ng2-charts/-/ng2-charts-6.0.1.tgz"
+  integrity sha512-pO7evbvHqjiKB7zqE12tCKWQI9gmQ8DVOEaWBBLlxJabc4fLGk7o9t4jC4+Q9pJiQrTtQkugm0dIPQ4PFHUaWA==
+  dependencies:
+    lodash-es "^4.17.15"
+    tslib "^2.3.0"
+
+ngx-echarts@^18.0.0:
+  version "18.0.0"
+  resolved "https://registry.npmjs.org/ngx-echarts/-/ngx-echarts-18.0.0.tgz"
+  integrity sha512-1rJW7vhMTTQMZNO5AhbHfTDorhP7dcvwRsDH5jFk2SPb/gjIFWvXBY9VSNAOKumuSBnopm2+uSz6BRO5oWxovA==
+  dependencies:
+    tslib "^2.3.0"
+
 ngx-image-swiper@^1.2.3:
   version "1.2.3"
   resolved "https://registry.npmjs.org/ngx-image-swiper/-/ngx-image-swiper-1.2.3.tgz"
@@ -7261,6 +7296,11 @@ tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0:
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.5.3.tgz"
   integrity sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==
 
+tslib@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.3.0.tgz"
+  integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+
 tslib@2.5.0:
   version "2.5.0"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.5.0.tgz"
@@ -7768,3 +7808,10 @@ zone.js@~0.11.4:
   integrity sha512-82bctBg2hKcEJ21humWIkXRlLBBmrc3nN7DFh5LGGhcyycO2S7FN8NmdvlcKaGFDNVL4/9kFLmwmInTavdJERA==
   dependencies:
     tslib "^2.3.0"
+
+zrender@5.5.0:
+  version "5.5.0"
+  resolved "https://registry.npmjs.org/zrender/-/zrender-5.5.0.tgz"
+  integrity sha512-O3MilSi/9mwoovx77m6ROZM7sXShR/O/JIanvzTwjN3FORfLSr81PsUGd7jlaYOeds9d8tw82oP44+3YucVo+w==
+  dependencies:
+    tslib "2.3.0"

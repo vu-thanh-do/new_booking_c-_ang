@@ -302,7 +302,32 @@ select:focus {
 .hidden,.hide,.hiden {
     display: none
 }
+.header__search .input-group .form-control {
+  height: 46px;
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+  font-size: 15px
+}
 
+.header__search.header__search-mb span.form-control {
+  padding: 12px 13px
+}
+
+.header__search .input-group .input-group-append .btn-submit {
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  background: #f3f3f3;
+  border: 0;
+  font-size: 24px;
+  color: #7E7E7E;
+  padding: 0 15px;
+  height: 46px;
+  line-height: 1
+}
+
+.header__search .input-group .form-control::placeholder {
+  color: #7E7E7E
+}
 .pagination {
     text-align: center;
     margin-top: 40px;

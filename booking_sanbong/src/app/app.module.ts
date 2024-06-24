@@ -1,6 +1,7 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -15,7 +16,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import { AvatarDirective } from './Directive/avatar.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,7 +62,6 @@ import { TrashCanUserComponent } from './modules/trash-can/trash-can-user/trash-
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
 import { RequestInterceptor } from './request/request.interceptor';
-
 import { ManageOrderComponent } from './components/manage-order/manage-order.component';
 import { ProductFeatureComponent } from './components/product-feature/product-feature.component';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
@@ -150,6 +149,7 @@ import { DetailsFieldAreaComponent } from './components/details-field-area/detai
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
     BrowserAnimationsModule,
     CKEditorModule,
     ToastrModule.forRoot({
@@ -164,7 +164,6 @@ import { DetailsFieldAreaComponent } from './components/details-field-area/detai
     MatSelectModule,
     MatRadioModule,
     MatTabsModule,
-    NgApexchartsModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -179,7 +178,7 @@ import { DetailsFieldAreaComponent } from './components/details-field-area/detai
   ],
   bootstrap: [AppComponent],
   schemas: [
-    // CUSTOM_ELEMENTS_SCHEMA,
+
   ],
 })
 export class AppModule {}
