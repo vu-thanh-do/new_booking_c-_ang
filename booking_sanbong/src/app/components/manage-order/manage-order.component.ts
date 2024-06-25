@@ -106,7 +106,7 @@ export class ManageOrderComponent {
 
     const data: any = {
       id: id,
-      status: 'Confirm',
+      status: 'Pair',
     };
     this.orderServer.updateStatusOrder(data).subscribe((data: any) => {
       this.orderServer.acceptStakeService(id).subscribe((db: any) => {});
