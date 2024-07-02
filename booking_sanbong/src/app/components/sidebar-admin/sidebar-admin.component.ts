@@ -163,13 +163,13 @@ export class SidebarAdminComponent {
             isActive: false,
             queryParams: { type: 'Staff' },
           },
-          {
-            routerLink: 'manager-owner',
-            label: 'Chủ sân',
-            icon: 'fas fa-users',
-            isActive: false,
-            queryParams: { type: 'FieldOwner' },
-          },
+          // {
+          //   routerLink: 'manager-owner',
+          //   label: 'Chủ sân',
+          //   icon: 'fas fa-users',
+          //   isActive: false,
+          //   queryParams: { type: 'FieldOwner' },
+          // },
           {
             routerLink: 'manager-manager',
             label: 'Quản lý',

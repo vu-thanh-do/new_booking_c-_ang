@@ -52,13 +52,14 @@
             class="form-control"
             autocomplete="off"
             id="password"
-            type="password"
+             [type]="isPassword ? 'password' : 'text'"
             formControlName="password"
             placeholder="Please enter your password"
           />
           <i
             class="fa-solid fa-eye position-absolute translate-middle-y top-50"
-            style="right: 20px"
+            style="right: 20px; cursor:pointer"
+            (click)="togglePassword()"
           ></i>
         </div>
         <div

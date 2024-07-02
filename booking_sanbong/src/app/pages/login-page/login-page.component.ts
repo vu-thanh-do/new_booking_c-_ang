@@ -34,7 +34,11 @@ export class LoginPageComponent {
   get checkPassword() {
     return this.FormLogin.get('password') as FormControl;
   }
+  isPassword: boolean = true;
 
+  togglePassword() {
+    this.isPassword = !this.isPassword;
+  }
   onLogin() {
     const Login: ILogin = {
       email: this.FormLogin.value.email || '',

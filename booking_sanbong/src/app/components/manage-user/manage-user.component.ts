@@ -23,7 +23,7 @@ export class ManageUserComponent {
   };
   urlImage: string = environment.API_URL + '/root/';
   dataUser: any = {};
-  title: string = 'Quản lý người dùng';
+  title: string = '';
   titleModal: string = 'Thêm người dùng';
   linkActive: string = '/admin/add-user';
   theadTable: string[] = [
@@ -72,8 +72,14 @@ export class ManageUserComponent {
       console.log(params);
       // const type = params.get('type');
       const type = params['type'];
-      console.log(type);
       if (type) {
+        if(type === 'EndUser'){
+          this.title ='Quản lý người dùng'
+        }else if(type === 'Staff'){
+          this.title ='Quản lý nhân viên'
+        }else if(type === 'Manager'){
+          this.title ='Quản lý'
+        }
         this.userService
           .getUserByAll({
             type: type,

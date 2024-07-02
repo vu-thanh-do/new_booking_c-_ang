@@ -113,8 +113,14 @@ export class UserInfoComponent {
     console.log(this.urls[0]);
     imageFrom.append('file', this.urls[0]);
     this.auth.uploadAvatarUser(imageFrom).subscribe(
-      () => {
+      (data : any) => {
+        console.log(data,'data');
+        var newData = {
+          ...user,picture :data.data.picture
+        }
+        localStorage.setItem(this.auth.TOKEN_USER, JSON.stringify(newData));
         this.toastr.success('thành công');
+        window.location.reload();
       },
       () => {
         this.toastr.error('T thất bại');

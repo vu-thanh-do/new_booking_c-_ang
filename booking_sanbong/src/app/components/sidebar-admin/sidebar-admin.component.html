@@ -40,64 +40,8 @@
 
       <!-- Right links -->
       <ul class="navbar-nav ms-auto d-flex flex-row">
-        <!-- Notification dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-bell"></i>
-            <span class="badge rounded-pill badge-notification bg-danger">1</span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" routerLink="#">Some news</a></li>
-            <li><a class="dropdown-item" routerLink="#">Another news</a></li>
-            <li>
-              <a class="dropdown-item" routerLink="#">Something else</a>
-            </li>
-          </ul>
-        </li>
 
         <!-- Icon dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" id="navbarDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="united kingdom flag m-0"></i>
-            <i class="fa-solid fa-language"></i>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <li>
-              <a class="dropdown-item" routerLink="#"><i class="united kingdom flag"></i>English
-                <i class="fa fa-check text-success ms-2"></i></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="#"><i class="poland flag"></i>Polski</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="#"><i class="china flag"></i>中文</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="#"><i class="japan flag"></i>日本語</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="#"><i class="germany flag"></i>Deutsch</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="#"><i class="france flag"></i>Français</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="#"><i class="spain flag"></i>Español</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="#"><i class="russia flag"></i>Русский</a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="#"><i class="portugal flag"></i>Português</a>
-            </li>
-          </ul>
-        </li>
-
         <!-- Avatar -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" id="navbarDropdownMenuLink"
@@ -106,8 +50,6 @@
               loading="lazy" />
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" style="cursor: pointer;">My profile</a></li>
-            <li><a class="dropdown-item" style="cursor: pointer;">Settings</a></li>
             <li><a class="dropdown-item" style="cursor: pointer;" (click)="onLogout()">Đăng xuất</a></li>
           </ul>
         </li>
