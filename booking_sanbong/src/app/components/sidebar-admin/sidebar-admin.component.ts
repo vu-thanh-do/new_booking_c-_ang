@@ -322,6 +322,6 @@ export class SidebarAdminComponent {
 
   onLogout() {
     this.service.logOut();
-    this.direct.navigateByUrl('login-admin');
+    this.direct.navigateByUrl('/');
   }
 }
