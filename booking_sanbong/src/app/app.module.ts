@@ -81,6 +81,8 @@ import { PriceDialogComponent } from './components/price-dialog/price-dialog.com
 import { InvitebymeComponent } from './components/invitebyme/invitebyme.component';
 import { DetailsBookingComponent } from './components/details-booking/details-booking.component';
 import { DetailsFieldAreaComponent } from './components/details-field-area/details-field-area.component';
+import { InvitMeComponent } from './components/invit-me/invit-me.component';
+import { MeInvitComponent } from './components/me-invit/me-invit.component';
 
 @NgModule({
   declarations: [
@@ -141,6 +143,8 @@ import { DetailsFieldAreaComponent } from './components/details-field-area/detai
     InvitebymeComponent,
     DetailsBookingComponent,
     DetailsFieldAreaComponent,
+    InvitMeComponent,
+    MeInvitComponent,
   ],
   imports: [
     BrowserModule,

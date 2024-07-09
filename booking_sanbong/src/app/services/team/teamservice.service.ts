@@ -65,6 +65,14 @@ export class TeamserviceService {
     // /api/Invite/InviteMe
     return this.http.get<any>(`${this.baseURL}/api/Invite/InviteMe`);
   }
+  getInvitV2(id:any) {
+    // /api/Invite/InviteMe
+    return this.http.get<any>(`${this.baseURL}/api/Invite/InviteMe/v2?id=${id}`);
+  }
+  getInvitV3(id:any) {
+    // /api/Invite/InviteMe
+    return this.http.get<any>(`${this.baseURL}/api/Invite/InviteMe/v3?id=${id}`);
+  }
   getInviAcceptMe() {
     // /api/Invite/InviteMe
     return this.http.get<any>(`${this.baseURL}/api/Invite/AcceptedMe`);

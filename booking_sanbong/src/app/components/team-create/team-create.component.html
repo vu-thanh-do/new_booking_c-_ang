@@ -1,7 +1,6 @@
 <app-header></app-header>
 <div class="container-xl">
   <div class="">
-
     <div class="">
       <div class="table-title">
         <div class="row">
@@ -51,43 +50,67 @@
           </button> -->
 
         <!-- </div> -->
-        <div style="position:relative;right:0; margin-top:15px" class="col-6">
-          <mat-form-field class="form__field">
-            <mat-label>Danh sách</mat-label>
-            <mat-select formControlName="role">
-              <mat-option [routerLink]="['/create-team/all']" [queryParams]="{ accept: 1 }" >
-                <span >
-                tất cả danh sách
-                </span>
-              </mat-option>
-              <mat-option [routerLink]="['/create-team/all']" [queryParams]="{ accept: true }" >
-                <span  >
-                 danh sách đã xác nhận
-                </span>
-              </mat-option>
-              <mat-option [routerLink]="['/create-team/all']" [queryParams]="{ accept: false }" >
-                <span  >
-                 danh sách đã từ chối
-                </span>
-              </mat-option>
-              <mat-option [routerLink]="['/create-team/all']" [queryParams]="{ accept: 2 }" >
-                <span >
-                 danh sách mời bạn
-                </span>
-              </mat-option>
-              <mat-option  [routerLink]="['/create-team/byme']" [queryParams]="{ accept: 5 }" >
-                <span>
-                 ds đồng ý lời mời từ bạn
-                </span>
-              </mat-option>
-              <mat-option [routerLink]="['/create-team/byme']" [queryParams]="{ accept: 6 }" >
-                <span    >
-                 ds từ chối lời mời từ bạn
-                </span>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+        <!-- <div
+          style="position: relative; right: 0; margin-top: 15px"
+          class="col-6"
+        >
+          <div
+            style="
+              padding: 10px;
+              background: #ccc;
+              border-radius: 4px;
+              color: white;
+              font-weight: 500;
+              margin-bottom: 10px;
+            "
+            [routerLink]="['/create-team/all']"
+            [queryParams]="{ accept: 1 }"
+          >
+            <span> tất cả danh sách mời bạn</span>
+          </div>
+          <div
+            style="
+              padding: 10px;
+              background: #ccc;
+              border-radius: 4px;
+              color: white;
+              margin-bottom: 10px;
+              font-weight: 500;
+            "
+            [routerLink]="['/create-team/all']"
+            [queryParams]="{ accept: 2 }"
+          >
+            <span> danh sách  bạn mời</span>
+          </div>
+          <div
+            style="
+              padding: 10px;
+              background: #ccc;
+              border-radius: 4px;
+              color: white;
+              margin-bottom: 10px;
+              font-weight: 500;
+            "
+            [routerLink]="['/create-team/byme']"
+            [queryParams]="{ accept: 5 }"
+          >
+            <span> ds đồng ý lời mời từ bạn </span>
+          </div>
+          <div
+            style="
+              padding: 10px;
+              background: #ccc;
+              border-radius: 4px;
+              color: white;
+              margin-bottom: 10px;
+              font-weight: 500;
+            "
+            [routerLink]="['/create-team/byme']"
+            [queryParams]="{ accept: 6 }"
+          >
+            <span> ds từ chối lời mời từ bạn </span>
+          </div>
+        </div> -->
       </div>
       <div class="table-container">
         <table class="table table-striped table-hover">
@@ -106,10 +129,10 @@
                 {{ post.name }}
               </td>
               <td class="text-center">{{ post.description }}</td>
-              <td class="d-flex justify-content-center">
+              <td class="">
                 <div class="d-flex justify-content-center gap-3">
                   <button
-                  (click)="getIdTeam(post.id)"
+                    (click)="getIdTeam(post.id)"
                     class="text-23BB86"
                     data-toggle="modal"
                     data-target="#exampleModal"
@@ -127,12 +150,72 @@
                   >
                     <i class="fa-sharp fa-solid fa-trash"></i>
                   </button>
-                    <button
-                    *ngIf="post.status == '1'"
-                    class=" text-success"
-                  >
+                  <button *ngIf="post.status == '1'" class="text-success">
                     Used
                   </button>
+                </div>
+                <div>
+                  <div
+                  style="position: relative; right: 0; margin-top: 15px"
+                  class=""
+                >
+                  <div
+                    style="
+                      padding: 10px;
+                      background: #ccc;
+                      border-radius: 4px;
+                      color: white;
+                      font-weight: 500;
+                      margin-bottom: 10px;
+                    "
+                    [routerLink]="['/create-team/all']"
+                    [queryParams]="{ accept: 1 }"
+                  >
+                    <span> tất cả danh sách mời bạn</span>
+                  </div>
+                  <div
+                    style="
+                      padding: 10px;
+                      background: #ccc;
+                      border-radius: 4px;
+                      color: white;
+                      margin-bottom: 10px;
+                      font-weight: 500;
+                    "
+                    [routerLink]="['/create-team/all']"
+                    [queryParams]="{ accept: 2 }"
+                  >
+                    <span> danh sách  bạn mời</span>
+                  </div>
+                  <div
+                    style="
+                      padding: 10px;
+                      background: #ccc;
+                      border-radius: 4px;
+                      color: white;
+                      margin-bottom: 10px;
+                      font-weight: 500;
+                    "
+                    [routerLink]="['/create-team/byme']"
+                    [queryParams]="{ accept: 5 }"
+                  >
+                    <span> ds đồng ý lời mời từ bạn </span>
+                  </div>
+                  <div
+                    style="
+                      padding: 10px;
+                      background: #ccc;
+                      border-radius: 4px;
+                      color: white;
+                      margin-bottom: 10px;
+                      font-weight: 500;
+                    "
+                    [routerLink]="['/create-team/byme']"
+                    [queryParams]="{ accept: 6 }"
+                  >
+                    <span> ds từ chối lời mời từ bạn </span>
+                  </div>
+                </div>
                 </div>
               </td>
             </tr>
@@ -163,16 +246,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div *ngIf="dataDetailsTeam" class="modal-body" >
+      <div *ngIf="dataDetailsTeam" class="modal-body">
         <section class="content-detail-posts my-5">
-          <div class=" align-items-center mb-5">
+          <div class="align-items-center mb-5">
             <div class="col-sm-12 col-lg-6">
               <div class="info">
                 <div class="tag mb-2">
-                <span>
-                  Tên Team :
-                </span>
-                 <span
+                  <span> Tên Team : </span>
+                  <span
                     class="d-inline-block font-600 bg-F3EDFF text-6B6B6B rounded-4 text-sm px-3"
                     >{{ dataDetailsTeam.name }}</span
                   >
@@ -183,35 +264,31 @@
                   </h1>
                 </div>
                 <div class="d-flex align-items-center gap-3">
-                  <span class="text-6B6B6B text-sm font-600">Level  {{
-                    dataDetailsTeam.level
-                  }}</span>
+                  <span class="text-6B6B6B text-sm font-600"
+                    >Level {{ dataDetailsTeam.level }}</span
+                  >
                 </div>
               </div>
             </div>
           </div>
           <div class="content-posts mx-auto">
-
             <div class="author mt-5">
-              <div class=" align-items-center">
+              <div class="align-items-center">
                 <div class="col-sm-12 col-md-8">
                   <div class="infomation">
                     <div class="name mb-3">
                       <h3 class="text-23BB86 font-600 text-2xl">
-                   SDT     {{ dataDetailsTeam.phone }}
+                        SDT {{ dataDetailsTeam.phone }}
                       </h3>
                     </div>
                     <div class="quote d-flex align-items-center">
-                     <p style="color:black">
-                      Mô tả :
-                     </p>
-                     <p style="color:black">
-                       {{dataDetailsTeam.description}}
+                      <p style="color: black">Mô tả :</p>
+                      <p style="color: black">
+                        {{ dataDetailsTeam.description }}
                       </p>
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>

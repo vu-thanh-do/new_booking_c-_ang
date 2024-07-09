@@ -13,7 +13,7 @@ import { TeamserviceService } from 'src/app/services/team/teamservice.service';
 export class DetailsDanhsachComponent {
   title: string = 'Tất cả Dánh sách mời';
   title2: string = 'Tất cả bạn đã mời';
-
+  checkShowHide: boolean = false;
   routerLink: string = '/admin/add-category';
   theadTable: string[] = ['STT', 'Tên team', 'số điện thoại', 'level', 'tuổi'];
   theadTable2: string[] = [
@@ -33,7 +33,10 @@ export class DetailsDanhsachComponent {
   nextResult: any = '';
   newResult: any[] = [];
   inviteMe: any[] = [];
+  dataInvitMe: any[] = [];
+  teamAll : any[] = [];
   check2 = false;
+  idMyteam: string = '6e415e46-7445-49ce-73fb-08dc9fe1f556';
   constructor(
     private categoryService: CategoryService,
     private excelServiceService: ExcelServiceService,
@@ -42,9 +45,21 @@ export class DetailsDanhsachComponent {
     private route: ActivatedRoute
   ) {
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.getAllTeamByUSer2();
+    this.getAllTeamByUSer2();
+    this.getAllTeamByUSer2();
+
     this.getAllTeamByUSer();
     this.getAllTeamByMe();
     this.getInviteByMe();
+    this.getInvitV2();
+
+  }
+  getAllTeamByUSer2() {
+    this.TeamserviceService.getAllTeamByUser().subscribe((team) => {
+      console.log(team, 'team 1');
+      this.teamAll = team.data.items;
+    });
   }
   getAllTeamByUSer() {
     this.acceptValue = this.route.snapshot.queryParamMap.get('accept');
@@ -59,7 +74,6 @@ export class DetailsDanhsachComponent {
         this.nextResult = { accept: false, userId: this.user.id };
         break;
       case '2':
-        console.log('222');
         this.check2 = true;
         break;
       default:
@@ -67,13 +81,16 @@ export class DetailsDanhsachComponent {
     }
     this.TeamserviceService.getDataInviteByUser(this.nextResult).subscribe(
       (team) => {
-        console.log(team.data.items, 'team');
+        console.log(team.data.items.inviteTeam, 'team');
+        console.log(team.data.items, 'inv');
         this.team = team.data.items;
         var newData = Object.entries(this.team);
         var nextResult = [];
         for (const [key, value] of newData) {
           console.log(key, '1');
           console.log(value, '2');
+          this.checkShowHide =
+            value.inviteTeam.userId == this.user.id ? true : false;
           nextResult.push({
             id: value.id,
             nameTeam: value.team.name,
@@ -84,7 +101,8 @@ export class DetailsDanhsachComponent {
           });
         }
         this.newResult = nextResult;
-        console.log(this.newResult, 'acc');
+
+        console.log(this.newResult);
       }
     );
   }
@@ -142,6 +160,32 @@ export class DetailsDanhsachComponent {
     this.TeamserviceService.actionOnInviteAPI(dataAcept).subscribe(() => {
       // window.location.reload();
       this.getAllTeamByUSer();
+    });
+  }
+
+  getInvitV2() {
+    this.TeamserviceService.getInvitV3(
+      '6e415e46-7445-49ce-73fb-08dc9fe1f556'
+    ).subscribe((data: any) => {
+      var newData = data.filter((items: any) => {
+      return  items.accepted == null && this.idMyteam == items.teamId;
+      });
+      console.log(this.teamAll,'xml:lang')
+      const newArray = newData.map((item1: any) => {
+        const matchedItem = this.teamAll.find(
+          (item2: any) => item2.id == item1.inviteTeamId
+        );
+        return {
+          ...item1,
+          name: matchedItem ? matchedItem.name : null,
+          age : matchedItem ? matchedItem.age : null,
+          level: matchedItem ? matchedItem.level : null,
+          phone : matchedItem ? matchedItem.phone : null
+        };
+      });
+      this.checkShowHide = true;
+      this.dataInvitMe = newArray;
+      console.log('ok', newArray);
     });
   }
 }
