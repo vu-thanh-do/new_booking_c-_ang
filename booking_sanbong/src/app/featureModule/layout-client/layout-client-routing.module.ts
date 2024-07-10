@@ -20,6 +20,7 @@ import { InvitebymeComponent } from 'src/app/components/invitebyme/invitebyme.co
 import { DetailsBookingComponent } from 'src/app/components/details-booking/details-booking.component';
 import { InvitMeComponent } from 'src/app/components/invit-me/invit-me.component';
 import { MeInvitComponent } from 'src/app/components/me-invit/me-invit.component';
+import { AcceptMeComponent } from 'src/app/components/accept-me/accept-me.component';
 
 const routes: Routes = [
   {
@@ -97,6 +98,10 @@ const routes: Routes = [
   {
     path: 'details-me-invit/:id',
     component: MeInvitComponent,
+  },
+  {
+    path: 'details-me-invit-true/:id',
+    component: AcceptMeComponent,
   },
 ];
 

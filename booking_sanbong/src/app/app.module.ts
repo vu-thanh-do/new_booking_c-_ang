@@ -83,6 +83,7 @@ import { DetailsBookingComponent } from './components/details-booking/details-bo
 import { DetailsFieldAreaComponent } from './components/details-field-area/details-field-area.component';
 import { InvitMeComponent } from './components/invit-me/invit-me.component';
 import { MeInvitComponent } from './components/me-invit/me-invit.component';
+import { AcceptMeComponent } from './components/accept-me/accept-me.component';
 
 @NgModule({
   declarations: [
@@ -145,6 +146,7 @@ import { MeInvitComponent } from './components/me-invit/me-invit.component';
     DetailsFieldAreaComponent,
     InvitMeComponent,
     MeInvitComponent,
+    AcceptMeComponent,
   ],
   imports: [
     BrowserModule,

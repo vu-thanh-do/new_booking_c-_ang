@@ -168,9 +168,9 @@
                       font-weight: 500;
                       margin-bottom: 10px;
                     "
-                    [routerLink]="['/create-team/all']"
-                    [queryParams]="{ accept: 1 }"
+                    [routerLink]="'/details-invit-me/' + post.id"
                   >
+                  <!-- [queryParams]="{ accept: 1 }" -->
                     <span> tất cả danh sách mời bạn</span>
                   </div>
                   <div
@@ -196,8 +196,7 @@
                       margin-bottom: 10px;
                       font-weight: 500;
                     "
-                    [routerLink]="['/create-team/byme']"
-                    [queryParams]="{ accept: 5 }"
+                    [routerLink]="'/details-me-invit-true/'+ post.id"
                   >
                     <span> ds đồng ý lời mời từ bạn </span>
                   </div>
@@ -210,8 +209,8 @@
                       margin-bottom: 10px;
                       font-weight: 500;
                     "
-                    [routerLink]="['/create-team/byme']"
-                    [queryParams]="{ accept: 6 }"
+                    [routerLink]="'/details-me-invit/'+ post.id"
+
                   >
                     <span> ds từ chối lời mời từ bạn </span>
                   </div>

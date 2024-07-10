@@ -25,11 +25,17 @@
 
             class=""
           >
-          <button [routerLink]="'/details/' + post.teamId" class="delete text-danger btn btn-success text-white">
-            chi tiết team mời
+          <button
+            (click)="actionOnInvite(post.id, 1)"
+            class="delete text-danger btn btn-success text-white"
+          >
+            đồng ý
           </button>
-          <button [routerLink]="'/details/' + post.myTeamId" class="delete text-white btn btn-danger text-white">
-            chi tiết team được mời
+          <button
+            (click)="actionOnInvite(post.id, 2)"
+            class="delete text-white btn btn-danger text-white"
+          >
+            từ chối
           </button>
           </div>
         </td>
