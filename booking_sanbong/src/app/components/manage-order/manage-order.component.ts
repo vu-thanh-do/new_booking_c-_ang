@@ -7,7 +7,6 @@ import { formatCurrency } from 'src/app/utils/format-currency';
 import { handleFomatDate } from 'src/app/utils/fomatDate';
 import { environment } from 'src/environment';
 import axios from 'axios';
-
 @Component({
   selector: 'app-manage-order',
   templateUrl: './manage-order.component.html',
@@ -29,7 +28,6 @@ export class ManageOrderComponent {
   dataSourceCancel: IOrder[] = [];
   accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
   combinedData: any[] = [];
-
   theadTable: string[] = ['STT', 'Tên sản phẩm', 'Số lương', 'Trạng thái'];
   orders: any = [];
   orderDones: IOrder[] = [];
@@ -38,7 +36,6 @@ export class ManageOrderComponent {
   confirmData: IOrder[] = [];
   stakeMoneyData: IOrder[] = [];
   usersList: any = [];
-
   constructor(
     private userService: UserService,
     private orderServer: OrderService,
@@ -47,7 +44,6 @@ export class ManageOrderComponent {
     this.getAllUsers();
     this.getAllOrders();
   }
-
   getAllUsers() {
     this.userService.getUserByAll({}).subscribe((users: any) => {
       console.log(users.data.items, 'users');
@@ -55,7 +51,6 @@ export class ManageOrderComponent {
       this.combineData(); // Gọi combineData sau khi có dữ liệu user
     });
   }
-
   getAllOrders() {
     this.orderServer.getAllOrder().subscribe((order: any) => {
       console.log(order);
@@ -84,7 +79,6 @@ export class ManageOrderComponent {
       this.combineData(); // Gọi combineData sau khi có dữ liệu order
     });
   }
-
   combineData() {
     if (this.orders.length && this.usersList.length) {
       this.combinedData = this.orders.map((order: any) => {
