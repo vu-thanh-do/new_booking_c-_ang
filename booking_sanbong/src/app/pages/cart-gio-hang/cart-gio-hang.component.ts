@@ -196,7 +196,7 @@ export class CartGioHangComponent {
     const idPayParam = queryParams.get('idPay');
     const data = {
       id: idPayParam,
-      status: 'Pair',
+      status: 'Confirm',
     };
     this.orderService.updateStatusOrder(data).subscribe((data: any) => {
       this.Toast.success('updated status');

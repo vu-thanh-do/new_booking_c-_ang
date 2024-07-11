@@ -121,7 +121,7 @@ export class PostAddComponent {
     this.postsService.createPost(postData).subscribe(
       () => {
         this.toastr.success('Thêm Sân bóng thành công');
-        this.router.navigate(['/admin/manager-product']);
+        // this.router.navigate(['/admin/manager-product']);
         this.postForm.reset();
       },
       () => {
