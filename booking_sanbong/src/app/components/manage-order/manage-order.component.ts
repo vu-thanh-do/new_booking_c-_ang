@@ -7,6 +7,7 @@ import { formatCurrency } from 'src/app/utils/format-currency';
 import { handleFomatDate } from 'src/app/utils/fomatDate';
 import { environment } from 'src/environment';
 import axios from 'axios';
+
 @Component({
   selector: 'app-manage-order',
   templateUrl: './manage-order.component.html',
@@ -27,6 +28,7 @@ export class ManageOrderComponent {
   dataSourceDone: IOrder[] = [];
   dataSourceCancel: IOrder[] = [];
   accessToken = JSON.parse(localStorage.getItem('accessToken') || '');
+  combinedData: any[] = [];
 
   theadTable: string[] = ['STT', 'Tên sản phẩm', 'Số lương', 'Trạng thái'];
   orders: any = [];
@@ -35,18 +37,27 @@ export class ManageOrderComponent {
   orderPending: IOrder[] = [];
   confirmData: IOrder[] = [];
   stakeMoneyData: IOrder[] = [];
+  usersList: any = [];
 
   constructor(
     private userService: UserService,
     private orderServer: OrderService,
     private toastr: ToastrService
   ) {
-    this.getAllOrder();
+    this.getAllUsers();
+    this.getAllOrders();
   }
 
-  /* get All users */
-  getAllOrder() {
-    this.orderServer.getAllOrder().subscribe((order) => {
+  getAllUsers() {
+    this.userService.getUserByAll({}).subscribe((users: any) => {
+      console.log(users.data.items, 'users');
+      this.usersList = users.data.items;
+      this.combineData(); // Gọi combineData sau khi có dữ liệu user
+    });
+  }
+
+  getAllOrders() {
+    this.orderServer.getAllOrder().subscribe((order: any) => {
       console.log(order);
       this.orders = order.data.items;
       this.orderCancel = order.data.items.filter(
@@ -69,11 +80,41 @@ export class ManageOrderComponent {
           orderA.status !== 'Cancel' &&
           orderA.status !== 'Pair'
       );
-      this.dataSourcePending = this.orderPending;
-      this.dataSourceDone = this.orderDones;
-      this.dataSourceCancel = this.orderCancel;
+      console.log(this.stakeMoneyData,'stakeMoneyData')
+      this.combineData(); // Gọi combineData sau khi có dữ liệu order
     });
-    console.log(this.orderCancel, 'orderCancel');
+  }
+
+  combineData() {
+    if (this.orders.length && this.usersList.length) {
+      this.combinedData = this.orders.map((order: any) => {
+        const user = this.usersList.find((u: any) => u.id === order.userId);
+        return {
+          ...order,
+          user: user ? user : null
+        };
+      });
+
+      this.orderPending = this.combinedData.filter(
+        (order: any) => order.status == 'Wait' && order.deposited == false
+      );
+      this.orderDones = this.combinedData.filter(
+        (order: any) => order.status == 'Pair'
+      );
+      this.orderCancel = this.combinedData.filter(
+        (order: any) => order.status == 'Cancel'
+      );
+      this.stakeMoneyData = this.combinedData.filter(
+        (orderA: any) =>
+          orderA.deposited == true &&
+          orderA.status === 'Confirm' &&
+          orderA.status !== 'Cancel' &&
+          orderA.status !== 'Pair'
+      );
+      console.log(this.dataSourcePending, 'dataSourcePending');
+      console.log(this.orderDones, 'dataSourceDone');
+      console.log(this.dataSourceCancel, 'dataSourceCancel');
+    }
   }
 
   /* format currentcy */
@@ -94,7 +135,7 @@ export class ManageOrderComponent {
         data
       );
       this.toastr.success('Cập nhật trạng thái đơn hàng thành công');
-      this.getAllOrder();
+      this.getAllOrders();
     });
   }
 
@@ -110,7 +151,7 @@ export class ManageOrderComponent {
     };
     this.orderServer.updateStatusOrder(data).subscribe((data: any) => {
       this.orderServer.acceptStakeService(id).subscribe((db: any) => {});
-      this.getAllOrder();
+      this.getAllOrders();
       this.toastr.success('updated status');
     });
   }
@@ -122,20 +163,22 @@ export class ManageOrderComponent {
       status: 'Cancel',
     };
     this.orderServer.updateStatusOrder(data).subscribe((data: any) => {
-      this.getAllOrder();
+      this.getAllOrders();
       this.toastr.success('updated status');
     });
   }
+
   handlePayment(id: string) {
     const data = {
       id: id,
       status: 'Pair',
     };
     this.orderServer.updateStatusOrder(data).subscribe((data: any) => {
-      this.getAllOrder();
+      this.getAllOrders();
       this.toastr.success('updated status');
     });
   }
+
   handelDetailsBooking(id: string) {
     window.location.href = '';
   }
